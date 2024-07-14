@@ -1,0 +1,120 @@
+Index: app/src/main/res/layout/activity_main.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:id=\"@+id/main\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".MainActivity\">\r\n\r\n    <TextView\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"Hello World!\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_main.xml b/app/src/main/res/layout/activity_main.xml
+--- a/app/src/main/res/layout/activity_main.xml	(revision 3fbed5caa180ad316d312baab63611aec4b9ee4e)
++++ b/app/src/main/res/layout/activity_main.xml	(date 1720945957244)
+@@ -1,19 +1,19 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:id="@+id/main"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
++    android:orientation="horizontal"
+     tools:context=".MainActivity">
+ 
+-    <TextView
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:text="Hello World!"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent" />
++
++    <androidx.recyclerview.widget.RecyclerView
++        android:id="@+id/mainrv1"
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++
++        />
+ 
+-</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
++</LinearLayout>
+\ No newline at end of file
+Index: settings.gradle.kts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>pluginManagement {\r\n    repositories {\r\n        google {\r\n            content {\r\n                includeGroupByRegex(\"com\\\\.android.*\")\r\n                includeGroupByRegex(\"com\\\\.google.*\")\r\n                includeGroupByRegex(\"androidx.*\")\r\n            }\r\n        }\r\n        mavenCentral()\r\n        gradlePluginPortal()\r\n    }\r\n}\r\ndependencyResolutionManagement {\r\n    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)\r\n    repositories {\r\n        google()\r\n        mavenCentral()\r\n    }\r\n}\r\n\r\nrootProject.name = \"SummerVacation\"\r\ninclude(\":app\")\r\ninclude(\":lib_wangyiyun\")\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/settings.gradle.kts b/settings.gradle.kts
+--- a/settings.gradle.kts	(revision 3fbed5caa180ad316d312baab63611aec4b9ee4e)
++++ b/settings.gradle.kts	(date 1720944434034)
+@@ -22,3 +22,4 @@
+ rootProject.name = "SummerVacation"
+ include(":app")
+ include(":lib_wangyiyun")
++
+Index: app/build.gradle.kts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>plugins {\r\n    alias(libs.plugins.android.application)\r\n    alias(libs.plugins.jetbrains.kotlin.android)\r\n}\r\n\r\nandroid {\r\n    namespace = \"com.example.summervacation\"\r\n    compileSdk = 34\r\n\r\n    defaultConfig {\r\n        applicationId = \"com.example.summervacation\"\r\n        minSdk = 24\r\n        targetSdk = 34\r\n        versionCode = 1\r\n        versionName = \"1.0\"\r\n\r\n        testInstrumentationRunner = \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            isMinifyEnabled = false\r\n            proguardFiles(getDefaultProguardFile(\"proguard-android-optimize.txt\"), \"proguard-rules.pro\")\r\n        }\r\n    }\r\n    compileOptions {\r\n        sourceCompatibility = JavaVersion.VERSION_1_8\r\n        targetCompatibility = JavaVersion.VERSION_1_8\r\n    }\r\n    kotlinOptions {\r\n        jvmTarget = \"1.8\"\r\n    }\r\n}\r\n\r\ndependencies {\r\n\r\n    implementation(libs.androidx.core.ktx)\r\n    implementation(libs.androidx.appcompat)\r\n    implementation(libs.material)\r\n    implementation(libs.androidx.activity)\r\n    implementation(libs.androidx.constraintlayout)\r\n    testImplementation(libs.junit)\r\n    androidTestImplementation(libs.androidx.junit)\r\n    androidTestImplementation(libs.androidx.espresso.core)\r\n\r\n    implementation(libs.retrofit)\r\n    implementation(libs.retrofit.gson)\r\n    implementation(project(\":lib_wangyiyun\"))\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/build.gradle.kts b/app/build.gradle.kts
+--- a/app/build.gradle.kts	(revision 3fbed5caa180ad316d312baab63611aec4b9ee4e)
++++ b/app/build.gradle.kts	(date 1720943159370)
+@@ -1,6 +1,8 @@
++
+ plugins {
+     alias(libs.plugins.android.application)
+     alias(libs.plugins.jetbrains.kotlin.android)
++
+ }
+ 
+ android {
+Index: gradle/app_versions.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/gradle/app_versions.gradle b/gradle/app_versions.gradle
+new file mode 100644
+--- /dev/null	(date 1720942896288)
++++ b/gradle/app_versions.gradle	(date 1720942896288)
+@@ -0,0 +1,17 @@
++ext{
++    //是否开启单模块调试
++    isDebug=true
++
++    //sdk版本
++    app_sdk = [
++            compileSdk: 34,
++            minSdk: 24,
++            targetSdk: 34,
++    ]
++
++    //三方库版本
++    versions =[
++            arouter_version : "1.5.2",
++
++    ]
++}
+\ No newline at end of file
+Index: app/src/main/java/com/example/summervacation/mainrv1Adapter.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/summervacation/mainrv1Adapter.kt b/app/src/main/java/com/example/summervacation/mainrv1Adapter.kt
+new file mode 100644
+--- /dev/null	(date 1720946098457)
++++ b/app/src/main/java/com/example/summervacation/mainrv1Adapter.kt	(date 1720946098457)
+@@ -0,0 +1,5 @@
++package com.example.summervacation
++
++class mainrv1Adapter {
++
++}
+\ No newline at end of file
