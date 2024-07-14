@@ -7,30 +7,44 @@
     android:layout_height="match_parent"
     tools:openDrawer="start"
     tools:context=".drawerActivity">
+
     <RelativeLayout
         android:id="@+id/frame_parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-<TextView
+        <TextView
+            android:layout_centerInParent="true"
+            android:text="主页"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"/>
-
-    </RelativeLayout>
-    <RelativeLayout
-    android:id="@+id/main_left_drawer_layout"
-    android:layout_width="240dp"
-    android:layout_height="match_parent"
-    android:layout_gravity="start"
-
-    android:paddingTop="50dp">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="左边菜单测试" />
 
     </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/main_left_drawer_layout"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="start"
+        android:paddingTop="50dp">
+        <ImageView
+            android:id="@+id/userImage"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            />
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_centerInParent="true"
+            android:text="请登录" />
+
+
+
+
+    </LinearLayout>
+
 </androidx.drawerlayout.widget.DrawerLayout>
