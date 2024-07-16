@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="blue">#45A1E8</color>
+    <color name="gold">#E5FB1D</color>
+    <color name="green">#1BE314</color>
+    <color name="red">#DA1414</color>
+    <color name="violet">#C81EE4</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="whiteblue1">#B6E8E8</color>
+    <color name="whiteblue2">#A1E4E4</color>
+    <color name="whiteblue3">#9CDDDD</color>
+    <color name="whiteblue4">#90D3D3</color>
+    <dimen name="offset">0dp</dimen>
+    <dimen name="page_margin">0dp</dimen>
+    <string name="app_name">module_main</string>
+    <style name="Base.Theme.SummerVacation" parent="Theme.Material3.DayNight.NoActionBar">
+        
+        
+    </style>
+    <style name="Theme.SummerVacation" parent="Base.Theme.SummerVacation"/>
+</resources>

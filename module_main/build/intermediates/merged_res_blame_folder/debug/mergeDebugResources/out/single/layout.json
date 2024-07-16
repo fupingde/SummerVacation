@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-mergeDebugResources-31:\\layout\\fragment_dynamic.xml",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-34:\\layout\\fragment_dynamic.xml"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-mergeDebugResources-31:\\layout\\fragment_recommend.xml",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-34:\\layout\\fragment_recommend.xml"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-mergeDebugResources-31:\\layout\\fragment_recycler_view.xml",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-34:\\layout\\fragment_recycler_view.xml"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-mergeDebugResources-31:\\layout\\mainrv1item.xml",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-34:\\layout\\mainrv1item.xml"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-mergeDebugResources-31:\\layout\\bottom_navigation_menu.xml",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-34:\\layout\\bottom_navigation_menu.xml"
+    },
+    {
+        "merged": "com.example.module.main.module_main-mergeDebugResources-31:/layout/activity_main.xml",
+        "source": "com.example.module.main.module_main-main-34:/layout/activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-mergeDebugResources-31:\\layout\\activity_main.xml",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-34:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-mergeDebugResources-31:\\layout\\fragment_my.xml",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-34:\\layout\\fragment_my.xml"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-mergeDebugResources-31:\\layout\\mainvp4item.xml",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-34:\\layout\\mainvp4item.xml"
+    }
+]

@@ -1,0 +1,6 @@
+com.example.module.main.test.module_main-core-1.5.0-0 C:\Users\hp\.gradle\caches\transforms-4\731adae49288a77f6cd7b6173c0fea8c\transformed\core-1.5.0\res
+com.example.module.main.test.module_main-annotation-experimental-1.4.0-1 C:\Users\hp\.gradle\caches\transforms-4\bb9b7565284fa433fe3acf7298f1d4a4\transformed\annotation-experimental-1.4.0\res
+com.example.module.main.test.module_main-androidTest-2 E:\AndroidStudioProjects\SummerVacation\module_main\build\generated\res\resValues\androidTest\debug
+com.example.module.main.test.module_main-mergeDebugAndroidTestResources-3 E:\AndroidStudioProjects\SummerVacation\module_main\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
+com.example.module.main.test.module_main-mergeDebugAndroidTestResources-4 E:\AndroidStudioProjects\SummerVacation\module_main\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
+com.example.module.main.test.module_main-debugAndroidTest-5 E:\AndroidStudioProjects\SummerVacation\module_main\build\intermediates\merged_res\debugAndroidTest\mergeDebugAndroidTestResources
