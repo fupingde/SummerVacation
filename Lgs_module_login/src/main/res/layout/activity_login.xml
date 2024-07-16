@@ -1,0 +1,114 @@
+<!-- activity_main.xml -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_launcher_loginbackground"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".LoginActivity">
+
+    <LinearLayout
+        android:id="@+id/initial_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="175dp"
+        tools:layout_editor_absoluteY="-199dp">
+
+        <EditText
+            android:id="@+id/nphone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="96dp"
+            android:hint="@string/prompt_email"
+           />
+
+        <Button
+            android:id="@+id/resend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="发送"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.147" />
+
+        <EditText
+            android:id="@+id/captcha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="验证码："
+            />
+
+        <Button
+            android:id="@+id/start_regist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="注册" />
+
+        <Button
+            android:id="@+id/switc"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_gravity="center"
+            android:text="用密码登录"
+          />
+
+        <Button
+            android:id="@+id/vister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="游客登录" />
+
+        <Button
+            android:id="@+id/login"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="292dp"
+            android:text="登录"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/password"
+            app:layout_constraintVertical_bias="0.383" />
+
+
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="64dp"
+            android:layout_marginBottom="64dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/password"
+            app:layout_constraintStart_toStartOf="@+id/password"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.3"
+            tools:ignore="UnknownIdInLayout" />
+
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+</androidx.constraintlayout.widget.ConstraintLayout>

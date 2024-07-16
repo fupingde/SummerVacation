@@ -4,11 +4,13 @@ plugins {
 }
 
 android {
-    namespace = "com.example.summervacation"
+    namespace = "com.example.lgs_moudule_drawerview"
     compileSdk = 34
-
+    buildFeatures {
+        viewBinding =true
+    }
     defaultConfig {
-        applicationId = "com.example.summervacation"
+        applicationId = "com.example.lgs_moudule_drawerview"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -20,7 +22,10 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -42,9 +47,4 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.gson)
-    implementation(project(":lib_wangyiyun"))
-
 }
