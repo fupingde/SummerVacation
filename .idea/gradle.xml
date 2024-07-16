@@ -11,6 +11,8 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/lib_wangyiyun" />
+            <option value="$PROJECT_DIR$/module_main" />
+            <option value="$PROJECT_DIR$/module_main/api_base" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

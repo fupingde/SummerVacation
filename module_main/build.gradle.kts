@@ -3,16 +3,18 @@ import org.jetbrains.kotlin.storage.CacheResetOnProcessCanceled.enabled
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-
+    id("kotlin-kapt")
 }
 
 android {
-
-    namespace = "com.example.summervacation"
+    buildFeatures{
+        viewBinding=true
+    }
+    namespace = "com.example.module.main"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.summervacation"
+        applicationId = "com.example.module.main"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -24,7 +26,10 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -34,13 +39,12 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    buildFeatures{
-        viewBinding=true
-    }
+
 }
 
 dependencies {
-
+    implementation ("com.github.bumptech.glide:glide:4.13.2")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.13.2")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -49,10 +53,13 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.gson)
-    implementation(project(":lib_wangyiyun"))
-
-
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.retrofit2:adapter-rxjava2:2.9.0")
+    implementation("io.reactivex.rxjava2:rxjava:2.2.21")
+    implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
+    implementation("com.github.bumptech.glide:glide:4.13.2")
+    implementation("com.github.bumptech.glide:compiler:4.13.2")
+    kapt("cn.therouter:apt:1.2.2")
+    implementation("cn.therouter:router:1.2.1")
 }
