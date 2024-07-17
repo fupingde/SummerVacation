@@ -16,10 +16,12 @@ dimen page_margin
 drawable dynamic
 drawable ic_launcher_background
 drawable ic_launcher_foreground
+drawable menu
 drawable my
 drawable picture_background
 drawable recommend
 id bottom_navigation
+id cardView
 id fragment_container
 id mainrv1
 id mainrv2
@@ -31,7 +33,9 @@ id navigation_dynamic
 id navigation_my
 id navigation_recommend
 id recyclerView
+id searchView
 id toolbar
+id toolbar_button
 layout activity_main
 layout fragment_dynamic
 layout fragment_my
@@ -45,3 +49,4 @@ mipmap ic_launcher_round
 string app_name
 style Base.Theme.SummerVacation
 style Theme.SummerVacation
+xml network_security_config

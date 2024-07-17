@@ -4,9 +4,12 @@ package com.example.module.main.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.SearchView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
@@ -22,6 +25,9 @@ public final class FragmentRecommendBinding implements ViewBinding {
   private final CoordinatorLayout rootView;
 
   @NonNull
+  public final CardView cardView;
+
+  @NonNull
   public final RecyclerView mainrv1;
 
   @NonNull
@@ -34,17 +40,27 @@ public final class FragmentRecommendBinding implements ViewBinding {
   public final ViewPager2 mainvp;
 
   @NonNull
+  public final SearchView searchView;
+
+  @NonNull
   public final Toolbar toolbar;
 
-  private FragmentRecommendBinding(@NonNull CoordinatorLayout rootView,
+  @NonNull
+  public final ImageButton toolbarButton;
+
+  private FragmentRecommendBinding(@NonNull CoordinatorLayout rootView, @NonNull CardView cardView,
       @NonNull RecyclerView mainrv1, @NonNull RecyclerView mainrv2, @NonNull RecyclerView mainrv3,
-      @NonNull ViewPager2 mainvp, @NonNull Toolbar toolbar) {
+      @NonNull ViewPager2 mainvp, @NonNull SearchView searchView, @NonNull Toolbar toolbar,
+      @NonNull ImageButton toolbarButton) {
     this.rootView = rootView;
+    this.cardView = cardView;
     this.mainrv1 = mainrv1;
     this.mainrv2 = mainrv2;
     this.mainrv3 = mainrv3;
     this.mainvp = mainvp;
+    this.searchView = searchView;
     this.toolbar = toolbar;
+    this.toolbarButton = toolbarButton;
   }
 
   @Override
@@ -74,6 +90,12 @@ public final class FragmentRecommendBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.cardView;
+      CardView cardView = ViewBindings.findChildViewById(rootView, id);
+      if (cardView == null) {
+        break missingId;
+      }
+
       id = R.id.mainrv1;
       RecyclerView mainrv1 = ViewBindings.findChildViewById(rootView, id);
       if (mainrv1 == null) {
@@ -98,14 +120,26 @@ public final class FragmentRecommendBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.searchView;
+      SearchView searchView = ViewBindings.findChildViewById(rootView, id);
+      if (searchView == null) {
+        break missingId;
+      }
+
       id = R.id.toolbar;
       Toolbar toolbar = ViewBindings.findChildViewById(rootView, id);
       if (toolbar == null) {
         break missingId;
       }
 
-      return new FragmentRecommendBinding((CoordinatorLayout) rootView, mainrv1, mainrv2, mainrv3,
-          mainvp, toolbar);
+      id = R.id.toolbar_button;
+      ImageButton toolbarButton = ViewBindings.findChildViewById(rootView, id);
+      if (toolbarButton == null) {
+        break missingId;
+      }
+
+      return new FragmentRecommendBinding((CoordinatorLayout) rootView, cardView, mainrv1, mainrv2,
+          mainrv3, mainvp, searchView, toolbar, toolbarButton);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

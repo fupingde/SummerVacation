@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:2:1-24:12
-INJECTED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:2:1-24:12
-INJECTED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:2:1-24:12
-INJECTED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:2:1-24:12
+ADDED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:2:1-25:12
+INJECTED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:2:1-25:12
+INJECTED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:2:1-25:12
+INJECTED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:2:1-25:12
 MERGED from [androidx.databinding:viewbinding:8.4.0] C:\Users\hp\.gradle\caches\transforms-4\b4b1c084fdc8f121a66a5f6b8e8e6b98\transformed\viewbinding-8.4.0\AndroidManifest.xml:2:1-7:12
 MERGED from [cn.therouter:router:1.2.1] C:\Users\hp\.gradle\caches\transforms-4\075655ac8e065bede2de3a0acd8a450e\transformed\router-1.2.1\AndroidManifest.xml:2:1-18:12
 MERGED from [com.google.android.material:material:1.12.0] C:\Users\hp\.gradle\caches\transforms-4\09598705cb45cc71f4d529bb2f930173\transformed\material-1.12.0\AndroidManifest.xml:17:1-24:12
@@ -64,8 +64,8 @@ ADDED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidM
 	android:name
 		ADDED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:3:22-64
 application
-ADDED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:5:5-22:19
-INJECTED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:5:5-22:19
+ADDED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:5:5-23:19
+INJECTED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:5:5-23:19
 MERGED from [cn.therouter:router:1.2.1] C:\Users\hp\.gradle\caches\transforms-4\075655ac8e065bede2de3a0acd8a450e\transformed\router-1.2.1\AndroidManifest.xml:11:5-16:19
 MERGED from [cn.therouter:router:1.2.1] C:\Users\hp\.gradle\caches\transforms-4\075655ac8e065bede2de3a0acd8a450e\transformed\router-1.2.1\AndroidManifest.xml:11:5-16:19
 MERGED from [com.google.android.material:material:1.12.0] C:\Users\hp\.gradle\caches\transforms-4\09598705cb45cc71f4d529bb2f930173\transformed\material-1.12.0\AndroidManifest.xml:22:5-20
@@ -104,22 +104,24 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\hp
 		ADDED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:6:9-35
 	android:theme
 		ADDED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:11:9-52
+	android:networkSecurityConfig
+		ADDED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:12:9-69
 activity#com.example.module.ui.MainActivity
-ADDED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:13:9-21:20
+ADDED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:14:9-22:20
 	android:exported
-		ADDED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:15:13-36
+		ADDED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:16:13-36
 	android:name
-		ADDED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:14:13-62
+		ADDED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:15:13-62
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:16:13-20:29
+ADDED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:17:13-21:29
 action#android.intent.action.MAIN
-ADDED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:17:17-69
+ADDED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:18:17-69
 	android:name
-		ADDED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:17:25-66
+		ADDED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:18:25-66
 category#android.intent.category.LAUNCHER
-ADDED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:19:17-77
+ADDED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:20:17-77
 	android:name
-		ADDED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:19:27-74
+		ADDED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:20:27-74
 uses-sdk
 INJECTED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml

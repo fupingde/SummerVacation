@@ -4,40 +4,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- AppBarLayout 用于固定顶部栏 -->
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
+            android:layout_height="50dp"
+            android:background="@android:color/white"
+            app:layout_scrollFlags="scroll|enterAlways">
 
-            <!-- 顶部栏内容 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp">
+            <!-- 添加按钮 -->
+            <ImageButton
+                android:id="@+id/toolbar_button"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/menu"
+                android:background="?attr/selectableItemBackgroundBorderless" />
 
-                <Button
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/menu" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:text="Hello"
-                    android:textStyle="bold"
-                    android:textSize="30sp" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="300dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
-            </LinearLayout>
-
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+                <SearchView
+                    android:id="@+id/searchView"
+                    android:layout_width="350dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@android:color/darker_gray" />
+            </androidx.cardview.widget.CardView>
+        </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
-
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
