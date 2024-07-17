@@ -27,6 +27,7 @@ id bottom_navigation
 id cardView
 id fragment_container
 id imageView
+id main
 id mainrv1
 id mainrv2
 id mainrv3
@@ -42,6 +43,7 @@ id searchView
 id toolbar
 id toolbar_button
 layout activity_main
+layout activity_song_list
 layout fragment_dynamic
 layout fragment_my
 layout fragment_recommend

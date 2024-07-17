@@ -13,6 +13,7 @@ import com.example.module.main.databinding.FragmentRecommendBinding
 import com.example.module.ui.adapters.BannerAdapter
 import com.example.module.ui.adapters.Mainrv1Adapter
 import com.example.module.ui.adapters.Mainrv2Adapter
+import com.example.module.ui.transformers.DepthPageTransformer
 import com.example.module.ui.viewmodel.RecommendViewModel
 
 class RecommendFragment : Fragment() {
@@ -34,7 +35,7 @@ class RecommendFragment : Fragment() {
                     binding.mainrv1.smoothScrollToPosition(0)
                 }
             }
-            handler.postDelayed(this, 3000)
+            handler.postDelayed(this, 6000)
         }
     }
 
@@ -77,6 +78,7 @@ class RecommendFragment : Fragment() {
         recommendViewModel.banner.observe(viewLifecycleOwner, { bannerData ->
             val bannerAdapter = BannerAdapter(bannerData.data)
             binding.bannerViewPager.adapter = bannerAdapter
+            binding.bannerViewPager.setPageTransformer(DepthPageTransformer())
 
             handler.post(bannerAutoScrollRunnable)
         })

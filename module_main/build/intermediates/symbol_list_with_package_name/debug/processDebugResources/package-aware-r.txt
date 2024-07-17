@@ -3362,6 +3362,7 @@ id linear
 id listMode
 id list_item
 id m3_side_sheet
+id main
 id mainrv1
 id mainrv2
 id mainrv3
@@ -3749,6 +3750,7 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_main
+layout activity_song_list
 layout custom_dialog
 layout design_bottom_navigation_item
 layout design_bottom_sheet_dialog

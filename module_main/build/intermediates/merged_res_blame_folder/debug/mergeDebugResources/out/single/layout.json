@@ -12,8 +12,8 @@
         "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-37:\\layout\\fragment_my.xml"
     },
     {
-        "merged": "com.example.module.main.module_main-mergeDebugResources-34:/layout/fragment_recommend.xml",
-        "source": "com.example.module.main.module_main-main-37:/layout/fragment_recommend.xml"
+        "merged": "com.example.module.main.module_main-mergeDebugResources-34:/layout/activity_song_list.xml",
+        "source": "com.example.module.main.module_main-main-37:/layout/activity_song_list.xml"
     },
     {
         "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-mergeDebugResources-34:\\layout\\fragment_dynamic.xml",
