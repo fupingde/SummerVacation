@@ -34,6 +34,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     buildFeatures{
         viewBinding=true
     }
@@ -52,7 +53,7 @@ dependencies {
 
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
-    implementation(project(":lib_wangyiyun"))
-
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
 
 }

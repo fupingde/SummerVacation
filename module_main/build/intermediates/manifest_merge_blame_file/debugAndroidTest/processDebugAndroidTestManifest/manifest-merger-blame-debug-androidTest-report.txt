@@ -3,24 +3,24 @@
 3    package="com.example.module.main.test" >
 4
 5    <uses-sdk
-5-->E:\AndroidStudioProjects\SummerVacation\module_main\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest6430980476876201857.xml:5:5-74
+5-->E:\AndroidStudioProjects\SummerVacation\module_main\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest10198928222194169479.xml:5:5-74
 6        android:minSdkVersion="24"
-6-->E:\AndroidStudioProjects\SummerVacation\module_main\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest6430980476876201857.xml:5:15-41
+6-->E:\AndroidStudioProjects\SummerVacation\module_main\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest10198928222194169479.xml:5:15-41
 7        android:targetSdkVersion="34" />
-7-->E:\AndroidStudioProjects\SummerVacation\module_main\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest6430980476876201857.xml:5:42-71
+7-->E:\AndroidStudioProjects\SummerVacation\module_main\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest10198928222194169479.xml:5:42-71
 8
 9    <instrumentation
-9-->E:\AndroidStudioProjects\SummerVacation\module_main\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest6430980476876201857.xml:11:5-15:73
+9-->E:\AndroidStudioProjects\SummerVacation\module_main\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest10198928222194169479.xml:11:5-15:73
 10        android:name="androidx.test.runner.AndroidJUnitRunner"
-10-->E:\AndroidStudioProjects\SummerVacation\module_main\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest6430980476876201857.xml:11:22-76
+10-->E:\AndroidStudioProjects\SummerVacation\module_main\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest10198928222194169479.xml:11:22-76
 11        android:functionalTest="false"
-11-->E:\AndroidStudioProjects\SummerVacation\module_main\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest6430980476876201857.xml:14:22-52
+11-->E:\AndroidStudioProjects\SummerVacation\module_main\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest10198928222194169479.xml:14:22-52
 12        android:handleProfiling="false"
-12-->E:\AndroidStudioProjects\SummerVacation\module_main\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest6430980476876201857.xml:13:22-53
+12-->E:\AndroidStudioProjects\SummerVacation\module_main\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest10198928222194169479.xml:13:22-53
 13        android:label="Tests for com.example.module.main"
-13-->E:\AndroidStudioProjects\SummerVacation\module_main\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest6430980476876201857.xml:15:22-71
+13-->E:\AndroidStudioProjects\SummerVacation\module_main\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest10198928222194169479.xml:15:22-71
 14        android:targetPackage="com.example.module.main" />
-14-->E:\AndroidStudioProjects\SummerVacation\module_main\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest6430980476876201857.xml:12:22-69
+14-->E:\AndroidStudioProjects\SummerVacation\module_main\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest10198928222194169479.xml:12:22-69
 15
 16    <uses-permission android:name="android.permission.REORDER_TASKS" />
 16-->[androidx.test:core:1.5.0] C:\Users\hp\.gradle\caches\transforms-4\731adae49288a77f6cd7b6173c0fea8c\transformed\core-1.5.0\AndroidManifest.xml:24:5-72
@@ -40,12 +40,12 @@
 22    </queries>
 23
 24    <application
-24-->E:\AndroidStudioProjects\SummerVacation\module_main\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest6430980476876201857.xml:7:5-9:19
+24-->E:\AndroidStudioProjects\SummerVacation\module_main\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest10198928222194169479.xml:7:5-9:19
 25        android:debuggable="true"
 26        android:extractNativeLibs="false" >
 27        <uses-library android:name="android.test.runner" />
-27-->E:\AndroidStudioProjects\SummerVacation\module_main\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest6430980476876201857.xml:8:9-60
-27-->E:\AndroidStudioProjects\SummerVacation\module_main\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest6430980476876201857.xml:8:23-57
+27-->E:\AndroidStudioProjects\SummerVacation\module_main\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest10198928222194169479.xml:8:9-60
+27-->E:\AndroidStudioProjects\SummerVacation\module_main\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest10198928222194169479.xml:8:23-57
 28
 29        <activity
 29-->[androidx.test:core:1.5.0] C:\Users\hp\.gradle\caches\transforms-4\731adae49288a77f6cd7b6173c0fea8c\transformed\core-1.5.0\AndroidManifest.xml:27:9-34:20

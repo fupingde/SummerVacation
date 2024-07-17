@@ -44,10 +44,17 @@
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
+    <com.youth.banner.Banner
+        android:id="@+id/recommendBanner"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        />
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
 
         <LinearLayout
             android:layout_width="match_parent"

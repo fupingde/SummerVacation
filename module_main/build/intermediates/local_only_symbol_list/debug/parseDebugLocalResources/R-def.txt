@@ -32,6 +32,7 @@ id mainvp1words
 id navigation_dynamic
 id navigation_my
 id navigation_recommend
+id recommendBanner
 id recyclerView
 id searchView
 id toolbar

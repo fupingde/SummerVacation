@@ -54,6 +54,8 @@ dependencies {
     implementation("com.github.bumptech.glide:compiler:4.13.2")
     implementation("com.alibaba:arouter-api:1.5.2")
     kapt ("com.alibaba:arouter-compiler:1.5.2")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
 
 }
 
