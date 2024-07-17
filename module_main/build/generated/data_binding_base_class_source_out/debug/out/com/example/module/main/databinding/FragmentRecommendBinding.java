@@ -4,9 +4,10 @@ package com.example.module.main.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
@@ -18,7 +19,7 @@ import java.lang.String;
 
 public final class FragmentRecommendBinding implements ViewBinding {
   @NonNull
-  private final LinearLayout rootView;
+  private final CoordinatorLayout rootView;
 
   @NonNull
   public final RecyclerView mainrv1;
@@ -32,18 +33,23 @@ public final class FragmentRecommendBinding implements ViewBinding {
   @NonNull
   public final ViewPager2 mainvp;
 
-  private FragmentRecommendBinding(@NonNull LinearLayout rootView, @NonNull RecyclerView mainrv1,
-      @NonNull RecyclerView mainrv2, @NonNull RecyclerView mainrv3, @NonNull ViewPager2 mainvp) {
+  @NonNull
+  public final Toolbar toolbar;
+
+  private FragmentRecommendBinding(@NonNull CoordinatorLayout rootView,
+      @NonNull RecyclerView mainrv1, @NonNull RecyclerView mainrv2, @NonNull RecyclerView mainrv3,
+      @NonNull ViewPager2 mainvp, @NonNull Toolbar toolbar) {
     this.rootView = rootView;
     this.mainrv1 = mainrv1;
     this.mainrv2 = mainrv2;
     this.mainrv3 = mainrv3;
     this.mainvp = mainvp;
+    this.toolbar = toolbar;
   }
 
   @Override
   @NonNull
-  public LinearLayout getRoot() {
+  public CoordinatorLayout getRoot() {
     return rootView;
   }
 
@@ -92,8 +98,14 @@ public final class FragmentRecommendBinding implements ViewBinding {
         break missingId;
       }
 
-      return new FragmentRecommendBinding((LinearLayout) rootView, mainrv1, mainrv2, mainrv3,
-          mainvp);
+      id = R.id.toolbar;
+      Toolbar toolbar = ViewBindings.findChildViewById(rootView, id);
+      if (toolbar == null) {
+        break missingId;
+      }
+
+      return new FragmentRecommendBinding((CoordinatorLayout) rootView, mainrv1, mainrv2, mainrv3,
+          mainvp, toolbar);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

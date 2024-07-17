@@ -31,6 +31,7 @@ id navigation_dynamic
 id navigation_my
 id navigation_recommend
 id recyclerView
+id toolbar
 layout activity_main
 layout fragment_dynamic
 layout fragment_my

@@ -3586,6 +3586,7 @@ int id title 0x7f0801d8
 int id titleDividerNoCustom 0x7f0801d9
 int id title_template 0x7f0801da
 int id toggle 0x7f0801db
+int id toolbar 0x7f080201
 int id top 0x7f0801dc
 int id topPanel 0x7f0801dd
 int id touch_outside 0x7f0801de

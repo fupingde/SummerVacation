@@ -1,4 +1,4 @@
-#Tue Jul 16 21:02:01 GMT+08:00 2024
+#Wed Jul 17 10:18:52 GMT+08:00 2024
 base.0=E\:\\AndroidStudioProjects\\SummerVacation\\module_main\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 base.1=E\:\\AndroidStudioProjects\\SummerVacation\\module_main\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
 base.2=E\:\\AndroidStudioProjects\\SummerVacation\\module_main\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\10\\classes.dex
