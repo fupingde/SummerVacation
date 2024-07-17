@@ -13,6 +13,8 @@ color whiteblue3
 color whiteblue4
 dimen offset
 dimen page_margin
+drawable background
+drawable background2
 drawable dynamic
 drawable ic_launcher_background
 drawable ic_launcher_foreground
@@ -20,9 +22,11 @@ drawable menu
 drawable my
 drawable picture_background
 drawable recommend
+id bannerViewPager
 id bottom_navigation
 id cardView
 id fragment_container
+id imageView
 id mainrv1
 id mainrv2
 id mainrv3
@@ -32,7 +36,6 @@ id mainvp1words
 id navigation_dynamic
 id navigation_my
 id navigation_recommend
-id recommendBanner
 id recyclerView
 id searchView
 id toolbar
@@ -42,6 +45,7 @@ layout fragment_dynamic
 layout fragment_my
 layout fragment_recommend
 layout fragment_recycler_view
+layout item_banner
 layout mainrv1item
 layout mainvp4item
 menu bottom_navigation

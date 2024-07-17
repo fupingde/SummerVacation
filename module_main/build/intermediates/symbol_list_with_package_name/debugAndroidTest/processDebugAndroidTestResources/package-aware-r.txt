@@ -1,3 +1,0 @@
-com.example.module.main.test
-style WhiteBackgroundDialogTheme
-style WhiteBackgroundTheme

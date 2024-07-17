@@ -23,11 +23,11 @@ class Mainrv1Adapter(private val data: TuijianGedanBean) :
         val item = data.result[position]
 
         // 使用 Glide 加载图片并应用圆角变换
-        val requestOptions = RequestOptions().transform(RoundedCorners(16)) // 16dp 圆角
+        val roundRadius = RequestOptions().transform(RoundedCorners(16)) // 16dp 圆角
 
         Glide.with(holder.binding.mainvp1picture.context)
             .load(item.picUrl)
-            .apply(requestOptions)
+            .apply(roundRadius)
             .into(holder.binding.mainvp1picture)
 
         holder.binding.mainvp1words.text = item.name

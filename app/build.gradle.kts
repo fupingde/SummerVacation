@@ -55,5 +55,7 @@ dependencies {
     implementation(libs.retrofit.gson)
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
+    implementation ("com.youth.banner:banner:2.1.0")
+
 
 }

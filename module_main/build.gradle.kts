@@ -41,8 +41,8 @@ android {
 }
 
 dependencies {
-    implementation ("com.github.bumptech.glide:glide:4.13.2")
-    annotationProcessor ("com.github.bumptech.glide:compiler:4.13.2")
+
+    implementation(libs.volley)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -58,11 +58,9 @@ dependencies {
     implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
     implementation("com.github.bumptech.glide:glide:4.13.2")
     implementation("com.github.bumptech.glide:compiler:4.13.2")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.13.2")
     kapt("cn.therouter:apt:1.2.2")
     implementation("cn.therouter:router:1.2.1")
-    implementation ("io.github.youth5201314:banner:2.2.3")
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
-    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
 }
