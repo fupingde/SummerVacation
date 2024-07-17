@@ -3365,6 +3365,7 @@ id m3_side_sheet
 id mainrv1
 id mainrv2
 id mainrv3
+id mainrvpicture
 id mainvp
 id mainvp1picture
 id mainvp1words
@@ -3776,7 +3777,7 @@ layout m3_alert_dialog_actions
 layout m3_alert_dialog_title
 layout m3_auto_complete_simple_item
 layout m3_side_sheet_dialog
-layout mainrv1item
+layout mainrvitem
 layout mainvp4item
 layout material_chip_input_combo
 layout material_clock_display

@@ -75,7 +75,7 @@
                 android:id="@+id/mainrv1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp" />
+                android:layout_marginTop="5dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -84,13 +84,13 @@
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:paddingLeft="10dp"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="10dp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/mainrv2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp" />
+                android:layout_marginTop="5dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -99,13 +99,13 @@
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:paddingLeft="10dp"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="10dp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/mainrv3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp" />
+                android:layout_marginTop="5dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -114,13 +114,13 @@
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:paddingLeft="10dp"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="10dp" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/mainvp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp" />
+                android:layout_marginTop="5dp" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

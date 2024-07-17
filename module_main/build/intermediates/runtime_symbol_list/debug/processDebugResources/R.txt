@@ -3364,6 +3364,7 @@ int id m3_side_sheet 0x7f0800f7
 int id mainrv1 0x7f0800f8
 int id mainrv2 0x7f0800f9
 int id mainrv3 0x7f0800fa
+int id mainrvpicture 0x7f080207
 int id mainvp 0x7f0800fb
 int id mainvp1picture 0x7f0800fc
 int id mainvp1words 0x7f0800fd
@@ -3775,7 +3776,7 @@ int layout m3_alert_dialog_actions 0x7f0b0035
 int layout m3_alert_dialog_title 0x7f0b0036
 int layout m3_auto_complete_simple_item 0x7f0b0037
 int layout m3_side_sheet_dialog 0x7f0b0038
-int layout mainrv1item 0x7f0b0039
+int layout mainrvitem 0x7f0b0073
 int layout mainvp4item 0x7f0b003a
 int layout material_chip_input_combo 0x7f0b003b
 int layout material_clock_display 0x7f0b003c

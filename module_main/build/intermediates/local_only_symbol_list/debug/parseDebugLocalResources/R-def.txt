@@ -30,6 +30,7 @@ id imageView
 id mainrv1
 id mainrv2
 id mainrv3
+id mainrvpicture
 id mainvp
 id mainvp1picture
 id mainvp1words
@@ -46,7 +47,7 @@ layout fragment_my
 layout fragment_recommend
 layout fragment_recycler_view
 layout item_banner
-layout mainrv1item
+layout mainrvitem
 layout mainvp4item
 menu bottom_navigation
 mipmap ic_launcher

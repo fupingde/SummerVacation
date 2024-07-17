@@ -12,8 +12,8 @@
         "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-37:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.module.main.module_main-debug-35:/layout_activity_main.xml.flat",
-        "source": "com.example.module.main.module_main-main-37:/layout/activity_main.xml"
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-debug-35:\\layout_mainrvitem.xml.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-37:\\layout\\mainrvitem.xml"
     },
     {
         "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-debug-35:\\layout_item_banner.xml.flat",
@@ -102,6 +102,10 @@
     {
         "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-debug-35:\\layout_activity_main.xml.flat",
         "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-37:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "com.example.module.main.module_main-debug-35:/layout_fragment_recommend.xml.flat",
+        "source": "com.example.module.main.module_main-main-37:/layout/fragment_recommend.xml"
     },
     {
         "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-debug-35:\\mipmap-hdpi_ic_launcher.webp.flat",

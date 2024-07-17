@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.module.main.databinding.FragmentRecommendBinding
 import com.example.module.ui.adapters.BannerAdapter
 import com.example.module.ui.adapters.Mainrv1Adapter
+import com.example.module.ui.adapters.Mainrv2Adapter
 import com.example.module.ui.viewmodel.RecommendViewModel
 
 class RecommendFragment : Fragment() {
@@ -68,6 +69,11 @@ class RecommendFragment : Fragment() {
             handler.post(autoScrollRunnable)
         })
 
+        recommendViewModel.remenGedan.observe(viewLifecycleOwner, { data ->
+            val adapter = Mainrv2Adapter(data)
+            binding.mainrv2.adapter = adapter
+        })
+
         recommendViewModel.banner.observe(viewLifecycleOwner, { bannerData ->
             val bannerAdapter = BannerAdapter(bannerData.data)
             binding.bannerViewPager.adapter = bannerAdapter
@@ -76,12 +82,16 @@ class RecommendFragment : Fragment() {
         })
 
         recommendViewModel.fetchTuijianGedan()
+        recommendViewModel.fetchRemenGedan()
         recommendViewModel.fetchBanner()
     }
 
     private fun setupRecyclerView() {
-        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.mainrv1.layoutManager = layoutManager
+        val layoutManager1 = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.mainrv1.layoutManager = layoutManager1
+
+        val layoutManager2 = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.mainrv2.layoutManager = layoutManager2
     }
 
     override fun onDestroyView() {
