@@ -9,7 +9,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.Network.Bean.TuijianGedanBean
 import com.example.module.main.databinding.MainrvitemBinding
 
-class Mainrv1Adapter(private val data: TuijianGedanBean) :
+class Mainrv1Adapter(private val data: TuijianGedanBean, private val onItemClick: (Long, String, String) -> Unit) :
     RecyclerView.Adapter<Mainrv1Adapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: MainrvitemBinding) : RecyclerView.ViewHolder(binding.root)
@@ -31,6 +31,11 @@ class Mainrv1Adapter(private val data: TuijianGedanBean) :
             .into(holder.binding.mainrvpicture)
 
         holder.binding.mainvp1words.text = item.name
+
+        // 设置点击事件
+        holder.itemView.setOnClickListener {
+            onItemClick(item.id.toLong(), item.name, item.picUrl)
+        }
     }
 
     override fun getItemCount(): Int = data.result.size

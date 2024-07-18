@@ -35,11 +35,10 @@ class RecommendFragment : Fragment() {
                 1 -> "发现"
                 else -> null
             }
-            // 如果你需要图标，也可以在这里设置
-            // tab.setIcon(...)
+            viewPager.currentItem = 1 // 设置初始页面为“发现”
         }.attach()
 
-        // 确保进入界面时显示发现页面
+        // 确保 ViewPager2 的第一个页面是“发现”
         viewPager.setCurrentItem(1, false)
     }
 
@@ -56,7 +55,7 @@ class RecommendFragment : Fragment() {
         override fun createFragment(position: Int): Fragment {
             return when (position) {
                 0 -> DynamicFragment() // 动态页面
-                1 -> RecommendContentFragment() // 发现页面的实际内容
+                1 -> RecommendContentFragment() // 发现页面
                 else -> throw IllegalStateException("Unexpected position $position")
             }
         }

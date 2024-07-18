@@ -2907,8 +2907,6 @@ dimen notification_small_icon_size_as_large
 dimen notification_subtext_size
 dimen notification_top_pad
 dimen notification_top_pad_large_text
-dimen offset
-dimen page_margin
 dimen tooltip_corner_radius
 dimen tooltip_horizontal_padding
 dimen tooltip_margin
@@ -3000,6 +2998,9 @@ drawable avd_hide_password
 drawable avd_show_password
 drawable background
 drawable background2
+drawable background3
+drawable background4
+drawable background5
 drawable btn_checkbox_checked_mtrl
 drawable btn_checkbox_checked_to_unchecked_mtrl_animation
 drawable btn_checkbox_unchecked_mtrl
@@ -3194,6 +3195,7 @@ id animateToEnd
 id animateToStart
 id antiClockwise
 id anticipate
+id appBarLayout
 id arc
 id artistTextView
 id asConfigured
@@ -3239,6 +3241,7 @@ id clip_vertical
 id clockwise
 id closest
 id collapseActionView
+id collapsingToolbarLayout
 id compress
 id confirm_button
 id constraint
@@ -3284,7 +3287,6 @@ id dragRight
 id dragStart
 id dragUp
 id dropdown_menu
-id dynamicRecyclerView
 id easeIn
 id easeInOut
 id easeOut
@@ -3364,7 +3366,6 @@ id linear
 id listMode
 id list_item
 id m3_side_sheet
-id main
 id mainrv1
 id mainrv2
 id mainrv3
@@ -3373,6 +3374,7 @@ id mainvp
 id mainvp1picture
 id mainvp1words
 id marquee
+id marqueeTextView
 id masked
 id match_constraint
 id match_parent
@@ -3484,6 +3486,9 @@ id pathRelative
 id peekHeight
 id percent
 id pin
+id playlist_image
+id playlist_name
+id playlist_thumbnail
 id position
 id postLayout
 id pressed
@@ -3539,6 +3544,11 @@ id snackbar_action
 id snackbar_text
 id snap
 id snapMargins
+id song_artist
+id song_button
+id song_index
+id song_name
+id songrv
 id south
 id spacer
 id special_effects_controller_view_tag
@@ -3754,7 +3764,6 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_main
-layout activity_recommend_content_fragment
 layout activity_song_list
 layout custom_dialog
 layout design_bottom_navigation_item
@@ -3781,6 +3790,7 @@ layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
 layout item_banner
 layout item_new_song
+layout item_song
 layout m3_alert_dialog
 layout m3_alert_dialog_actions
 layout m3_alert_dialog_title
@@ -4026,6 +4036,7 @@ style Animation_Material3_SideSheetDialog
 style Animation_Material3_SideSheetDialog_Left
 style Animation_Material3_SideSheetDialog_Right
 style Animation_MaterialComponents_BottomSheetDialog
+style AppTheme
 style Base_AlertDialog_AppCompat
 style Base_AlertDialog_AppCompat_Light
 style Base_Animation_AppCompat_Dialog
@@ -4306,6 +4317,7 @@ style Base_Widget_MaterialComponents_TextView
 style CardView
 style CardView_Dark
 style CardView_Light
+style CollapsedAppBar
 style MaterialAlertDialog_Material3
 style MaterialAlertDialog_Material3_Animation
 style MaterialAlertDialog_Material3_Body_Text

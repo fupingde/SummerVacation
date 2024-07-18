@@ -11,11 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SummerVacation">
+
         <activity
-            android:name="com.example.module.Fragment.RecommendContentFragment"
-            android:exported="false" />
-        <activity
-            android:name="com.example.module.ui.SongList"
+            android:name="com.example.module.ui.activities.SongListActivity"
             android:exported="false" />
         <activity
             android:name="com.example.module.ui.MainActivity"

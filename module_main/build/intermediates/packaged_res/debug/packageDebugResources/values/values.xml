@@ -11,12 +11,20 @@
     <color name="whiteblue2">#A1E4E4</color>
     <color name="whiteblue3">#9CDDDD</color>
     <color name="whiteblue4">#90D3D3</color>
-    <dimen name="offset">0dp</dimen>
-    <dimen name="page_margin">0dp</dimen>
     <string name="app_name">module_main</string>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/whiteblue1</item>
+        <item name="colorAccent">@color/whiteblue2</item>
+    </style>
     <style name="Base.Theme.SummerVacation" parent="Theme.Material3.DayNight.NoActionBar">
         
         
+    </style>
+    <style name="CollapsedAppBar" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
     <style name="Theme.SummerVacation" parent="Base.Theme.SummerVacation"/>
 </resources>

@@ -9,7 +9,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.Network.Bean.ReMenGeDanBean
 import com.example.module.main.databinding.MainrvitemBinding
 
-class Mainrv2Adapter(private val data: ReMenGeDanBean) :
+class Mainrv2Adapter(private val data: ReMenGeDanBean, private val onItemClick: (Long, String, String) -> Unit) :
     RecyclerView.Adapter<Mainrv2Adapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: MainrvitemBinding) : RecyclerView.ViewHolder(binding.root)
@@ -31,6 +31,11 @@ class Mainrv2Adapter(private val data: ReMenGeDanBean) :
             .into(holder.binding.mainrvpicture)
 
         holder.binding.mainvp1words.text = item.name
+
+        // 设置点击事件
+        holder.itemView.setOnClickListener {
+            onItemClick(item.id.toLong(), item.name, item.coverImgUrl)
+        }
     }
 
     override fun getItemCount(): Int = data.playlists.size

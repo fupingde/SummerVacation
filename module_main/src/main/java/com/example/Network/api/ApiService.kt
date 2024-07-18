@@ -4,6 +4,7 @@ package com.example.Network.api
 import com.example.Network.Bean.Banner
 import com.example.Network.Bean.NewSongs
 import com.example.Network.Bean.ReMenGeDanBean
+import com.example.Network.Bean.Songs
 import com.example.Network.Bean.TuijianGedanBean
 import io.reactivex.Observable
 import retrofit2.http.GET
@@ -18,5 +19,10 @@ interface ApiService {
     fun getBanner(): Observable<Banner>
     @GET("/personalized/newsong")
     fun getnewSongs(): Observable<NewSongs>
-
+    @GET("playlist/track/all")
+    fun getSongs(
+            @Query("id") id: Long,
+            @Query("limit") limit: Int,
+            @Query("offset") offset: Int
+        ): Observable<Songs>
     }
