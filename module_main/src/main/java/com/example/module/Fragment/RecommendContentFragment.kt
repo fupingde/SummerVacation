@@ -13,8 +13,9 @@ import com.example.module.main.databinding.FragmentRecommendContentBinding
 import com.example.module.ui.adapters.BannerAdapter
 import com.example.module.ui.adapters.Mainrv1Adapter
 import com.example.module.ui.adapters.Mainrv2Adapter
-import com.example.module.ui.transformers.DepthPageTransformer
+import com.example.module.ui.adapters.Mainvp4Adapter
 import com.example.module.ui.viewmodel.RecommendViewModel
+import DepthAndZoomPageTransformer
 
 class RecommendContentFragment : Fragment() {
 
@@ -46,10 +47,19 @@ class RecommendContentFragment : Fragment() {
                 val nextItem = binding.bannerViewPager.currentItem + 1
                 binding.bannerViewPager.currentItem = if (nextItem < itemCount) nextItem else 0
             }
-            handler.postDelayed(this, 3000)
+            handler.postDelayed(this, 8000)
         }
     }
-
+    private val NewSongAutoScrollRunnable = object : Runnable {
+        override fun run() {
+            val itemCount = binding.mainvp.adapter?.itemCount ?: 0
+            if (itemCount > 0) {
+                val nextItem = binding.mainvp.currentItem + 1
+                binding.mainvp.currentItem = if (nextItem < itemCount) nextItem else 0
+            }
+            handler.postDelayed(this, 8000)
+        }
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentRecommendContentBinding.inflate(inflater, container, false)
         return binding.root
@@ -77,14 +87,21 @@ class RecommendContentFragment : Fragment() {
         recommendViewModel.banner.observe(viewLifecycleOwner, { bannerData ->
             val bannerAdapter = BannerAdapter(bannerData.data)
             binding.bannerViewPager.adapter = bannerAdapter
-            binding.bannerViewPager.setPageTransformer(DepthPageTransformer())
+            binding.bannerViewPager.setPageTransformer(DepthAndZoomPageTransformer())
 
             handler.post(bannerAutoScrollRunnable)
+        })
+
+        recommendViewModel.newSongs.observe(viewLifecycleOwner, { newSongs ->
+            val adapter = Mainvp4Adapter(newSongs.result)
+            binding.mainvp.adapter = adapter
+            binding.mainvp.setPageTransformer(DepthAndZoomPageTransformer())
         })
 
         recommendViewModel.fetchTuijianGedan()
         recommendViewModel.fetchRemenGedan()
         recommendViewModel.fetchBanner()
+        recommendViewModel.fetchNewSongs()
     }
 
     private fun setupRecyclerView() {
@@ -95,10 +112,4 @@ class RecommendContentFragment : Fragment() {
         binding.mainrv2.layoutManager = layoutManager2
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        handler.removeCallbacks(autoScrollRunnable)
-        handler.removeCallbacks(bannerAutoScrollRunnable)
-        _binding = null
-    }
 }

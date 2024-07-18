@@ -3195,6 +3195,7 @@ id animateToStart
 id antiClockwise
 id anticipate
 id arc
+id artistTextView
 id asConfigured
 id async
 id auto
@@ -3283,6 +3284,7 @@ id dragRight
 id dragStart
 id dragUp
 id dropdown_menu
+id dynamicRecyclerView
 id easeIn
 id easeInOut
 id easeOut
@@ -3595,6 +3597,7 @@ id textinput_suffix_text
 id time
 id title
 id titleDividerNoCustom
+id titleTextView
 id title_template
 id toggle
 id toolbar
@@ -3777,6 +3780,7 @@ layout fragment_recycler_view
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
 layout item_banner
+layout item_new_song
 layout m3_alert_dialog
 layout m3_alert_dialog_actions
 layout m3_alert_dialog_title

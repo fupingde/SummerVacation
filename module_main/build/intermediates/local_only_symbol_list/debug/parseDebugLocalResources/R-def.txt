@@ -22,9 +22,11 @@ drawable menu
 drawable my
 drawable picture_background
 drawable recommend
+id artistTextView
 id bannerViewPager
 id bottom_navigation
 id cardView
+id dynamicRecyclerView
 id fragment_container
 id imageView
 id main
@@ -41,6 +43,7 @@ id navigation_recommend
 id recyclerView
 id searchView
 id tab_layout
+id titleTextView
 id toolbar
 id view_pager
 layout activity_main
@@ -52,6 +55,7 @@ layout fragment_recommend
 layout fragment_recommend_content
 layout fragment_recycler_view
 layout item_banner
+layout item_new_song
 layout mainrvitem
 layout mainvp4item
 menu bottom_navigation

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.Network.Bean.Banner
+import com.example.Network.Bean.NewSongs
 import com.example.Network.Bean.ReMenGeDanBean
 import com.example.Network.Bean.TuijianGedanBean
 import com.example.Network.Retrofit
@@ -20,6 +21,9 @@ class RecommendViewModel : ViewModel() {
 
     private val _banner = MutableLiveData<Banner>()
     val banner: LiveData<Banner> get() = _banner
+
+    private val _newSongs = MutableLiveData<NewSongs>()
+    val newSongs: LiveData<NewSongs> get() = _newSongs
 
     fun fetchTuijianGedan() {
         Retrofit.apiService.getTuijianGedan(10)
@@ -49,6 +53,17 @@ class RecommendViewModel : ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->
                 _banner.value = response
+            }, { error ->
+                // Handle error
+            })
+    }
+
+    fun fetchNewSongs() {
+        Retrofit.apiService.getnewSongs()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ response ->
+                _newSongs.value = response
             }, { error ->
                 // Handle error
             })

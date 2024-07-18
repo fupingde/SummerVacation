@@ -2,7 +2,7 @@ package com.example.Network.api
 
 
 import com.example.Network.Bean.Banner
-import com.example.Network.Bean.RankingList
+import com.example.Network.Bean.NewSongs
 import com.example.Network.Bean.ReMenGeDanBean
 import com.example.Network.Bean.TuijianGedanBean
 import io.reactivex.Observable
@@ -16,6 +16,7 @@ interface ApiService {
     fun getRemenGedan(@Query("limit") limit: Int): Observable<ReMenGeDanBean>
     @GET("/dj/banner")
     fun getBanner(): Observable<Banner>
-    @GET("/toplist/detail")
-    fun getrankingList(): Observable<RankingList>
-}
+    @GET("/personalized/newsong")
+    fun getnewSongs(): Observable<NewSongs>
+
+    }

@@ -7,10 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.module.main.R
 import com.example.module.main.databinding.FragmentRecommendBinding
-import com.example.module.ui.fragments.RecommendContentFragment
-import com.example.module.ui.fragments.DynamicFragment
 import com.google.android.material.tabs.TabLayoutMediator
 
 class RecommendFragment : Fragment() {
@@ -34,18 +31,16 @@ class RecommendFragment : Fragment() {
 
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = when (position) {
-                0 -> "发现"
-                1 -> "动态"
+                0 -> "动态"
+                1 -> "发现"
                 else -> null
             }
-            viewPager.currentItem = 0
-//            // 这里可以设置图标
-//            tab.setIcon(when (position) {
-//                0 -> R.drawable.recommend // 替换为你的推荐图标资源
-//                1 -> R.drawable.dynamic   // 替换为你的动态图标资源
-//                else -> 0
-//            })
+            // 如果你需要图标，也可以在这里设置
+            // tab.setIcon(...)
         }.attach()
+
+        // 确保进入界面时显示发现页面
+        viewPager.setCurrentItem(1, false)
     }
 
     override fun onDestroyView() {
@@ -60,8 +55,8 @@ class RecommendFragment : Fragment() {
 
         override fun createFragment(position: Int): Fragment {
             return when (position) {
-                0 -> RecommendContentFragment() // 这是推荐页面的实际内容
-                1 -> DynamicFragment() // 这是动态页面，实际内容可以在这里设置
+                0 -> DynamicFragment() // 动态页面
+                1 -> RecommendContentFragment() // 发现页面的实际内容
                 else -> throw IllegalStateException("Unexpected position $position")
             }
         }
