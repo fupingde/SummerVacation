@@ -20,8 +20,8 @@
         "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-37:\\layout\\item_banner.xml"
     },
     {
-        "merged": "com.example.module.main.module_main-debug-35:/layout_activity_song_list.xml.flat",
-        "source": "com.example.module.main.module_main-main-37:/layout/activity_song_list.xml"
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-debug-35:\\layout_activity_recommend_content_fragment.xml.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-37:\\layout\\activity_recommend_content_fragment.xml"
     },
     {
         "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-debug-35:\\mipmap-hdpi_ic_launcher_round.webp.flat",
@@ -108,8 +108,20 @@
         "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-37:\\layout\\activity_main.xml"
     },
     {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-debug-35:\\layout_activity_song_list.xml.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-37:\\layout\\activity_song_list.xml"
+    },
+    {
+        "merged": "com.example.module.main.module_main-debug-35:/layout_fragment_recommend.xml.flat",
+        "source": "com.example.module.main.module_main-main-37:/layout/fragment_recommend.xml"
+    },
+    {
         "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-debug-35:\\mipmap-hdpi_ic_launcher.webp.flat",
         "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-37:\\mipmap-hdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-debug-35:\\drawable_background2.jpg.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-37:\\drawable\\background2.jpg"
     },
     {
         "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-debug-35:\\mipmap-mdpi_ic_launcher_round.webp.flat",
@@ -122,6 +134,10 @@
     {
         "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-debug-35:\\drawable_recommend.xml.flat",
         "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-37:\\drawable\\recommend.xml"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-debug-35:\\layout_fragment_recommend_content.xml.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-37:\\layout\\fragment_recommend_content.xml"
     },
     {
         "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-debug-35:\\mipmap-xxhdpi_ic_launcher.webp.flat",

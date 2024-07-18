@@ -1,54 +1,22 @@
 package com.example.module.ui.fragments
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.module.main.R
 import com.example.module.main.databinding.FragmentRecommendBinding
-import com.example.module.ui.adapters.BannerAdapter
-import com.example.module.ui.adapters.Mainrv1Adapter
-import com.example.module.ui.adapters.Mainrv2Adapter
-import com.example.module.ui.transformers.DepthPageTransformer
-import com.example.module.ui.viewmodel.RecommendViewModel
+import com.example.module.ui.fragments.RecommendContentFragment
+import com.example.module.ui.fragments.DynamicFragment
+import com.google.android.material.tabs.TabLayoutMediator
 
 class RecommendFragment : Fragment() {
 
     private var _binding: FragmentRecommendBinding? = null
     private val binding get() = _binding!!
-
-    private lateinit var recommendViewModel: RecommendViewModel
-
-    private val handler = Handler(Looper.getMainLooper())
-    private val autoScrollRunnable = object : Runnable {
-        override fun run() {
-            val itemCount = binding.mainrv1.adapter?.itemCount ?: 0
-            if (itemCount > 0) {
-                val nextItem = (binding.mainrv1.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition() + 1
-                if (nextItem < itemCount) {
-                    binding.mainrv1.smoothScrollToPosition(nextItem)
-                } else {
-                    binding.mainrv1.smoothScrollToPosition(0)
-                }
-            }
-            handler.postDelayed(this, 6000)
-        }
-    }
-
-    private val bannerAutoScrollRunnable = object : Runnable {
-        override fun run() {
-            val itemCount = binding.bannerViewPager.adapter?.itemCount ?: 0
-            if (itemCount > 0) {
-                val nextItem = binding.bannerViewPager.currentItem + 1
-                binding.bannerViewPager.currentItem = if (nextItem < itemCount) nextItem else 0
-            }
-            handler.postDelayed(this, 3000)
-        }
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentRecommendBinding.inflate(inflater, container, false)
@@ -58,48 +26,44 @@ class RecommendFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 手动初始化 ViewModel
-        recommendViewModel = ViewModelProvider(this).get(RecommendViewModel::class.java)
+        val viewPager = binding.viewPager
+        val tabLayout = binding.tabLayout
 
-        setupRecyclerView()
+        val adapter = ViewPagerAdapter(requireActivity())
+        viewPager.adapter = adapter
 
-        recommendViewModel.tuijianGedan.observe(viewLifecycleOwner, { data ->
-            val adapter = Mainrv1Adapter(data)
-            binding.mainrv1.adapter = adapter
-
-            handler.post(autoScrollRunnable)
-        })
-
-        recommendViewModel.remenGedan.observe(viewLifecycleOwner, { data ->
-            val adapter = Mainrv2Adapter(data)
-            binding.mainrv2.adapter = adapter
-        })
-
-        recommendViewModel.banner.observe(viewLifecycleOwner, { bannerData ->
-            val bannerAdapter = BannerAdapter(bannerData.data)
-            binding.bannerViewPager.adapter = bannerAdapter
-            binding.bannerViewPager.setPageTransformer(DepthPageTransformer())
-
-            handler.post(bannerAutoScrollRunnable)
-        })
-
-        recommendViewModel.fetchTuijianGedan()
-        recommendViewModel.fetchRemenGedan()
-        recommendViewModel.fetchBanner()
-    }
-
-    private fun setupRecyclerView() {
-        val layoutManager1 = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.mainrv1.layoutManager = layoutManager1
-
-        val layoutManager2 = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.mainrv2.layoutManager = layoutManager2
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            tab.text = when (position) {
+                0 -> "发现"
+                1 -> "动态"
+                else -> null
+            }
+            viewPager.currentItem = 0
+//            // 这里可以设置图标
+//            tab.setIcon(when (position) {
+//                0 -> R.drawable.recommend // 替换为你的推荐图标资源
+//                1 -> R.drawable.dynamic   // 替换为你的动态图标资源
+//                else -> 0
+//            })
+        }.attach()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        handler.removeCallbacks(autoScrollRunnable)
-        handler.removeCallbacks(bannerAutoScrollRunnable)
         _binding = null
+    }
+
+    private inner class ViewPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
+        override fun getItemCount(): Int {
+            return 2
+        }
+
+        override fun createFragment(position: Int): Fragment {
+            return when (position) {
+                0 -> RecommendContentFragment() // 这是推荐页面的实际内容
+                1 -> DynamicFragment() // 这是动态页面，实际内容可以在这里设置
+                else -> throw IllegalStateException("Unexpected position $position")
+            }
+        }
     }
 }

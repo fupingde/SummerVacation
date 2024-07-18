@@ -8,8 +8,8 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.module.main.R
 import com.example.module.main.databinding.ActivityMainBinding
 import com.example.module.ui.fragments.DynamicFragment
-import com.example.module.ui.fragments.RecommendFragment
 import com.example.module.ui.fragments.MyFragment
+import com.example.module.ui.fragments.RecommendFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

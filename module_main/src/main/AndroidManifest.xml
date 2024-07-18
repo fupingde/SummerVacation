@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SummerVacation">
         <activity
+            android:name="com.example.module.Fragment.RecommendContentFragment"
+            android:exported="false" />
+        <activity
             android:name="com.example.module.ui.SongList"
             android:exported="false" />
         <activity

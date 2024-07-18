@@ -40,13 +40,16 @@ id navigation_my
 id navigation_recommend
 id recyclerView
 id searchView
+id tab_layout
 id toolbar
-id toolbar_button
+id view_pager
 layout activity_main
+layout activity_recommend_content_fragment
 layout activity_song_list
 layout fragment_dynamic
 layout fragment_my
 layout fragment_recommend
+layout fragment_recommend_content
 layout fragment_recycler_view
 layout item_banner
 layout mainrvitem

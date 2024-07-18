@@ -12,7 +12,7 @@ import com.example.Network.Bean.Data
 class BannerAdapter(private val bannerData: List<Data>) : RecyclerView.Adapter<BannerAdapter.BannerViewHolder>() {
 
     inner class BannerViewHolder(private val binding: ItemBannerBinding) : RecyclerView.ViewHolder(binding.root) {
-        val roundRadius = RequestOptions().transform(RoundedCorners(30)) // 16dp 圆角
+        val roundRadius = RequestOptions().transform(RoundedCorners(60)) // 圆角
         fun bind(banner: Data) {
             Glide.with(binding.imageView.context)
                 .load(banner.pic)

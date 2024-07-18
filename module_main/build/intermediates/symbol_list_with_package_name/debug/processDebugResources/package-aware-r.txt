@@ -3562,6 +3562,7 @@ id submenuarrow
 id submit_area
 id supportScrollUp
 id tabMode
+id tab_layout
 id tag_accessibility_actions
 id tag_accessibility_clickable_spans
 id tag_accessibility_heading
@@ -3597,7 +3598,6 @@ id titleDividerNoCustom
 id title_template
 id toggle
 id toolbar
-id toolbar_button
 id top
 id topPanel
 id touch_outside
@@ -3619,6 +3619,7 @@ id up
 id useLogo
 id vertical_only
 id view_offset_helper
+id view_pager
 id view_transition
 id view_tree_lifecycle_owner
 id view_tree_on_back_pressed_dispatcher_owner
@@ -3750,6 +3751,7 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_main
+layout activity_recommend_content_fragment
 layout activity_song_list
 layout custom_dialog
 layout design_bottom_navigation_item
@@ -3770,6 +3772,7 @@ layout design_text_input_start_icon
 layout fragment_dynamic
 layout fragment_my
 layout fragment_recommend
+layout fragment_recommend_content
 layout fragment_recycler_view
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity

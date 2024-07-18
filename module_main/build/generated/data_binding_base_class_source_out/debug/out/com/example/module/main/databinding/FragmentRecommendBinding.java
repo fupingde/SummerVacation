@@ -4,18 +4,17 @@ package com.example.module.main.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.SearchView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import androidx.viewpager2.widget.ViewPager2;
 import com.example.module.main.R;
+import com.google.android.material.tabs.TabLayout;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
@@ -25,47 +24,29 @@ public final class FragmentRecommendBinding implements ViewBinding {
   private final CoordinatorLayout rootView;
 
   @NonNull
-  public final ViewPager2 bannerViewPager;
-
-  @NonNull
   public final CardView cardView;
-
-  @NonNull
-  public final RecyclerView mainrv1;
-
-  @NonNull
-  public final RecyclerView mainrv2;
-
-  @NonNull
-  public final RecyclerView mainrv3;
-
-  @NonNull
-  public final ViewPager2 mainvp;
 
   @NonNull
   public final SearchView searchView;
 
   @NonNull
+  public final TabLayout tabLayout;
+
+  @NonNull
   public final Toolbar toolbar;
 
   @NonNull
-  public final ImageButton toolbarButton;
+  public final ViewPager2 viewPager;
 
-  private FragmentRecommendBinding(@NonNull CoordinatorLayout rootView,
-      @NonNull ViewPager2 bannerViewPager, @NonNull CardView cardView,
-      @NonNull RecyclerView mainrv1, @NonNull RecyclerView mainrv2, @NonNull RecyclerView mainrv3,
-      @NonNull ViewPager2 mainvp, @NonNull SearchView searchView, @NonNull Toolbar toolbar,
-      @NonNull ImageButton toolbarButton) {
+  private FragmentRecommendBinding(@NonNull CoordinatorLayout rootView, @NonNull CardView cardView,
+      @NonNull SearchView searchView, @NonNull TabLayout tabLayout, @NonNull Toolbar toolbar,
+      @NonNull ViewPager2 viewPager) {
     this.rootView = rootView;
-    this.bannerViewPager = bannerViewPager;
     this.cardView = cardView;
-    this.mainrv1 = mainrv1;
-    this.mainrv2 = mainrv2;
-    this.mainrv3 = mainrv3;
-    this.mainvp = mainvp;
     this.searchView = searchView;
+    this.tabLayout = tabLayout;
     this.toolbar = toolbar;
-    this.toolbarButton = toolbarButton;
+    this.viewPager = viewPager;
   }
 
   @Override
@@ -95,39 +76,9 @@ public final class FragmentRecommendBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.bannerViewPager;
-      ViewPager2 bannerViewPager = ViewBindings.findChildViewById(rootView, id);
-      if (bannerViewPager == null) {
-        break missingId;
-      }
-
       id = R.id.cardView;
       CardView cardView = ViewBindings.findChildViewById(rootView, id);
       if (cardView == null) {
-        break missingId;
-      }
-
-      id = R.id.mainrv1;
-      RecyclerView mainrv1 = ViewBindings.findChildViewById(rootView, id);
-      if (mainrv1 == null) {
-        break missingId;
-      }
-
-      id = R.id.mainrv2;
-      RecyclerView mainrv2 = ViewBindings.findChildViewById(rootView, id);
-      if (mainrv2 == null) {
-        break missingId;
-      }
-
-      id = R.id.mainrv3;
-      RecyclerView mainrv3 = ViewBindings.findChildViewById(rootView, id);
-      if (mainrv3 == null) {
-        break missingId;
-      }
-
-      id = R.id.mainvp;
-      ViewPager2 mainvp = ViewBindings.findChildViewById(rootView, id);
-      if (mainvp == null) {
         break missingId;
       }
 
@@ -137,20 +88,26 @@ public final class FragmentRecommendBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.tab_layout;
+      TabLayout tabLayout = ViewBindings.findChildViewById(rootView, id);
+      if (tabLayout == null) {
+        break missingId;
+      }
+
       id = R.id.toolbar;
       Toolbar toolbar = ViewBindings.findChildViewById(rootView, id);
       if (toolbar == null) {
         break missingId;
       }
 
-      id = R.id.toolbar_button;
-      ImageButton toolbarButton = ViewBindings.findChildViewById(rootView, id);
-      if (toolbarButton == null) {
+      id = R.id.view_pager;
+      ViewPager2 viewPager = ViewBindings.findChildViewById(rootView, id);
+      if (viewPager == null) {
         break missingId;
       }
 
-      return new FragmentRecommendBinding((CoordinatorLayout) rootView, bannerViewPager, cardView,
-          mainrv1, mainrv2, mainrv3, mainvp, searchView, toolbar, toolbarButton);
+      return new FragmentRecommendBinding((CoordinatorLayout) rootView, cardView, searchView,
+          tabLayout, toolbar, viewPager);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

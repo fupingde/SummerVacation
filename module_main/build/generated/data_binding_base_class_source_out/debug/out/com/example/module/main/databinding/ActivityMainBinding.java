@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.example.module.main.R;
@@ -18,7 +18,7 @@ import java.lang.String;
 
 public final class ActivityMainBinding implements ViewBinding {
   @NonNull
-  private final CoordinatorLayout rootView;
+  private final ConstraintLayout rootView;
 
   @NonNull
   public final BottomNavigationView bottomNavigation;
@@ -26,7 +26,7 @@ public final class ActivityMainBinding implements ViewBinding {
   @NonNull
   public final FrameLayout fragmentContainer;
 
-  private ActivityMainBinding(@NonNull CoordinatorLayout rootView,
+  private ActivityMainBinding(@NonNull ConstraintLayout rootView,
       @NonNull BottomNavigationView bottomNavigation, @NonNull FrameLayout fragmentContainer) {
     this.rootView = rootView;
     this.bottomNavigation = bottomNavigation;
@@ -35,7 +35,7 @@ public final class ActivityMainBinding implements ViewBinding {
 
   @Override
   @NonNull
-  public CoordinatorLayout getRoot() {
+  public ConstraintLayout getRoot() {
     return rootView;
   }
 
@@ -72,7 +72,7 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityMainBinding((CoordinatorLayout) rootView, bottomNavigation,
+      return new ActivityMainBinding((ConstraintLayout) rootView, bottomNavigation,
           fragmentContainer);
     }
     String missingId = rootView.getResources().getResourceName(id);
