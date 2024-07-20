@@ -23,7 +23,7 @@ data class Song2(
     val ftype: Int,
     val h: H,
     val hr: Hr,
-    val id: Int,
+    val id: Long, // 修改这里
     val l: L,
     val m: M,
     val mark: Long,
@@ -53,6 +53,7 @@ data class Song2(
     val v: Int,
     val version: Int
 )
+
 data class Al(
     val id: Int,
     val name: String,
@@ -122,7 +123,7 @@ data class Privilege2(
     val flLevel: String,
     val flag: Int,
     val freeTrialPrivilege: FreeTrialPrivilege2,
-    val id: Int,
+    val id: Long,
     val maxBrLevel: String,
     val maxbr: Int,
     val message: Any,

@@ -50,7 +50,7 @@ data class Playlists(
     val tracks: Any,
     val tsSongCount: Int,
     val updateTime: Long,
-    val userId: Int
+    val userId: Long
 )
 data class Creator(
     val accountStatus: Int,

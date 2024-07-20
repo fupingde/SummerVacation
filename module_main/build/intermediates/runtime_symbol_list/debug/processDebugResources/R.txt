@@ -3365,6 +3365,7 @@ int id linear 0x7f0800f6
 int id listMode 0x7f0800f7
 int id list_item 0x7f0800f8
 int id m3_side_sheet 0x7f0800f9
+int id main 0x7f0800fa
 int id mainrv1 0x7f0800fb
 int id mainrv2 0x7f0800fc
 int id mainrv3 0x7f0800fd
@@ -3763,6 +3764,7 @@ int layout abc_search_view 0x7f0b0019
 int layout abc_select_dialog_material 0x7f0b001a
 int layout abc_tooltip 0x7f0b001b
 int layout activity_main 0x7f0b001c
+int layout activity_music_play 0x7f0b0078
 int layout activity_song_list 0x7f0b001e
 int layout custom_dialog 0x7f0b001f
 int layout design_bottom_navigation_item 0x7f0b0020

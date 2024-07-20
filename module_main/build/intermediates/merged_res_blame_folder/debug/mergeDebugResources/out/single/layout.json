@@ -24,6 +24,10 @@
         "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-37:\\layout\\item_song.xml"
     },
     {
+        "merged": "com.example.module.main.module_main-mergeDebugResources-34:/layout/activity_music_play.xml",
+        "source": "com.example.module.main.module_main-main-37:/layout/activity_music_play.xml"
+    },
+    {
         "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-mergeDebugResources-34:\\layout\\activity_main.xml",
         "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-37:\\layout\\activity_main.xml"
     },
@@ -42,10 +46,6 @@
     {
         "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-mergeDebugResources-34:\\layout\\mainrvitem.xml",
         "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-37:\\layout\\mainrvitem.xml"
-    },
-    {
-        "merged": "com.example.module.main.module_main-mergeDebugResources-34:/layout/fragment_recommend_content.xml",
-        "source": "com.example.module.main.module_main-main-37:/layout/fragment_recommend_content.xml"
     },
     {
         "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-mergeDebugResources-34:\\layout\\item_new_song.xml",
