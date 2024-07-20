@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object LoginRepository {
     private val retrofit = Retrofit.Builder()
-        .baseUrl("https://1258656679-dk116gec67-gz.scf.tencentcs.com")
+        .baseUrl("http://82.156.18.110:3000")
         .addConverterFactory(GsonConverterFactory.create())//这里添加GSON的converter,后面把数据解析成对象要用。
         .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .build()

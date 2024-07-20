@@ -30,8 +30,8 @@ class LoginActivity : AppCompatActivity() {
     }
     var date = false
     var judgeDate = false
-    var id:Long=0
-    var userid:Long=0
+    var id: Long = 0
+    var userid: Long = 0
     val swich by lazy { mbinding.switc }
     val resend by lazy { mbinding.resend }
     val login by lazy { mbinding.login }
@@ -74,9 +74,6 @@ class LoginActivity : AppCompatActivity() {
 
         login.setOnClickListener {
             judgment()
-            if (!judgeDate){
-                Toast.makeText(this@LoginActivity,"验证码错误",Toast.LENGTH_SHORT).show()
-            }
 
 
         }
@@ -88,31 +85,33 @@ class LoginActivity : AppCompatActivity() {
 
         }
         mbinding.vister.setOnClickListener {
-         LoginRepository.getApiService().visit_login().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-             .subscribe(object :Observer<Visitor> {
-                 override fun onSubscribe(d: Disposable) {
-                     Log.d("fas", "开始游客登录")
-                 }
+            LoginRepository.getApiService().visit_login().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : Observer<Visitor> {
+                    override fun onSubscribe(d: Disposable) {
+                        Log.d("fas", "开始游客登录")
+                    }
 
-                 override fun onError(e: Throwable) {
-                     Log.d("fas", e.stackTrace.toString())
-                 }
+                    override fun onError(e: Throwable) {
+                        Log.d("fas", e.stackTrace.toString())
+                    }
 
-                 override fun onComplete() {
-                     if (userid.toInt() !=0){
-                         Toast.makeText(this@LoginActivity,"登录成功",Toast.LENGTH_SHORT).show()
+                    override fun onComplete() {
+                        if (userid.toInt() != 0) {
+                            Toast.makeText(this@LoginActivity, "登录成功", Toast.LENGTH_SHORT)
+                                .show()
 
-                     }
-                     Log.d("fas", "完成登录")
-                 }
+                        }
+                        Log.d("fas", "完成登录")
+                    }
 
-                 override fun onNext(t: Visitor) {
-                    userid= t.userId
-                     Log.d("fas", t.toString())
-                 }
+                    override fun onNext(t: Visitor) {
+                        userid = t.userId
+                        Log.d("fas", t.toString())
+                    }
 
 
-             })
+                })
 
         }
     }
@@ -154,7 +153,7 @@ class LoginActivity : AppCompatActivity() {
             override fun onTick(millisUntilFinished: Long) {
                 sendButton.text = "倒计时: ${millisUntilFinished / 1000}秒"
                 // 修改按钮背景颜色示例
-                sendButton.setBackgroundColor(Color.BLUE)
+                sendButton.setBackgroundColor(Color.WHITE)
             }
 
 
@@ -182,13 +181,16 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 override fun onComplete() {
+                    if (!judgeDate) {
+                        Toast.makeText(this@LoginActivity, "验证码错误", Toast.LENGTH_SHORT).show()
+                    }
                     Log.d("fas", "连接完成")
                 }
 
                 override fun onNext(t: Send) {
                     Log.d("fas", t.toString())
                     val body = t
-                    judgeDate=body.data
+                    judgeDate = body.data
                     if (body.data) {
                         logining()
                     }
@@ -201,23 +203,36 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun logining() {
-        LoginRepository.getApiService().cap_Login(mbinding.nphone.text.toString(),mbinding.captcha.text.toString()) .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object :Observer<Regitser>{
+        LoginRepository.getApiService()
+            .cap_Login(mbinding.nphone.text.toString(), mbinding.captcha.text.toString())
+            .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Observer<Regitser> {
                 override fun onSubscribe(d: Disposable) {
-                    Log.d("fas", "开始连接验证信息")
+                    Log.d("fas", "开始连接登录信息")
 
                 }
 
                 override fun onError(e: Throwable) {
-                    Log.d("fas", "登录失败")
+                    e.printStackTrace()
+                    Log.d("fas", "e" + e.toString())
                 }
 
                 override fun onComplete() {
+                    if (id.toInt() != 0) {
+                        Toast.makeText(this@LoginActivity, "登录成功", Toast.LENGTH_SHORT).show()
+
+                    } else {
+                        Toast.makeText(this@LoginActivity, "登录失败，请重试", Toast.LENGTH_SHORT)
+                            .show()
+
+                    }
+
                     Log.d("fas", "连接完成")
                 }
 
                 override fun onNext(t: Regitser) {
-                id= t.account.id
+                    id = t.account.id
+                    Log.d("fas", "登录完成")
 
 
                 }
@@ -225,14 +240,6 @@ class LoginActivity : AppCompatActivity() {
 
             })
 
-if (id.toInt() !=0){
-    Toast.makeText(this@LoginActivity, "登录成功", Toast.LENGTH_SHORT).show()
-
-}
-        else{
-    Toast.makeText(this@LoginActivity, "登录失败，请重试", Toast.LENGTH_SHORT).show()
-
-}
     }
 }
 

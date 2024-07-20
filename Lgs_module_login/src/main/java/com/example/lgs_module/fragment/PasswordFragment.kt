@@ -27,18 +27,21 @@ class PasswordFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+    // val view=inflater.inflate(R.layout.fragment_pwlogin,container,false)
+        return vbinding.root
+         }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         vbinding.back.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
         vbinding.passlogin.setOnClickListener {
             login()
-            if (id.toInt() !=0) {
-            Toast.makeText(context,"登录成功",Toast.LENGTH_SHORT)
-            }
+
         }
-    // val view=inflater.inflate(R.layout.fragment_pwlogin,container,false)
-        return inflater.inflate(R.layout.fragment_pwlogin, container, false)
-         }
+    }
 
      fun login() {
         LoginRepository.getApiService().cap_Login(vbinding.phonenm .text.toString(),vbinding.password.text.toString()) .subscribeOn(
@@ -50,10 +53,13 @@ class PasswordFragment: Fragment() {
             }
 
             override fun onError(e: Throwable) {
-                Log.d("fas", "登录失败")
+                e.printStackTrace()
+                Log.d("fas", "e"+e.toString())
             }
 
             override fun onComplete() {
+                Toast.makeText(context, "登录成功", Toast.LENGTH_SHORT)
+                    .show()
                 Log.d("fas", "连接完成")
             }
 

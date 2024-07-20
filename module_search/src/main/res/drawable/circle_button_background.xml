@@ -1,0 +1,6 @@
+<!-- res/drawable/circle_button_background.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#E4E4E4"/> <!-- 按钮的填充颜色 -->
+    <corners android:radius="50dp"/> <!-- 设置圆角半径，使按钮呈现圆形 -->
+    <size android:width="100dp" android:height="100dp"/> <!-- 设置按钮的宽度和高度为相同的值 -->
+</shape>

@@ -45,27 +45,13 @@ class RegisterActivity : AppCompatActivity() {
            var phonenumber=mbinding.phonen.text.toString()
             Log.d("fas",phonenumber)
          sendMessage(phonenumber)
-            if(date) {
-                Toast.makeText(this@RegisterActivity,"已发送",Toast.LENGTH_SHORT).show()
-                startCountDown();
-            }
-            else{
-                Toast.makeText(this@RegisterActivity,"发送失败",Toast.LENGTH_SHORT).show()
 
-            }
 
         }
         registerButton.setOnClickListener {
          judgment()
           //register()
-            if (judgeDate&& id.toInt() ==0){
-                Toast.makeText(this@RegisterActivity,"已经注册，请登录",Toast.LENGTH_SHORT).show()
 
-            }
-            else if(judgeDate&& id.toInt() !=0){
-                Toast.makeText(this@RegisterActivity,"注册成功，开始登录",Toast.LENGTH_SHORT).show()
-
-            }
            }
 
     }
@@ -82,6 +68,14 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             override fun onComplete() {
+                if (judgeDate&& id.toInt() ==0){
+                    Toast.makeText(this@RegisterActivity,"已经注册，请登录",Toast.LENGTH_SHORT).show()
+
+                }
+                else if(judgeDate&& id.toInt() !=0){
+                    Toast.makeText(this@RegisterActivity,"注册成功，开始登录",Toast.LENGTH_SHORT).show()
+
+                }
             Log.d("fas","连接完成")
             }
 
@@ -141,6 +135,14 @@ class RegisterActivity : AppCompatActivity() {
          }
 
          override fun onComplete() {
+             if(date) {
+                 Toast.makeText(this@RegisterActivity,"已发送",Toast.LENGTH_SHORT).show()
+                 startCountDown();
+             }
+             else{
+                 Toast.makeText(this@RegisterActivity,"发送失败",Toast.LENGTH_SHORT).show()
+
+             }
           Log.d("fas","连接完成")
 
 
