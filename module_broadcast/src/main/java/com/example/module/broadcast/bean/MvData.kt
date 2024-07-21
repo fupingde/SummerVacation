@@ -4,7 +4,7 @@ data class MvData(
     val loadingPic: String,
     val subed: Boolean,
     val mp: Mp,
-    val data: Data,
+    val data: Mdata,
     val code: Int
 )
 
@@ -20,7 +20,7 @@ data class Mp(
     val st: Int,
 )
 
-data class Data(
+data class Mdata(
     val id: Long,
     val name: String,
     val artistId: Long,

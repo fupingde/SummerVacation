@@ -9,6 +9,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.module.search.R
 import com.example.module.search.adpter.SinglistAdapter.InnerHolder
 import com.example.module.search.bean.singer.Artist
@@ -39,6 +41,9 @@ class SingerAdapter(val data: List<Artist>) : RecyclerView.Adapter<SingerAdapter
         val item = data[position]
         holder.singerName.text = item.artistName
 
-         Glide.with(holder.itemView.context).load(item.artistAvatarPicUrl).into(holder.singImage)
+         Glide.with(holder.itemView.context).load(item.artistAvatarPicUrl).transform(
+             CenterCrop(),
+             RoundedCorners(30)
+         ).into(holder.singImage)
     }
 }
