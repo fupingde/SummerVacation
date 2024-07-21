@@ -20,6 +20,10 @@
         "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-37:\\layout\\item_banner.xml"
     },
     {
+        "merged": "com.example.module.main.module_main-debug-35:/drawable_play2.xml.flat",
+        "source": "com.example.module.main.module_main-main-37:/drawable/play2.xml"
+    },
+    {
         "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-debug-35:\\mipmap-hdpi_ic_launcher_round.webp.flat",
         "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-37:\\mipmap-hdpi\\ic_launcher_round.webp"
     },
@@ -98,6 +102,10 @@
     {
         "merged": "com.example.module.main.module_main-debug-35:/layout_activity_music_play.xml.flat",
         "source": "com.example.module.main.module_main-main-37:/layout/activity_music_play.xml"
+    },
+    {
+        "merged": "com.example.module.main.module_main-debug-35:/drawable_play.xml.flat",
+        "source": "com.example.module.main.module_main-main-37:/drawable/play.xml"
     },
     {
         "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-debug-35:\\drawable_picture_background.xml.flat",

@@ -3111,6 +3111,8 @@ drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable picture_background
+drawable play
+drawable play2
 drawable recommend
 drawable test_level_drawable
 drawable tooltip_frame_dark
@@ -3256,6 +3258,7 @@ id cos
 id counterclockwise
 id cradle
 id currentState
+id currentTime
 id custom
 id customPanel
 id cut
@@ -3487,6 +3490,7 @@ id pathRelative
 id peekHeight
 id percent
 id pin
+id playPauseButton
 id playlist_image
 id playlist_name
 id playlist_thumbnail
@@ -3528,6 +3532,7 @@ id search_mag_icon
 id search_plate
 id search_src_text
 id search_voice_btn
+id seekBar
 id select_dialog_listview
 id selected
 id selection_type
@@ -3616,6 +3621,7 @@ id toggle
 id toolbar
 id top
 id topPanel
+id totalTime
 id touch_outside
 id transitionToEnd
 id transitionToStart

@@ -22,6 +22,8 @@ drawable ic_launcher_foreground
 drawable menu
 drawable my
 drawable picture_background
+drawable play
+drawable play2
 drawable recommend
 id albumCover
 id appBarLayout
@@ -30,6 +32,7 @@ id bannerViewPager
 id bottom_navigation
 id cardView
 id collapsingToolbarLayout
+id currentTime
 id fragment_container
 id imageView
 id mainrv1
@@ -43,11 +46,13 @@ id marqueeTextView
 id navigation_dynamic
 id navigation_my
 id navigation_recommend
+id playPauseButton
 id playlist_image
 id playlist_name
 id playlist_thumbnail
 id recyclerView
 id searchView
+id seekBar
 id songArtist
 id songTitle
 id song_artist
@@ -58,6 +63,7 @@ id songrv
 id tab_layout
 id titleTextView
 id toolbar
+id totalTime
 id view_pager
 layout activity_main
 layout activity_music_play

@@ -93,8 +93,10 @@ class SongListActivity : AppCompatActivity() {
 
     private fun onSongItemClick(song: Song2, songs: List<Song2>, position: Int) {
         val intent = Intent(this, MusicPlayActivity::class.java).apply {
-            putExtra("songs", ArrayList(songs)) // 将List<Song2>转换为ArrayList<Song2>以便传递
-            putExtra("currentSongIndex", position)
+            putExtra("SONG_ID", song.id)
+            putExtra("SONG_NAME", song.name)
+            putExtra("SONG_ARTIST", song.ar.find { it.equals("name") })
+            putExtra("SONG_PICTUREURL",song.al.picUrl)
         }
         startActivity(intent)
     }

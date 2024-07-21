@@ -3110,6 +3110,8 @@ int drawable notification_template_icon_low_bg 0x7f0700e6
 int drawable notification_tile_bg 0x7f0700e7
 int drawable notify_panel_notification_icon_bg 0x7f0700e8
 int drawable picture_background 0x7f0700e9
+int drawable play 0x7f0700f1
+int drawable play2 0x7f0700f2
 int drawable recommend 0x7f0700ea
 int drawable test_level_drawable 0x7f0700eb
 int drawable tooltip_frame_dark 0x7f0700ec
@@ -3255,6 +3257,7 @@ int id cos 0x7f080086
 int id counterclockwise 0x7f080087
 int id cradle 0x7f080088
 int id currentState 0x7f080089
+int id currentTime 0x7f080221
 int id custom 0x7f08008a
 int id customPanel 0x7f08008b
 int id cut 0x7f08008c
@@ -3486,6 +3489,7 @@ int id pathRelative 0x7f08016e
 int id peekHeight 0x7f08016f
 int id percent 0x7f080170
 int id pin 0x7f080171
+int id playPauseButton 0x7f080224
 int id playlist_image 0x7f08020e
 int id playlist_name 0x7f08020f
 int id playlist_thumbnail 0x7f080211
@@ -3527,6 +3531,7 @@ int id search_mag_icon 0x7f080194
 int id search_plate 0x7f080195
 int id search_src_text 0x7f080196
 int id search_voice_btn 0x7f080197
+int id seekBar 0x7f080222
 int id select_dialog_listview 0x7f080198
 int id selected 0x7f080199
 int id selection_type 0x7f08019a
@@ -3615,6 +3620,7 @@ int id toggle 0x7f0801e6
 int id toolbar 0x7f0801e7
 int id top 0x7f0801e8
 int id topPanel 0x7f0801e9
+int id totalTime 0x7f080223
 int id touch_outside 0x7f0801ea
 int id transitionToEnd 0x7f0801eb
 int id transitionToStart 0x7f0801ec
