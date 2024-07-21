@@ -24,7 +24,7 @@
 17-->[androidx.core:core:1.13.1] C:\Users\hp\.gradle\caches\transforms-4\d92ec13d7ef121dd5924bf9c8c618d6b\transformed\core-1.13.1\AndroidManifest.xml:26:22-94
 18
 19    <application
-19-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:6:5-29:19
+19-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:6:5-28:19
 20        android:allowBackup="true"
 20-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:7:9-35
 21        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
@@ -45,32 +45,32 @@
 30        android:theme="@style/Theme.SummerVacation" >
 30-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:13:9-52
 31        <activity
-31-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:14:9-16:40
-32            android:name="com.example.module.MusicPlay"
-32-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:15:13-56
+31-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:14:9-15:39
+32            android:name="com.example.module.ui.activities.MusicPlayActivity"
+32-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:14:19-84
 33            android:exported="false" />
-33-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:16:13-37
+33-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:15:13-37
 34        <activity
-34-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:17:9-19:40
+34-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:16:9-18:40
 35            android:name="com.example.module.ui.activities.SongListActivity"
-35-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:18:13-77
+35-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:17:13-77
 36            android:exported="false" />
-36-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:19:13-37
+36-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:18:13-37
 37        <activity
-37-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:20:9-28:20
+37-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:19:9-27:20
 38            android:name="com.example.module.ui.MainActivity"
-38-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:21:13-62
+38-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:20:13-62
 39            android:exported="true" >
-39-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:22:13-36
+39-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:21:13-36
 40            <intent-filter>
-40-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:23:13-27:29
+40-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:22:13-26:29
 41                <action android:name="android.intent.action.MAIN" />
-41-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:24:17-69
-41-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:24:25-66
+41-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:23:17-69
+41-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:23:25-66
 42
 43                <category android:name="android.intent.category.LAUNCHER" />
-43-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:26:17-77
-43-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:26:27-74
+43-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:25:17-77
+43-->E:\AndroidStudioProjects\SummerVacation\module_main\src\main\AndroidManifest.xml:25:27-74
 44            </intent-filter>
 45        </activity>
 46

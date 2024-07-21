@@ -3185,6 +3185,7 @@ int id action_text 0x7f080043
 int id actions 0x7f080044
 int id activity_chooser_view_content 0x7f080045
 int id add 0x7f080046
+int id albumCover 0x7f08021d
 int id alertTitle 0x7f080047
 int id aligned 0x7f080048
 int id all 0x7f080049
@@ -3365,7 +3366,6 @@ int id linear 0x7f0800f6
 int id listMode 0x7f0800f7
 int id list_item 0x7f0800f8
 int id m3_side_sheet 0x7f0800f9
-int id main 0x7f0800fa
 int id mainrv1 0x7f0800fb
 int id mainrv2 0x7f0800fc
 int id mainrv3 0x7f0800fd
@@ -3544,6 +3544,8 @@ int id snackbar_action 0x7f0801a5
 int id snackbar_text 0x7f0801a6
 int id snap 0x7f0801a7
 int id snapMargins 0x7f0801a8
+int id songArtist 0x7f08021e
+int id songTitle 0x7f08021f
 int id song_artist 0x7f080215
 int id song_button 0x7f080216
 int id song_index 0x7f080217

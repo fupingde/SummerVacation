@@ -49,18 +49,7 @@ class RecommendContentFragment : Fragment() {
                 val nextItem = binding.bannerViewPager.currentItem + 1
                 binding.bannerViewPager.currentItem = if (nextItem < itemCount) nextItem else 0
             }
-            handler.postDelayed(this, 3000)
-        }
-    }
-
-    private val mainVPAutoScrollRunnable = object : Runnable {
-        override fun run() {
-            val itemCount = binding.mainvp.adapter?.itemCount ?: 0
-            if (itemCount > 0) {
-                val nextItem = binding.mainvp.currentItem + 1
-                binding.mainvp.currentItem = if (nextItem < itemCount) nextItem else 0
-            }
-            handler.postDelayed(this, 3000)
+            handler.postDelayed(this, 6000)
         }
     }
 
@@ -76,29 +65,24 @@ class RecommendContentFragment : Fragment() {
 
         setupRecyclerView()
 
-        recommendViewModel.tuijianGedan.observe(viewLifecycleOwner, { data ->
-            val adapter = Mainrv1Adapter(data) { id, name, imageUrl ->
-                val intent = Intent(context, SongListActivity::class.java).apply {
-                    putExtra("playlistId", id.toLong())
-                    putExtra("playlistName", name)
-                    putExtra("playlistImageUrl", imageUrl)
-                }
-                startActivity(intent)
+        val onItemClick: (Long, String, String) -> Unit = { playlistId, playlistName, playlistImageUrl ->
+            val intent = Intent(requireContext(), SongListActivity::class.java).apply {
+                putExtra("playlistId", playlistId)
+                putExtra("playlistName", playlistName)
+                putExtra("playlistImageUrl", playlistImageUrl)
             }
+            startActivity(intent)
+        }
+
+        recommendViewModel.tuijianGedan.observe(viewLifecycleOwner, { data ->
+            val adapter = Mainrv1Adapter(data, onItemClick)
             binding.mainrv1.adapter = adapter
 
             handler.post(autoScrollRunnable)
         })
 
         recommendViewModel.remenGedan.observe(viewLifecycleOwner, { data ->
-            val adapter = Mainrv2Adapter(data) { id, name, imageUrl ->
-                val intent = Intent(context, SongListActivity::class.java).apply {
-                    putExtra("playlistId", id.toLong())
-                    putExtra("playlistName", name)
-                    putExtra("playlistImageUrl", imageUrl)
-                }
-                startActivity(intent)
-            }
+            val adapter = Mainrv2Adapter(data, onItemClick)
             binding.mainrv2.adapter = adapter
         })
 
@@ -114,8 +98,6 @@ class RecommendContentFragment : Fragment() {
             val adapter = Mainvp4Adapter(newSongs.result)
             binding.mainvp.adapter = adapter
             binding.mainvp.setPageTransformer(DepthAndZoomPageTransformer())
-
-            handler.post(mainVPAutoScrollRunnable)
         })
 
         recommendViewModel.fetchTuijianGedan()
@@ -136,7 +118,6 @@ class RecommendContentFragment : Fragment() {
         super.onDestroyView()
         handler.removeCallbacks(autoScrollRunnable)
         handler.removeCallbacks(bannerAutoScrollRunnable)
-        handler.removeCallbacks(mainVPAutoScrollRunnable)
         _binding = null
     }
 }

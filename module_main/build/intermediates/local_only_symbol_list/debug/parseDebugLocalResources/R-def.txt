@@ -23,6 +23,7 @@ drawable menu
 drawable my
 drawable picture_background
 drawable recommend
+id albumCover
 id appBarLayout
 id artistTextView
 id bannerViewPager
@@ -31,7 +32,6 @@ id cardView
 id collapsingToolbarLayout
 id fragment_container
 id imageView
-id main
 id mainrv1
 id mainrv2
 id mainrv3
@@ -48,6 +48,8 @@ id playlist_name
 id playlist_thumbnail
 id recyclerView
 id searchView
+id songArtist
+id songTitle
 id song_artist
 id song_button
 id song_index

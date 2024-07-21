@@ -6,6 +6,7 @@ import com.example.Network.Bean.NewSongs
 import com.example.Network.Bean.ReMenGeDanBean
 import com.example.Network.Bean.Songs
 import com.example.Network.Bean.TuijianGedanBean
+import com.example.Network.Bean.songsurl
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -25,4 +26,8 @@ interface ApiService {
             @Query("limit") limit: Int,
             @Query("offset") offset: Int
         ): Observable<Songs>
+    @GET("/song/url")
+    fun geturl(
+        @Query("id") id: Long
+    ):Observable<songsurl>
     }

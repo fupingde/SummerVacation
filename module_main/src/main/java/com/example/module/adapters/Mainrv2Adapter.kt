@@ -34,7 +34,7 @@ class Mainrv2Adapter(private val data: ReMenGeDanBean, private val onItemClick: 
 
         // 设置点击事件
         holder.itemView.setOnClickListener {
-            onItemClick(item.id.toLong(), item.name, item.coverImgUrl)
+            onItemClick(item.id, item.name, item.coverImgUrl)
         }
     }
 

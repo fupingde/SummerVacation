@@ -3186,6 +3186,7 @@ id action_text
 id actions
 id activity_chooser_view_content
 id add
+id albumCover
 id alertTitle
 id aligned
 id all
@@ -3366,7 +3367,6 @@ id linear
 id listMode
 id list_item
 id m3_side_sheet
-id main
 id mainrv1
 id mainrv2
 id mainrv3
@@ -3545,6 +3545,8 @@ id snackbar_action
 id snackbar_text
 id snap
 id snapMargins
+id songArtist
+id songTitle
 id song_artist
 id song_button
 id song_index

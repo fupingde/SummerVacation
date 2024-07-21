@@ -1,5 +1,7 @@
 package com.example.Network.Bean
 
+import java.io.Serializable
+
 data class Songs(
     val code: Int,
     val privileges: List<Privilege2>,
@@ -23,7 +25,7 @@ data class Song2(
     val ftype: Int,
     val h: H,
     val hr: Hr,
-    val id: Long, // 修改这里
+    val id: Long,
     val l: L,
     val m: M,
     val mark: Long,
@@ -52,7 +54,7 @@ data class Song2(
     val tagPicList: Any,
     val v: Int,
     val version: Int
-)
+): Serializable
 
 data class Al(
     val id: Int,
@@ -61,54 +63,54 @@ data class Al(
     val picUrl: String,
     val pic_str: String,
     val tns: List<Any>
-)
+): Serializable
 data class Ar(
     val alias: List<Any>,
     val id: Int,
     val name: String,
     val tns: List<Any>
-)
+): Serializable
 data class ChargeInfo2(
     val chargeMessage: Any,
     val chargeType: Int,
     val chargeUrl: Any,
     val rate: Int
-)
+): Serializable
 data class FreeTrialPrivilege2(
     val cannotListenReason: Int,
     val listenType: Int,
     val playReason: Any,
     val resConsumable: Boolean,
     val userConsumable: Boolean
-)
+): Serializable
 data class H(
     val br: Int,
     val fid: Int,
     val size: Int,
     val sr: Int,
     val vd: Int
-)
+): Serializable
 data class Hr(
     val br: Int,
     val fid: Int,
     val size: Int,
     val sr: Int,
     val vd: Int
-)
+): Serializable
 data class L(
     val br: Int,
     val fid: Int,
     val size: Int,
     val sr: Int,
     val vd: Int
-)
+): Serializable
 data class M(
     val br: Int,
     val fid: Int,
     val size: Int,
     val sr: Int,
     val vd: Int
-)
+): Serializable
 data class Privilege2(
     val chargeInfoList: List<ChargeInfo2>,
     val code: Int,
@@ -139,11 +141,11 @@ data class Privilege2(
     val st: Int,
     val subp: Int,
     val toast: Boolean
-)
+): Serializable
 data class Sq(
     val br: Int,
     val fid: Int,
     val size: Int,
     val sr: Int,
     val vd: Int
-)
+): Serializable

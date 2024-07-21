@@ -1,5 +1,6 @@
 package com.example.module.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
@@ -8,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.example.Network.Bean.Song2
 import com.example.module.main.R
 import com.example.module.main.databinding.ActivitySongListBinding
 import com.example.module.ui.adapters.SongsAdapter
@@ -24,7 +26,6 @@ class SongListActivity : AppCompatActivity() {
         binding = ActivitySongListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 获取传递的参数
         val playlistId = intent.getLongExtra("playlistId", -1L)
         Log.d("SongListActivity", "Received playlistId: $playlistId")
         val playlistName = intent.getStringExtra("playlistName") ?: ""
@@ -58,7 +59,7 @@ class SongListActivity : AppCompatActivity() {
 
         // 观察歌曲数据变化并更新UI
         viewModel.songs.observe(this, Observer { songs ->
-            val adapter = SongsAdapter(songs)
+            val adapter = SongsAdapter(songs.songs, this::onSongItemClick)
             binding.songrv.adapter = adapter
         })
 
@@ -88,5 +89,13 @@ class SongListActivity : AppCompatActivity() {
 
         // 设置CollapsingToolbarLayout的折叠后样式
         binding.collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar)
+    }
+
+    private fun onSongItemClick(song: Song2, songs: List<Song2>, position: Int) {
+        val intent = Intent(this, MusicPlayActivity::class.java).apply {
+            putExtra("songs", ArrayList(songs)) // 将List<Song2>转换为ArrayList<Song2>以便传递
+            putExtra("currentSongIndex", position)
+        }
+        startActivity(intent)
     }
 }

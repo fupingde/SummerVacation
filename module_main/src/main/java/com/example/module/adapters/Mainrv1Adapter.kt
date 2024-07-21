@@ -34,7 +34,7 @@ class Mainrv1Adapter(private val data: TuijianGedanBean, private val onItemClick
 
         // 设置点击事件
         holder.itemView.setOnClickListener {
-            onItemClick(item.id.toLong(), item.name, item.picUrl)
+            onItemClick(item.id, item.name, item.picUrl)
         }
     }
 

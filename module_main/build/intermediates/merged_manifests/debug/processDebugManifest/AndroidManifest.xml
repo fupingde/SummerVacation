@@ -29,7 +29,7 @@
         android:testOnly="true"
         android:theme="@style/Theme.SummerVacation" >
         <activity
-            android:name="com.example.module.MusicPlay"
+            android:name="com.example.module.ui.activities.MusicPlayActivity"
             android:exported="false" />
         <activity
             android:name="com.example.module.ui.activities.SongListActivity"
