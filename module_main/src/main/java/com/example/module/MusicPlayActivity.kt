@@ -161,21 +161,27 @@ class MusicPlayActivity : AppCompatActivity() {
     }
 
     private fun handlePlayPause() {
+        Log.d("MusicPlayActivity", "button is clicked.")
         if (isBound) {
+            Log.d("MusicPlayActivity", "isplaying:${musicService?.isPlaying()}")
             if (musicService?.isPlaying() == true) {
                 musicService?.pauseMusic()
+                Log.d("MusicPlayActivity", "pause music")
                 binding.playPauseButton.setImageResource(R.drawable.pause)
                 handler.removeCallbacks(updateRunnable)
                 rotationHandler.removeCallbacks(rotationRunnable)
             } else {
                 currentSongUrl?.let { url ->
                     if (musicService?.getCurrentSongUrl() == url) {
+                        Log.d("MusicPlayActivity", "getCurrentSongUrl() == url:$url")
                         musicService?.playMusic(url)
                         binding.playPauseButton.setImageResource(R.drawable.play)
                         startSeekBarUpdate()
                         rotationHandler.post(rotationRunnable)
                     } else {
+                        Log.d("MusicPlayActivity", "getCurrentSongUrl() != url,url:$url,currenturl:${musicService?.getCurrentSongUrl()}")
                         musicService?.playMusic(url)
+                        musicService?.change_isplaying()
                         binding.playPauseButton.setImageResource(R.drawable.play)
                         musicService?.getMediaPlayer()?.setOnPreparedListener { mp ->
                             binding.seekBar.max = mp.duration

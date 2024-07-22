@@ -42,6 +42,8 @@ class MusicService : Service() {
     }
 
     private fun initializeMediaPlayer(url: String) {
+        Log.d("MusicPlayActivity", "initializeMediaPlayer")
+        Log.d("MusicPlayActivity", "initializeMediaPlayer  isplaying:$_isPlaying")
         mediaPlayer?.release()
         mediaPlayer = MediaPlayer().apply {
             setDataSource(url)
@@ -65,9 +67,11 @@ class MusicService : Service() {
     }
 
     fun pauseMusic() {
+        Log.d("MusicPlayActivity", "pauseMusic")
         mediaPlayer?.pause()
         _isPlaying = false
         handler.removeCallbacks(updateRunnable)
+        Log.d("MusicPlayActivity", "music pause")
     }
 
 
@@ -95,6 +99,10 @@ class MusicService : Service() {
         return mediaPlayer
     }
 
+    fun change_isplaying(){
+        if (_isPlaying==false)_isPlaying=true
+        else _isPlaying=false
+    }
     private val updateRunnable: Runnable = object : Runnable {
         override fun run() {
             mediaPlayer?.let {
