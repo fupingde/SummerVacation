@@ -21,9 +21,9 @@ drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable menu
 drawable my
+drawable pause
 drawable picture_background
 drawable play
-drawable play2
 drawable recommend
 id albumCover
 id appBarLayout

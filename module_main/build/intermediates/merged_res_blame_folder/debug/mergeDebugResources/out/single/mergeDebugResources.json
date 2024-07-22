@@ -1,5 +1,9 @@
 [
     {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-debug-35:\\drawable_play2.xml.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-37:\\drawable\\play2.xml"
+    },
+    {
         "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-debug-35:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
         "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-37:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
     },
@@ -18,10 +22,6 @@
     {
         "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-debug-35:\\layout_item_banner.xml.flat",
         "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-37:\\layout\\item_banner.xml"
-    },
-    {
-        "merged": "com.example.module.main.module_main-debug-35:/drawable_play2.xml.flat",
-        "source": "com.example.module.main.module_main-main-37:/drawable/play2.xml"
     },
     {
         "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-debug-35:\\mipmap-hdpi_ic_launcher_round.webp.flat",
@@ -88,6 +88,10 @@
         "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-37:\\mipmap-xhdpi\\ic_launcher.webp"
     },
     {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-debug-35:\\drawable_play.xml.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-37:\\drawable\\play.xml"
+    },
+    {
         "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-debug-35:\\drawable_my.xml.flat",
         "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-37:\\drawable\\my.xml"
     },
@@ -100,12 +104,12 @@
         "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-37:\\mipmap-anydpi-v26\\ic_launcher.xml"
     },
     {
-        "merged": "com.example.module.main.module_main-debug-35:/layout_activity_music_play.xml.flat",
-        "source": "com.example.module.main.module_main-main-37:/layout/activity_music_play.xml"
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-debug-35:\\drawable_pause.xml.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-main-37:\\drawable\\pause.xml"
     },
     {
-        "merged": "com.example.module.main.module_main-debug-35:/drawable_play.xml.flat",
-        "source": "com.example.module.main.module_main-main-37:/drawable/play.xml"
+        "merged": "com.example.module.main.module_main-debug-35:/layout_activity_music_play.xml.flat",
+        "source": "com.example.module.main.module_main-main-37:/layout/activity_music_play.xml"
     },
     {
         "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.6\\com.example.module.main.module_main-debug-35:\\drawable_picture_background.xml.flat",

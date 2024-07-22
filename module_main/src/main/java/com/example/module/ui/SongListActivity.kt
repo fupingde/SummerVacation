@@ -39,7 +39,7 @@ class SongListActivity : AppCompatActivity() {
         supportActionBar?.title = ""
 
         binding.toolbar.setNavigationOnClickListener {
-            onBackPressed()
+            finish()
         }
 
         // 设置顶部背景图片

@@ -11,6 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SummerVacation">
+        <service android:name="com.example.module.ui.services.MusicService"
+            android:exported="true"/>
         <activity android:name="com.example.module.ui.activities.MusicPlayActivity"
             android:exported="false"/>
         <activity
