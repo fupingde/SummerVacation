@@ -1,0 +1,233 @@
+package com.example.Network.Bean
+
+data class NewSongs(
+    val category: Int,
+    val code: Int,
+    val result: List<Result2>
+)
+data class Result2(
+    val alg: String,
+    val canDislike: Boolean,
+    val copywriter: Any,
+    val id: Long,
+    val name: String,
+    val picUrl: String,
+    val song: Song,
+    val trackNumberUpdateTime: Any,
+    val type: Int
+)
+
+data class Album(
+    val alias: List<String>,
+    val artist: ArtistXX,
+    val artists: List<ArtistXX>,
+    val blurPicUrl: String,
+    val briefDesc: String,
+    val commentThreadId: String,
+    val company: String,
+    val companyId: Int,
+    val copyrightId: Int,
+    val description: String,
+    val gapless: Int,
+    val id: Int,
+    val mark: Int,
+    val name: String,
+    val onSale: Boolean,
+    val pic: Long,
+    val picId: Long,
+    val picId_str: String,
+    val picUrl: String,
+    val publishTime: Long,
+    val size: Int,
+    val songs: List<Any>,
+    val status: Int,
+    val subType: String,
+    val tags: String,
+    val transName: String,
+    val transNames: List<String>,
+    val type: String
+)
+data class AlbumMeta(
+    val id: Int,
+    val name: String
+)
+data class ArtistXX(
+    val albumSize: Int,
+    val alias: List<Any>,
+    val briefDesc: String,
+    val id: Int,
+    val img1v1Id: Int,
+    val img1v1Url: String,
+    val musicSize: Int,
+    val name: String,
+    val picId: Int,
+    val picUrl: String,
+    val topicPerson: Int,
+    val trans: String
+)data class ArtistXXX(
+    val id: Int,
+    val name: String
+)
+data class BMusic(
+    val bitrate: Int,
+    val dfsId: Int,
+    val extension: String,
+    val id: Long,
+    val name: Any,
+    val playTime: Int,
+    val size: Int,
+    val sr: Int,
+    val volumeDelta: Int
+)
+data class ChargeInfo(
+    val chargeMessage: Any,
+    val chargeType: Int,
+    val chargeUrl: Any,
+    val rate: Int
+)
+data class FreeTrialPrivilege(
+    val cannotListenReason: Any,
+    val listenType: Any,
+    val playReason: Any,
+    val resConsumable: Boolean,
+    val userConsumable: Boolean
+)
+data class HMusic(
+    val bitrate: Int,
+    val dfsId: Int,
+    val extension: String,
+    val id: Long,
+    val name: Any,
+    val playTime: Int,
+    val size: Int,
+    val sr: Int,
+    val volumeDelta: Int
+)
+data class HrMusic(
+    val bitrate: Int,
+    val dfsId: Int,
+    val extension: String,
+    val id: Long,
+    val name: Any,
+    val playTime: Int,
+    val size: Int,
+    val sr: Int,
+    val volumeDelta: Int
+)
+data class LMusic(
+    val bitrate: Int,
+    val dfsId: Int,
+    val extension: String,
+    val id: Long,
+    val name: Any,
+    val playTime: Int,
+    val size: Int,
+    val sr: Int,
+    val volumeDelta: Int
+)
+data class MMusic(
+    val bitrate: Int,
+    val dfsId: Int,
+    val extension: String,
+    val id: Long,
+    val name: Any,
+    val playTime: Int,
+    val size: Int,
+    val sr: Int,
+    val volumeDelta: Int
+)
+data class OriginSongSimpleData(
+    val albumMeta: AlbumMeta,
+    val artists: List<ArtistXXX>,
+    val name: String,
+    val songId: Long
+)
+data class Privilege(
+    val chargeInfoList: List<ChargeInfo>,
+    val cp: Int,
+    val cs: Boolean,
+    val dl: Int,
+    val dlLevel: String,
+    val downloadMaxBrLevel: String,
+    val downloadMaxbr: Int,
+    val fee: Int,
+    val fl: Int,
+    val flLevel: String,
+    val flag: Int,
+    val freeTrialPrivilege: FreeTrialPrivilege,
+    val id: Long,
+    val maxBrLevel: String,
+    val maxbr: Int,
+    val payed: Int,
+    val pl: Int,
+    val plLevel: String,
+    val playMaxBrLevel: String,
+    val playMaxbr: Int,
+    val preSell: Boolean,
+    val rightSource: Int,
+    val rscl: Any,
+    val sp: Int,
+    val st: Int,
+    val subp: Int,
+    val toast: Boolean
+)
+data class SqMusic(
+    val bitrate: Int,
+    val dfsId: Int,
+    val extension: String,
+    val id: Long,
+    val name: Any,
+    val playTime: Int,
+    val size: Int,
+    val sr: Int,
+    val volumeDelta: Int
+)
+data class Song(
+    val album: Album,
+    val alias: List<String>,
+    val artists: List<ArtistXX>,
+    val audition: Any,
+    val bMusic: BMusic,
+    val commentThreadId: String,
+    val copyFrom: String,
+    val copyright: Int,
+    val copyrightId: Int,
+    val crbt: Any,
+    val dayPlays: Int,
+    val disc: String,
+    val duration: Int,
+    val fee: Int,
+    val ftype: Int,
+    val hMusic: HMusic,
+    val hearTime: Int,
+    val hrMusic: HrMusic,
+    val id: Long,
+    val lMusic: LMusic,
+    val mMusic: MMusic,
+    val mark: Int,
+    val mp3Url: Any,
+    val mvid: Int,
+    val name: String,
+    val no: Int,
+    val noCopyrightRcmd: Any,
+    val originCoverType: Int,
+    val originSongSimpleData: OriginSongSimpleData,
+    val playedNum: Int,
+    val popularity: Int,
+    val position: Int,
+    val privilege: Privilege,
+    val ringtone: String,
+    val rtUrl: Any,
+    val rtUrls: List<Any>,
+    val rtype: Int,
+    val rurl: Any,
+    val score: Int,
+    val sign: Any,
+    val single: Int,
+    val sqMusic: SqMusic,
+    val starred: Boolean,
+    val starredNum: Int,
+    val status: Int,
+    val transName: String,
+    val transNames: List<String>
+)

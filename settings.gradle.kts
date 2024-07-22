@@ -11,6 +11,7 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -22,4 +23,5 @@ dependencyResolutionManagement {
 rootProject.name = "SummerVacation"
 include(":app")
 include(":lib_wangyiyun")
-include(":module_drawerlayout")
+include(":module_main")
+include(":module_main:api_base")
