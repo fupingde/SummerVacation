@@ -165,11 +165,35 @@ class MusicPlayActivity : AppCompatActivity() {
         if (isBound) {
             Log.d("MusicPlayActivity", "isplaying:${musicService?.isPlaying()}")
             if (musicService?.isPlaying() == true) {
-                musicService?.pauseMusic()
+                currentSongUrl?.let { url ->
+                    if (musicService?.getCurrentSongUrl() == url){
+                        musicService?.pauseMusic()
+                        binding.playPauseButton.setImageResource(R.drawable.pause)
+                        handler.removeCallbacks(updateRunnable)
+                        rotationHandler.removeCallbacks(rotationRunnable)
+                    }else{
+                        // 停止当前正在播放的音乐
+                        musicService?.pauseMusic()
+                        handler.removeCallbacks(updateRunnable)
+                        rotationHandler.removeCallbacks(rotationRunnable)
+                        // 更新当前歌曲URL
+                        currentSongUrl = url
+                        // 播放新歌曲
+                        musicService?.playMusic(url)
+                        binding.playPauseButton.setImageResource(R.drawable.play)
+                        musicService?.getMediaPlayer()?.setOnPreparedListener { mp ->
+                            binding.seekBar.max = mp.duration
+                            binding.totalTime.text = formatTime(mp.duration)
+                            mp.start()
+                            startSeekBarUpdate()
+                            rotationHandler.post(rotationRunnable)
+                        }
+                    }
+                }
+
                 Log.d("MusicPlayActivity", "pause music")
-                binding.playPauseButton.setImageResource(R.drawable.pause)
-                handler.removeCallbacks(updateRunnable)
-                rotationHandler.removeCallbacks(rotationRunnable)
+
+
             } else {
                 currentSongUrl?.let { url ->
                     if (musicService?.getCurrentSongUrl() == url) {

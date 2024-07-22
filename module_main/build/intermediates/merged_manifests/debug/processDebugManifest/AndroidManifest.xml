@@ -49,10 +49,6 @@
         </activity>
 
         <provider
-            android:name="com.therouter.InnerTheRouterContentProvider"
-            android:authorities="com.example.module.main.therouter.TheRouteContentProvider"
-            android:exported="false" />
-        <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="com.example.module.main.androidx-startup"
             android:exported="false" >
