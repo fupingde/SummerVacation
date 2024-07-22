@@ -15,7 +15,7 @@ class MusicService : Service() {
     private var _isPlaying: Boolean = false
     private var songUrl: String? = null
     private var isPrepared: Boolean = false
-    private val handler = Handler()
+    private val handler =Handler()
 
     override fun onBind(intent: Intent?): IBinder {
         Log.d("MusicService", "Service bound")
@@ -70,13 +70,6 @@ class MusicService : Service() {
         handler.removeCallbacks(updateRunnable)
     }
 
-    fun resumeMusic() {
-        if (isPrepared && !_isPlaying) {
-            mediaPlayer?.start()
-            _isPlaying = true
-            handler.post(updateRunnable)
-        }
-    }
 
     fun getCurrentPosition(): Int {
         return mediaPlayer?.currentPosition ?: 0
