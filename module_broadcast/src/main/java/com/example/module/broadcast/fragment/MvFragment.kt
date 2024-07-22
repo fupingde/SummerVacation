@@ -1,6 +1,7 @@
 package com.example.module.broadcast.fragment
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -25,6 +26,7 @@ class MvFragment : Fragment() {
     val mbinding by lazy { MvFragmentBinding.inflate(layoutInflater) }
     val exoPlayer by lazy { ExoPlayer.Builder(requireContext()).build() }
     var commentid: Long = 0
+    lateinit var url: String
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,6 +43,7 @@ class MvFragment : Fragment() {
     }
 
     private fun initView() {
+        initcommentClick()
         mbinding.playerView.player = exoPlayer
         exoPlayer.addListener(object : Player.Listener {
             override fun onVideoSizeChanged(videoSize: VideoSize) {
@@ -50,11 +53,10 @@ class MvFragment : Fragment() {
         })
         mvViewModel.songData.observe(viewLifecycleOwner, Observer { mvUrl ->
             mvUrl?.let {
-                commentid = it[0].id
-                initcommentClick()
+
                 Log.d("newid", commentid.toString())
-
-
+                url = it[0].url
+                initshareClick()
                 val mediaItem = MediaItem.fromUri(it[0].url)
                 exoPlayer.setMediaItem(mediaItem)
                 exoPlayer.prepare()
@@ -75,12 +77,38 @@ class MvFragment : Fragment() {
 
     }
 
+    private fun initshareClick() {
+        mbinding.shareButton.setOnClickListener {
+            mvdataViewModel.mdata.observe(viewLifecycleOwner, Observer { date ->
+                date?.let {
+                    val mvnamead = it[0].name
+                    val shareIntent = Intent().apply {
+                        val title = "$mvnamead\n $url"
+                        action = Intent.ACTION_SEND
+                        putExtra(Intent.EXTRA_TEXT, title)
+                        type="text/plain"}
+                    startActivity(Intent.createChooser(shareIntent,"选择要分享的应用"))
+                    }
+                })
+
+            }
+        }
+
+
+
 
     private fun initcommentClick() {
+
         mbinding.commentButton.setOnClickListener {
-            Log.d("comment", "id" + commentid.toString())
-            val commentFragment = CommentFragment.newInstance(commentid)
-            commentFragment.show(childFragmentManager, "CommentFragment")
+            mvViewModel.songData.observe(viewLifecycleOwner, Observer { mvUrl ->
+                mvUrl?.let {
+                    commentid = it[0].id
+                    Log.d("comment", "id" + commentid.toString())
+                    val commentFragment = CommentFragment.newInstance(commentid)
+                    commentFragment.show(childFragmentManager, "CommentFragment")
+                }
+            })
+
         }
     }
 
