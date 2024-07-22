@@ -24,7 +24,7 @@ class MvFragment : Fragment() {
     val mvdataViewModel by lazy { ViewModelProvider(requireActivity())[MvdataViewModel::class.java] }
     val mbinding by lazy { MvFragmentBinding.inflate(layoutInflater) }
     val exoPlayer by lazy { ExoPlayer.Builder(requireContext()).build() }
-    var commentid:Long=0
+    var commentid: Long = 0
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,9 +50,9 @@ class MvFragment : Fragment() {
         })
         mvViewModel.songData.observe(viewLifecycleOwner, Observer { mvUrl ->
             mvUrl?.let {
-                commentid=it[0].id
+                commentid = it[0].id
                 initcommentClick()
-                Log.d("newid",commentid.toString())
+                Log.d("newid", commentid.toString())
 
 
                 val mediaItem = MediaItem.fromUri(it[0].url)
@@ -76,13 +76,12 @@ class MvFragment : Fragment() {
     }
 
 
-
     private fun initcommentClick() {
         mbinding.commentButton.setOnClickListener {
-            Log.d("comment","id"+commentid.toString())
-      val commentFragment=CommentFragment.newInstance(commentid)
-        commentFragment.show(childFragmentManager, "CommentFragment")
-}
+            Log.d("comment", "id" + commentid.toString())
+            val commentFragment = CommentFragment.newInstance(commentid)
+            commentFragment.show(childFragmentManager, "CommentFragment")
+        }
     }
 
     override fun onPause() {

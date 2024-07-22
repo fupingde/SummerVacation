@@ -20,5 +20,7 @@ interface MvService {
 
     @GET("/comment/mv")
     fun getComments(@Query("id") id: Long): Observable<Comments>
+    @GET("/comment/mv")
+    fun getMore(@Query("id") id: Long,@Query("offset")offset:Int): Observable<Comments>
 
 }

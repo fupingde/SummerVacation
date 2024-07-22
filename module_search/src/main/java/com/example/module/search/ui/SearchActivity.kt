@@ -13,10 +13,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.module.search.adpter.VpAdapter
 import com.example.module.search.databinding.ActivitySearchBinding
 import com.example.module.search.fragment.MvFragment
+import com.example.module.search.fragment.SingerFragment
 import com.example.module.search.fragment.SinglistFragment
 import com.example.module.search.fragment.SongFragment
 import com.example.module.search.network.FragmentInterface
 import com.example.module.search.viewmodel.AlbumViewModel
+import com.example.module.search.viewmodel.MvViewModel
 import com.example.module.search.viewmodel.SingerViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -28,6 +30,7 @@ class SearchActivity : AppCompatActivity() {
     val songviewModel by lazy { ViewModelProvider(this)[SongViewModel::class.java] }
     val albumViewModel by lazy { ViewModelProvider(this)[AlbumViewModel::class.java] }
     val singerViewModel by lazy { ViewModelProvider(this)[SingerViewModel::class.java] }
+    val mvViewModel by lazy { ViewModelProvider(this)[MvViewModel::class.java] }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -41,7 +44,8 @@ class SearchActivity : AppCompatActivity() {
             songviewModel.getSongInfo(mbinding.searchView.query.toString())
             albumViewModel.getSongInfo(mbinding.searchView.query.toString())
             singerViewModel.getSongInfo(mbinding.searchView.query.toString())
-            Log.d("fas", mbinding.searchView.query.toString())
+            mvViewModel.getMvidata(mbinding.searchView.query.toString())
+            Log.d("edixView", mbinding.searchView.query.toString())
 
         }
 
@@ -70,7 +74,11 @@ class SearchActivity : AppCompatActivity() {
                 override fun back(): Fragment {
                     return MvFragment()
                 }
-
+            })
+            it.add(object : FragmentInterface {
+                override fun back(): Fragment {
+                    return SingerFragment()
+                }
             })
         }
 
@@ -81,12 +89,13 @@ class SearchActivity : AppCompatActivity() {
             tab.text = when (position) {
                 0 -> "单曲"
                 1 -> "专辑"
-                else -> "歌手"
+                2 -> "歌手"
+                else -> "视频"
             }
         }.attach()
-        mbinding.tabLayout.getTabAt(2)?.select()
         mbinding.searchView.setOnQueryTextFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
+                //显示软键盘方便使用
                 val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.showSoftInput(v, InputMethodManager.SHOW_IMPLICIT)
             }

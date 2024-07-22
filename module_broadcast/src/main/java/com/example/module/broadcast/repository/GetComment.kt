@@ -50,4 +50,33 @@ object GetComment {
 
 
     }
+
+    fun getmore(id: Long, page: Int, _commentdata: MutableLiveData<List<Onecomment>>) {
+        val service = retrofit.create(MvService::class.java)
+        service.getMore(id,(page-1)*20).subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : io.reactivex.rxjava3.core.Observer<Comments> {
+                override fun onSubscribe(d: Disposable) {
+                    Log.d("getmore", "开始连接搜索")
+                }
+
+                override fun onError(e: Throwable) {
+                    e.printStackTrace();
+                    Log.e("getmore", "网络错误", e); }
+
+                override fun onComplete() {
+
+
+                }
+
+                override fun onNext(t: Comments) {
+                    Log.d("getmore", t.toString())
+                    val currentComments = _commentdata.value ?: emptyList()
+                    val updateComments=currentComments+t.comments
+                    _commentdata.postValue(updateComments)
+                }
+            })
+
+
+    }
 }
