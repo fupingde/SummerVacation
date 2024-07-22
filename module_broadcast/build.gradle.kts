@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id ("kotlin-kapt")
 }
 
 android {
@@ -38,6 +39,9 @@ android {
 }
 
 dependencies {
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
+    implementation(libs.androidx.swiperefreshlayout)
+    kapt ("com.github.bumptech.glide:compiler:4.12.0")
     implementation ("com.google.android.exoplayer:exoplayer:2.18.5")
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
     implementation ("com.airbnb.android:lottie:6.0.0")

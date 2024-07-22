@@ -24,6 +24,7 @@ class OtherFragment : Fragment() {
     val mvdataViewModel by lazy { ViewModelProvider(this)[MvdataViewModel::class.java] }
     val otherViewModel by lazy { ViewModelProvider(this)[OtherViewModel::class.java] }
     val exoPlayer by lazy { ExoPlayer.Builder(requireContext()).build() }
+    var commentid:Long=0
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -52,6 +53,8 @@ class OtherFragment : Fragment() {
                 if (mvorder != null) {
                     mvViewModel.getSongInfo(it[mvorder!!].id)
                     mvdataViewModel.getMvdata(it[mvorder!!].id)
+                    commentid=it[mvorder!!].id
+                    initClick()
                 }
             }
         })
@@ -115,5 +118,11 @@ class OtherFragment : Fragment() {
             return fragment
         }
     }
-
+    private fun initClick() {
+        mbinding.commentButton.setOnClickListener {
+            Log.d("comment","id"+commentid.toString())
+            val commentFragment=CommentFragment.newInstance(commentid)
+            commentFragment.show(childFragmentManager, "CommentFragment")
+        }
+    }
 }

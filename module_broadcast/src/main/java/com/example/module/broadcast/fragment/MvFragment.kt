@@ -2,6 +2,7 @@ package com.example.module.broadcast.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,9 +21,10 @@ import com.google.android.exoplayer2.video.VideoSize
 
 class MvFragment : Fragment() {
     val mvViewModel by lazy { ViewModelProvider(requireActivity())[MvViewModel::class.java] }
-    val  mvdataViewModel by lazy { ViewModelProvider(requireActivity())[MvdataViewModel::class.java] }
+    val mvdataViewModel by lazy { ViewModelProvider(requireActivity())[MvdataViewModel::class.java] }
     val mbinding by lazy { MvFragmentBinding.inflate(layoutInflater) }
     val exoPlayer by lazy { ExoPlayer.Builder(requireContext()).build() }
+    var commentid:Long=0
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,8 +36,12 @@ class MvFragment : Fragment() {
     @SuppressLint("SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mbinding.playerView.player = exoPlayer
+        initView()
 
+    }
+
+    private fun initView() {
+        mbinding.playerView.player = exoPlayer
         exoPlayer.addListener(object : Player.Listener {
             override fun onVideoSizeChanged(videoSize: VideoSize) {
                 super.onVideoSizeChanged(videoSize)
@@ -44,6 +50,11 @@ class MvFragment : Fragment() {
         })
         mvViewModel.songData.observe(viewLifecycleOwner, Observer { mvUrl ->
             mvUrl?.let {
+                commentid=it[0].id
+                initcommentClick()
+                Log.d("newid",commentid.toString())
+
+
                 val mediaItem = MediaItem.fromUri(it[0].url)
                 exoPlayer.setMediaItem(mediaItem)
                 exoPlayer.prepare()
@@ -52,16 +63,26 @@ class MvFragment : Fragment() {
 
 
         })
-        mvdataViewModel.mdata.observe(viewLifecycleOwner, Observer { mvdata->
+        mvdataViewModel.mdata.observe(viewLifecycleOwner, Observer { mvdata ->
             mvdata?.let {
-                mbinding.goodCount.text=mvdata[0].subCount.toString()
-                mbinding.shareCount.text=mvdata[0].shareCount.toString()
-                mbinding.commentCount.text=mvdata[0].commentCount.toString()
+                mbinding.goodCount.text = mvdata[0].subCount.toString()
+                mbinding.shareCount.text = mvdata[0].shareCount.toString()
+                mbinding.commentCount.text = mvdata[0].commentCount.toString()
 
             }
 
         })
 
+    }
+
+
+
+    private fun initcommentClick() {
+        mbinding.commentButton.setOnClickListener {
+            Log.d("comment","id"+commentid.toString())
+      val commentFragment=CommentFragment.newInstance(commentid)
+        commentFragment.show(childFragmentManager, "CommentFragment")
+}
     }
 
     override fun onPause() {
@@ -77,9 +98,11 @@ class MvFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         exoPlayer.release()
-   }
+    }
+
     private fun adjustPlayerViewSize() {
-        val playerViewLayoutParams = mbinding.playerView.layoutParams as ConstraintLayout.LayoutParams
+        val playerViewLayoutParams =
+            mbinding.playerView.layoutParams as ConstraintLayout.LayoutParams
         val heightRatio = 16 / 9f // 根据视频宽高比调整
         playerViewLayoutParams.width = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
         playerViewLayoutParams.height = ConstraintLayout.LayoutParams.WRAP_CONTENT

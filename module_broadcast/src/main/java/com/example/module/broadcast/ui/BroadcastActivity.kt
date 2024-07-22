@@ -3,6 +3,7 @@ package com.example.module.broadcast.ui
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
@@ -41,7 +42,11 @@ class BroadcastActivity : AppCompatActivity() {
 
     @SuppressLint("SuspiciousIndentation")
     private fun initView() {
-
+        //隐藏状态栏
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
         mbinding.viewPager.adapter = mvPagerAdapter
         mvViewModel.getSongInfo(10896407)
         mvdataViewModel.getMvdata(10896407)
