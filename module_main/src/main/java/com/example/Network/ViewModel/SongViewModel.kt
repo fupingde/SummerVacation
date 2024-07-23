@@ -24,4 +24,5 @@ class SongViewModel(application: Application) : AndroidViewModel(application) {
         _songArtist.value = artist
         _songPictureUrl.value = pictureUrl
     }
+
 }

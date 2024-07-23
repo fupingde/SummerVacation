@@ -5,8 +5,8 @@ plugins {
 }
 
 android {
-    buildFeatures{
-        viewBinding=true
+    buildFeatures {
+        viewBinding = true
     }
     namespace = "com.example.module.main"
     compileSdk = 34
@@ -37,11 +37,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-
 }
 
 dependencies {
-
     implementation(libs.volley)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -57,9 +55,7 @@ dependencies {
     implementation("io.reactivex.rxjava2:rxjava:2.2.21")
     implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
     implementation("com.github.bumptech.glide:glide:4.13.2")
-    implementation("com.github.bumptech.glide:compiler:4.13.2")
-    annotationProcessor ("com.github.bumptech.glide:compiler:4.13.2")
-    kapt("cn.therouter:apt:1.2.2")
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
-    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
+    kapt("com.github.bumptech.glide:compiler:4.13.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
 }

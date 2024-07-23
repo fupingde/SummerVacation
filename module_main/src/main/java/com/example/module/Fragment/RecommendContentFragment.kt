@@ -27,6 +27,20 @@ class RecommendContentFragment : Fragment() {
     private lateinit var recommendViewModel: RecommendViewModel
 
     private val handler = Handler(Looper.getMainLooper())
+    private val autoScrollRunnable = object : Runnable {
+        override fun run() {
+            val itemCount = binding.mainrv1.adapter?.itemCount ?: 0
+            if (itemCount > 0) {
+                val nextItem = (binding.mainrv1.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition() + 1
+                if (nextItem < itemCount) {
+                    binding.mainrv1.smoothScrollToPosition(nextItem)
+                } else {
+                    binding.mainrv1.smoothScrollToPosition(0)
+                }
+            }
+            handler.postDelayed(this, 6000)
+        }
+    }
 
     private val bannerAutoScrollRunnable = object : Runnable {
         override fun run() {
@@ -34,17 +48,6 @@ class RecommendContentFragment : Fragment() {
             if (itemCount > 0) {
                 val nextItem = binding.bannerViewPager.currentItem + 1
                 binding.bannerViewPager.currentItem = if (nextItem < itemCount) nextItem else 0
-            }
-            handler.postDelayed(this, 6000)
-        }
-    }
-
-    private val mainvpAutoScrollRunnable = object : Runnable {
-        override fun run() {
-            val itemCount = binding.mainvp.adapter?.itemCount ?: 0
-            if (itemCount > 0) {
-                val nextItem = binding.mainvp.currentItem + 1
-                binding.mainvp.currentItem = if (nextItem < itemCount) nextItem else 0
             }
             handler.postDelayed(this, 6000)
         }
@@ -74,6 +77,8 @@ class RecommendContentFragment : Fragment() {
         recommendViewModel.tuijianGedan.observe(viewLifecycleOwner, { data ->
             val adapter = Mainrv1Adapter(data, onItemClick)
             binding.mainrv1.adapter = adapter
+
+            handler.post(autoScrollRunnable)
         })
 
         recommendViewModel.remenGedan.observe(viewLifecycleOwner, { data ->
@@ -93,8 +98,6 @@ class RecommendContentFragment : Fragment() {
             val adapter = Mainvp4Adapter(newSongs.result)
             binding.mainvp.adapter = adapter
             binding.mainvp.setPageTransformer(DepthAndZoomPageTransformer())
-
-            handler.post(mainvpAutoScrollRunnable)
         })
 
         recommendViewModel.fetchTuijianGedan()
@@ -113,8 +116,8 @@ class RecommendContentFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        handler.removeCallbacks(autoScrollRunnable)
         handler.removeCallbacks(bannerAutoScrollRunnable)
-        handler.removeCallbacks(mainvpAutoScrollRunnable)
         _binding = null
     }
 }

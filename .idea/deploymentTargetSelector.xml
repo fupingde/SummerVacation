@@ -5,13 +5,10 @@
       <SelectionState runConfigName="module_main">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="Lgs_module_login">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="module_broadcast">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
       <SelectionState runConfigName="app">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="Lgs_moudule_drawerView">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
