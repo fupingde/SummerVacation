@@ -100,8 +100,7 @@ class MusicService : Service() {
     }
 
     fun change_isplaying(){
-        if (_isPlaying==false)_isPlaying=true
-        else _isPlaying=false
+        _isPlaying=!_isPlaying
     }
     private val updateRunnable: Runnable = object : Runnable {
         override fun run() {

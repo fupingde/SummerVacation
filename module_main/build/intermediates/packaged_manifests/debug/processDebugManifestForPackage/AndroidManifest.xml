@@ -28,6 +28,10 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/Theme.SummerVacation" >
+        <activity
+            android:name="com.example.module.SongNullActivity"
+            android:exported="false" />
+
         <service
             android:name="com.example.module.ui.services.MusicService"
             android:exported="true" />

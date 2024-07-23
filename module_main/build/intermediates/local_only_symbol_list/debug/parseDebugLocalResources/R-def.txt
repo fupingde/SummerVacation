@@ -19,7 +19,7 @@ drawable background5
 drawable dynamic
 drawable ic_launcher_background
 drawable ic_launcher_foreground
-drawable menu
+drawable img
 drawable my
 drawable pause
 drawable picture_background
@@ -33,6 +33,7 @@ id bottom_navigation
 id cardView
 id collapsingToolbarLayout
 id currentTime
+id dynamic_fab
 id fragment_container
 id imageView
 id mainrv1
@@ -68,6 +69,8 @@ id view_pager
 layout activity_main
 layout activity_music_play
 layout activity_song_list
+layout activity_song_null
+layout custom_navigation_item
 layout fragment_dynamic
 layout fragment_my
 layout fragment_recommend
@@ -85,5 +88,6 @@ string app_name
 style AppTheme
 style Base.Theme.SummerVacation
 style CollapsedAppBar
+style DynamicItemStyle
 style Theme.SummerVacation
 xml network_security_config

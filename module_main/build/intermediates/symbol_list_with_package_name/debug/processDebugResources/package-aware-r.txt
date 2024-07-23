@@ -3035,6 +3035,7 @@ drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
 drawable ic_search_black_24
+drawable img
 drawable indeterminate_static
 drawable m3_avd_hide_password
 drawable m3_avd_show_password
@@ -3057,7 +3058,6 @@ drawable material_ic_keyboard_arrow_previous_black_24dp
 drawable material_ic_keyboard_arrow_right_black_24dp
 drawable material_ic_menu_arrow_down_black_24dp
 drawable material_ic_menu_arrow_up_black_24dp
-drawable menu
 drawable mtrl_bottomsheet_drag_handle
 drawable mtrl_checkbox_button
 drawable mtrl_checkbox_button_checked_unchecked
@@ -3291,6 +3291,7 @@ id dragRight
 id dragStart
 id dragUp
 id dropdown_menu
+id dynamic_fab
 id easeIn
 id easeInOut
 id easeOut
@@ -3775,7 +3776,9 @@ layout abc_tooltip
 layout activity_main
 layout activity_music_play
 layout activity_song_list
+layout activity_song_null
 layout custom_dialog
+layout custom_navigation_item
 layout design_bottom_navigation_item
 layout design_bottom_sheet_dialog
 layout design_layout_snackbar
@@ -4328,6 +4331,7 @@ style CardView
 style CardView_Dark
 style CardView_Light
 style CollapsedAppBar
+style DynamicItemStyle
 style MaterialAlertDialog_Material3
 style MaterialAlertDialog_Material3_Animation
 style MaterialAlertDialog_Material3_Body_Text

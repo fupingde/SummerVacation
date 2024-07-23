@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.Network.Bean.Song2
@@ -14,17 +15,24 @@ import com.example.module.main.R
 import com.example.module.main.databinding.ActivitySongListBinding
 import com.example.module.ui.adapters.SongsAdapter
 import com.example.module.ui.viewmodel.SongListViewModel
+import com.example.module.ui.viewmodel.SongViewModel
 import com.google.android.material.appbar.AppBarLayout
 
 class SongListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySongListBinding
     private val viewModel: SongListViewModel by viewModels()
+    private lateinit var songViewModel: SongViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySongListBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        songViewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+        ).get(SongViewModel::class.java)
 
         val playlistId = intent.getLongExtra("playlistId", -1L)
         Log.d("SongListActivity", "Received playlistId: $playlistId")
@@ -95,9 +103,12 @@ class SongListActivity : AppCompatActivity() {
         val intent = Intent(this, MusicPlayActivity::class.java).apply {
             putExtra("SONG_ID", song.id)
             putExtra("SONG_NAME", song.name)
-            putExtra("SONG_ARTIST", song.ar.find { it.equals("name") })
-            putExtra("SONG_PICTUREURL",song.al.picUrl)
+            putExtra("SONG_ARTIST", song.ar.firstOrNull()?.name)
+            putExtra("SONG_PICTUREURL", song.al.picUrl)
         }
         startActivity(intent)
+
+        // 更新 SongViewModel 数据
+        songViewModel.updateSongData(song.id, song.name, song.ar.firstOrNull()?.name ?: "", song.al.picUrl)
     }
 }

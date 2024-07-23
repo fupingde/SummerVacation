@@ -12,6 +12,7 @@ import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.example.module.main.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
@@ -24,12 +25,17 @@ public final class ActivityMainBinding implements ViewBinding {
   public final BottomNavigationView bottomNavigation;
 
   @NonNull
+  public final FloatingActionButton dynamicFab;
+
+  @NonNull
   public final FrameLayout fragmentContainer;
 
   private ActivityMainBinding(@NonNull ConstraintLayout rootView,
-      @NonNull BottomNavigationView bottomNavigation, @NonNull FrameLayout fragmentContainer) {
+      @NonNull BottomNavigationView bottomNavigation, @NonNull FloatingActionButton dynamicFab,
+      @NonNull FrameLayout fragmentContainer) {
     this.rootView = rootView;
     this.bottomNavigation = bottomNavigation;
+    this.dynamicFab = dynamicFab;
     this.fragmentContainer = fragmentContainer;
   }
 
@@ -66,13 +72,19 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.dynamic_fab;
+      FloatingActionButton dynamicFab = ViewBindings.findChildViewById(rootView, id);
+      if (dynamicFab == null) {
+        break missingId;
+      }
+
       id = R.id.fragment_container;
       FrameLayout fragmentContainer = ViewBindings.findChildViewById(rootView, id);
       if (fragmentContainer == null) {
         break missingId;
       }
 
-      return new ActivityMainBinding((ConstraintLayout) rootView, bottomNavigation,
+      return new ActivityMainBinding((ConstraintLayout) rootView, bottomNavigation, dynamicFab,
           fragmentContainer);
     }
     String missingId = rootView.getResources().getResourceName(id);

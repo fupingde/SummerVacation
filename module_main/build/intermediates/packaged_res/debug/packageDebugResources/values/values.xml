@@ -26,5 +26,10 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
+    <style name="DynamicItemStyle">
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:icon">@drawable/dynamic</item>
+        <item name="android:title">动态</item>
+    </style>
     <style name="Theme.SummerVacation" parent="Base.Theme.SummerVacation"/>
 </resources>

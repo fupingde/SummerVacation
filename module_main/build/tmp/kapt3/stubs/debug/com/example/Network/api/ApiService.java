@@ -13,7 +13,7 @@ public abstract interface ApiService {
     public abstract io.reactivex.Observable<com.example.Network.Bean.ReMenGeDanBean> getRemenGedan(@retrofit2.http.Query(value = "limit")
     int limit);
     
-    @retrofit2.http.GET(value = "/dj/banner")
+    @retrofit2.http.GET(value = "/banner?type=1")
     @org.jetbrains.annotations.NotNull
     public abstract io.reactivex.Observable<com.example.Network.Bean.Banner> getBanner();
     
