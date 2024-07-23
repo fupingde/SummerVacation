@@ -1,0 +1,38 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.example.lib.wangyiyun.test.lib_wangyiyun-mergeDebugAndroidTestResources-29:/values-v18/values-v18.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\86199\\.gradle\\caches\\transforms-4\\fefcb1ebbb1bd5491c60ae392c6d2484\\transformed\\core-1.5.0\\res\\values-v18\\values.xml",
+                    "from": {
+                        "startLines": "4,12",
+                        "startColumns": "0,0",
+                        "startOffsets": "180,596",
+                        "endLines": "11,19",
+                        "endColumns": "8,8",
+                        "endOffsets": "595,1009"
+                    },
+                    "to": {
+                        "startLines": "3,11",
+                        "startColumns": "4,4",
+                        "startOffsets": "104,524",
+                        "endLines": "10,18",
+                        "endColumns": "8,8",
+                        "endOffsets": "519,937"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\86199\\.gradle\\caches\\transforms-4\\e453a1a55d7719f1bc0dc29f5d834694\\transformed\\appcompat-1.6.1\\res\\values-v18\\values-v18.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "48",
+                        "endOffsets": "99"
+                    }
+                }
+            ]
+        }
+    ]
+}

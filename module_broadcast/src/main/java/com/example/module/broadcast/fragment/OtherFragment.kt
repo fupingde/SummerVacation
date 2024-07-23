@@ -1,5 +1,6 @@
 package com.example.module.broadcast.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -24,6 +25,7 @@ class OtherFragment : Fragment() {
     val mvdataViewModel by lazy { ViewModelProvider(this)[MvdataViewModel::class.java] }
     val otherViewModel by lazy { ViewModelProvider(this)[OtherViewModel::class.java] }
     val exoPlayer by lazy { ExoPlayer.Builder(requireContext()).build() }
+    lateinit var url:String
     var commentid:Long=0
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,6 +44,7 @@ class OtherFragment : Fragment() {
     private fun initView() {
         val mvid = arguments?.getLong(ARG_MV_ID)
         var mvorder = arguments?.getInt(ARG_MV_ORDER)
+
         mbinding.playerView.player = exoPlayer
         Log.d("mvid","传入的id和order"+mvid+","+mvorder)
         if (mvid != null) {
@@ -51,9 +54,9 @@ class OtherFragment : Fragment() {
         otherViewModel.OtehrMvid.observe(viewLifecycleOwner, Observer { id->
             id?.let {
                 if (mvorder != null) {
-                    mvViewModel.getSongInfo(it[mvorder!!].id)
-                    mvdataViewModel.getMvdata(it[mvorder!!].id)
-                    commentid=it[mvorder!!].id
+                    mvViewModel.getSongInfo(it[mvorder].id)
+                    mvdataViewModel.getMvdata(it[mvorder].id)
+                    commentid=it[mvorder].id
                     initClick()
                 }
             }
@@ -63,8 +66,9 @@ class OtherFragment : Fragment() {
         mvViewModel.songData.observe(viewLifecycleOwner, Observer { mvurl->
                 mvurl?.let {
                     if (mvorder!=null) {
-                        mvorder= mvorder!!
                         val mediaItem = MediaItem.fromUri(it[0].url)
+                        url=it[0].url
+                        initShareClick()
                         exoPlayer.setMediaItem(mediaItem)
                         exoPlayer.prepare()
                         exoPlayer.playWhenReady = true
@@ -77,7 +81,6 @@ class OtherFragment : Fragment() {
         mvdataViewModel.mdata.observe(viewLifecycleOwner, Observer { mvdata->
             mvdata?.let {
                 if (mvorder!=null) {
-                    mvorder=mvorder!!+1
                     mbinding.goodCount.text = mvdata[0].subCount.toString()
                     mbinding.shareCount.text = mvdata[0].shareCount.toString()
                     mbinding.commentCount.text = mvdata[0].commentCount.toString()
@@ -125,4 +128,21 @@ class OtherFragment : Fragment() {
             commentFragment.show(childFragmentManager, "CommentFragment")
         }
     }
+    private fun initShareClick() {
+        mbinding.shareButton.setOnClickListener {
+            mvdataViewModel.mdata.observe(viewLifecycleOwner, Observer { date ->
+                date?.let {
+                    val mvnamead = it[0].name
+                    val shareIntent = Intent().apply {
+                        val title = "$mvnamead\n $url"
+                        action = Intent.ACTION_SEND
+                        putExtra(Intent.EXTRA_TEXT, title)
+                        type="text/plain"}
+                    startActivity(Intent.createChooser(shareIntent,"选择要分享的应用"))
+                }
+            })
+
+        }
+    }
+
 }

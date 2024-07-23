@@ -1,9 +1,8 @@
-import org.jetbrains.kotlin.storage.CacheResetOnProcessCanceled.enabled
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-
+    id ("kotlin-android")
+    id ("kotlin-kapt")
 }
 
 android {
@@ -38,10 +37,13 @@ android {
     buildFeatures{
         viewBinding=true
     }
+    kapt {arguments { arg("AROUTER_MODULE_NAME", project.name) }}
 }
 
 dependencies {
 
+    implementation ("com.alibaba:arouter-api:1.5.2")
+    kapt("com.alibaba:arouter-compiler:1.5.2")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -56,5 +58,5 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
 
-
+    implementation(project(":module_broadcast"))
 }
