@@ -22,7 +22,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "SummerVacation"
 include(":app")
-include(":lib_wangyiyun")
 include(":module_main")
 include(":module_main:api_base")
 include(":Lgs_moudule_drawerView")
