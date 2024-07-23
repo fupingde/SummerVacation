@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="DynamicItemStyle">
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:icon">@drawable/dynamic</item>
+        <item name="android:title">动态</item>
+    </style>
+</resources>

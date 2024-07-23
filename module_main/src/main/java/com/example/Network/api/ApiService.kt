@@ -16,7 +16,7 @@ interface ApiService {
     fun getTuijianGedan(@Query("limit") limit: Int): Observable<TuijianGedanBean>
     @GET("/top/playlist")
     fun getRemenGedan(@Query("limit") limit: Int): Observable<ReMenGeDanBean>
-    @GET("/dj/banner")
+    @GET("/banner?type=1")
     fun getBanner(): Observable<Banner>
     @GET("/personalized/newsong")
     fun getnewSongs(): Observable<NewSongs>

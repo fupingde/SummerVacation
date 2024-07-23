@@ -7,7 +7,6 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/songTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
@@ -16,42 +15,37 @@
         android:layout_marginBottom="8dp"/>
 
     <TextView
-        android:id="@+id/songArtist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="15sp"
         android:layout_gravity="center_horizontal"/>
 
     <com.example.module.ui.transformers.CircularImageView
-        android:id="@+id/albumCover"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_gravity="center_horizontal"
         android:scaleType="centerCrop"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/img"/>
 
 
     <TextView
-        android:id="@+id/currentTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="14sp"
         android:layout_gravity="start"/>
 
     <SeekBar
-        android:id="@+id/seekBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <TextView
-        android:id="@+id/totalTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="14sp"
         android:layout_gravity="end"/>
 
     <ImageButton
-        android:id="@+id/playPauseButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

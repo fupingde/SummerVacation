@@ -82,7 +82,7 @@ class RecommendContentFragment : Fragment() {
         })
 
         recommendViewModel.banner.observe(viewLifecycleOwner, { bannerData ->
-            val bannerAdapter = BannerAdapter(bannerData.data)
+            val bannerAdapter = BannerAdapter(bannerData.banners)
             binding.bannerViewPager.adapter = bannerAdapter
             binding.bannerViewPager.setPageTransformer(DepthAndZoomPageTransformer())
 

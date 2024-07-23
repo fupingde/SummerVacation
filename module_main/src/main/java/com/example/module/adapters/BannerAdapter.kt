@@ -1,23 +1,34 @@
 package com.example.module.ui.adapters
 
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.example.Network.Bean.BannerX
 import com.example.module.main.databinding.ItemBannerBinding
-import com.example.Network.Bean.Data
 
-class BannerAdapter(private val bannerData: List<Data>) : RecyclerView.Adapter<BannerAdapter.BannerViewHolder>() {
+class BannerAdapter(private val bannerData: List<BannerX>) : RecyclerView.Adapter<BannerAdapter.BannerViewHolder>() {
 
     inner class BannerViewHolder(private val binding: ItemBannerBinding) : RecyclerView.ViewHolder(binding.root) {
         val roundRadius = RequestOptions().transform(RoundedCorners(60)) // 圆角
-        fun bind(banner: Data) {
+
+        fun bind(banner: BannerX) {
             Glide.with(binding.imageView.context)
                 .load(banner.pic)
                 .apply(roundRadius)
                 .into(binding.imageView)
+
+            // 设置点击事件，打开URL
+            binding.root.setOnClickListener {
+                val intent = Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse(banner.url)
+                }
+                binding.root.context.startActivity(intent)
+            }
         }
     }
 

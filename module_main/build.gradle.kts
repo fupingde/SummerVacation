@@ -60,7 +60,6 @@ dependencies {
     implementation("com.github.bumptech.glide:compiler:4.13.2")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.13.2")
     kapt("cn.therouter:apt:1.2.2")
-    implementation("cn.therouter:router:1.2.1")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
 }
