@@ -11,6 +11,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.example.lgs_module.bean.Regitser
 import com.example.lgs_module.bean.Send
 import com.example.lgs_module.bean.Visitor
@@ -23,8 +25,9 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-
+@Route(path = "/login/LoginActivity")
 class LoginActivity : AppCompatActivity() {
+
     val mbinding by lazy {
         ActivityLoginBinding.inflate(layoutInflater)
     }
@@ -42,6 +45,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(mbinding.root)
+//        ARouter.getInstance().inject(this)
         initclick()
 
 
@@ -62,13 +66,7 @@ class LoginActivity : AppCompatActivity() {
 
         resend.setOnClickListener {
             sendMessage()
-            if (date) {
-                Toast.makeText(this@LoginActivity, "已发送", Toast.LENGTH_SHORT).show()
-                startCountDown();
-            } else {
-                Toast.makeText(this@LoginActivity, "发送失败", Toast.LENGTH_SHORT).show()
 
-            }
 
         }
 
@@ -132,7 +130,13 @@ class LoginActivity : AppCompatActivity() {
 
                 override fun onComplete() {
                     Log.d("fas", "连接完成")
+                    if (date) {
+                        Toast.makeText(this@LoginActivity, "已发送", Toast.LENGTH_SHORT).show()
+                        startCountDown();
+                    } else {
+                        Toast.makeText(this@LoginActivity, "发送失败", Toast.LENGTH_SHORT).show()
 
+                    }
 
                 }
 
@@ -219,8 +223,10 @@ class LoginActivity : AppCompatActivity() {
 
                 override fun onComplete() {
                     if (id.toInt() != 0) {
-                        Toast.makeText(this@LoginActivity, "登录成功", Toast.LENGTH_SHORT).show()
 
+                        Toast.makeText(this@LoginActivity, "登录成功", Toast.LENGTH_SHORT).show()
+                        ARouter.getInstance().build("/search/SearchActivity")
+                            .navigation()
                     } else {
                         Toast.makeText(this@LoginActivity, "登录失败，请重试", Toast.LENGTH_SHORT)
                             .show()

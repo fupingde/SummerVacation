@@ -10,6 +10,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.alibaba.android.arouter.facade.annotation.Autowired
+import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.example.module.search.adpter.VpAdapter
 import com.example.module.search.databinding.ActivitySearchBinding
 import com.example.module.search.fragment.MvFragment
@@ -21,8 +24,10 @@ import com.example.module.search.viewmodel.AlbumViewModel
 import com.example.module.search.viewmodel.MvViewModel
 import com.example.module.search.viewmodel.SingerViewModel
 import com.google.android.material.tabs.TabLayoutMediator
-
+@Route(path = "/search/SearchActivity")
 class SearchActivity : AppCompatActivity() {
+
+
     val mbinding by lazy {
         ActivitySearchBinding.inflate(layoutInflater)
     }
@@ -35,6 +40,8 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(mbinding.root)
+        ARouter.getInstance().inject(this)
+
         initView()
         initClick()
     }

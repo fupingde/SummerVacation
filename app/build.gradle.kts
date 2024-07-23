@@ -59,4 +59,6 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
 
     implementation(project(":module_broadcast"))
+    implementation(project(":module_search"))
+    implementation(project(":Lgs_module_login"))
 }

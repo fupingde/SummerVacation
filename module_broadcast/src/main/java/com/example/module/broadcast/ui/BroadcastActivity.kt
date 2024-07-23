@@ -73,7 +73,7 @@ class BroadcastActivity : AppCompatActivity() {
 
         })
         mbinding.buttonBack.setOnClickListener {
-
+//            ARouter.getInstance().build("/search/SearchActivity").navigation()
         }
 
 
