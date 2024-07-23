@@ -66,13 +66,7 @@ class LoginActivity : AppCompatActivity() {
 
         resend.setOnClickListener {
             sendMessage()
-            if (date) {
-                Toast.makeText(this@LoginActivity, "已发送", Toast.LENGTH_SHORT).show()
-                startCountDown();
-            } else {
-                Toast.makeText(this@LoginActivity, "发送失败", Toast.LENGTH_SHORT).show()
 
-            }
 
         }
 
@@ -136,7 +130,13 @@ class LoginActivity : AppCompatActivity() {
 
                 override fun onComplete() {
                     Log.d("fas", "连接完成")
+                    if (date) {
+                        Toast.makeText(this@LoginActivity, "已发送", Toast.LENGTH_SHORT).show()
+                        startCountDown();
+                    } else {
+                        Toast.makeText(this@LoginActivity, "发送失败", Toast.LENGTH_SHORT).show()
 
+                    }
 
                 }
 
@@ -223,8 +223,10 @@ class LoginActivity : AppCompatActivity() {
 
                 override fun onComplete() {
                     if (id.toInt() != 0) {
-                        Toast.makeText(this@LoginActivity, "登录成功", Toast.LENGTH_SHORT).show()
 
+                        Toast.makeText(this@LoginActivity, "登录成功", Toast.LENGTH_SHORT).show()
+                        ARouter.getInstance().build("/search/SearchActivity")
+                            .navigation()
                     } else {
                         Toast.makeText(this@LoginActivity, "登录失败，请重试", Toast.LENGTH_SHORT)
                             .show()
