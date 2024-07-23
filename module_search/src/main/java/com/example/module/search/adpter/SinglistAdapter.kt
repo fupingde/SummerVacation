@@ -60,5 +60,8 @@ class SinglistAdapter() :ListAdapter<Album1,SinglistAdapter.InnerHolder>(ItemDif
             .load(item.picUrl).transform(CenterCrop(),RoundedCorners(30))
             .into(holder.image)
       //  Log.d("SinglistAdapter", "onBindViewHolder: " + item.name + " - " + item.artist.name);
+        holder.itemView.setOnClickListener {
+
+        }
     }
 }
