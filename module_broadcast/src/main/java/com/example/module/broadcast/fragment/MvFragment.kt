@@ -24,9 +24,9 @@ class MvFragment : Fragment() {
     val mvViewModel by lazy { ViewModelProvider(requireActivity())[MvViewModel::class.java] }
     val mvdataViewModel by lazy { ViewModelProvider(requireActivity())[MvdataViewModel::class.java] }
     val mbinding by lazy { MvFragmentBinding.inflate(layoutInflater) }
-    val exoPlayer by lazy { ExoPlayer.Builder(requireContext()).build() }
     var commentid: Long = 0
     lateinit var url: String
+    lateinit var exoPlayer: ExoPlayer
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,38 +44,43 @@ class MvFragment : Fragment() {
 
     private fun initView() {
         initcommentClick()
-        mbinding.playerView.player = exoPlayer
+        exoPlayer = ExoPlayer.Builder(requireContext()).build()
         exoPlayer.addListener(object : Player.Listener {
             override fun onVideoSizeChanged(videoSize: VideoSize) {
                 super.onVideoSizeChanged(videoSize)
                 adjustPlayerViewSize()
             }
         })
+        mbinding.playerView.player = exoPlayer
+
+
+
         mvViewModel.songData.observe(viewLifecycleOwner, Observer { mvUrl ->
             mvUrl?.let {
-
-                Log.d("newid", commentid.toString())
-                url = it[0].url
+                val mediaItemUrl = it[0].url
+                url=it[0].url
                 initshareClick()
-                val mediaItem = MediaItem.fromUri(it[0].url)
+                if (mediaItemUrl.isNullOrEmpty()) {
+                    Log.e("MvFragment", "Invalid media item URL")
+                    return@Observer
+                }
+                Log.d("MvFragment", "Setting media item URL: $mediaItemUrl")
+                val mediaItem = MediaItem.fromUri(mediaItemUrl)
                 exoPlayer.setMediaItem(mediaItem)
                 exoPlayer.prepare()
                 exoPlayer.playWhenReady = true
             }
-
-
         })
+
         mvdataViewModel.mdata.observe(viewLifecycleOwner, Observer { mvdata ->
             mvdata?.let {
                 mbinding.goodCount.text = mvdata[0].subCount.toString()
                 mbinding.shareCount.text = mvdata[0].shareCount.toString()
                 mbinding.commentCount.text = mvdata[0].commentCount.toString()
-
             }
-
         })
-
     }
+
 
     private fun initshareClick() {
         mbinding.shareButton.setOnClickListener {

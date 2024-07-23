@@ -5,10 +5,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.alibaba.android.arouter.facade.annotation.Autowired
+import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.example.module.broadcast.ViewModel.MvViewModel
 import com.example.module.broadcast.ViewModel.MvdataViewModel
 import com.example.module.broadcast.ViewModel.OtherViewModel
@@ -17,7 +18,11 @@ import com.example.module.broadcast.databinding.ActivityBroadcastBinding
 import com.example.module.broadcast.fragment.MvFragment
 import com.example.module.broadcast.fragment.OtherFragment
 
+@Route(path = "/broadcast/BroadcastActivity")
+
 class BroadcastActivity : AppCompatActivity() {
+    @Autowired(name = "mvid")
+    @JvmField var mvid:Long=0
     val mvViewModel by lazy {
         ViewModelProvider(this)[MvViewModel::class.java]
     }
@@ -35,7 +40,7 @@ class BroadcastActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(mbinding.root)
-
+        ARouter.getInstance().inject(this)
         initView()
     }
 
@@ -48,9 +53,10 @@ class BroadcastActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
         mbinding.viewPager.adapter = mvPagerAdapter
-        mvViewModel.getSongInfo(10896407)
-        mvdataViewModel.getMvdata(10896407)
-        otheridViewModel.getSongInfo(10896407)
+        Log.d("mvids",mvid.toString())
+        mvViewModel.getSongInfo(mvid)
+        mvdataViewModel.getMvdata(mvid)
+        otheridViewModel.getSongInfo(mvid)
         addFragments()
         otheridViewModel.OtehrMvid.observe(this, Observer { id ->
             id?.let {
@@ -62,7 +68,6 @@ class BroadcastActivity : AppCompatActivity() {
                     order += 1
                 }
                 mvPagerAdapter.updateFragemt()
-
             }
 
 

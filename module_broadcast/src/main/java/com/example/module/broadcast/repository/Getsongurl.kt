@@ -36,7 +36,7 @@ object Getsongurl {
 
                 override fun onError(e: Throwable) {
                     e.printStackTrace();
-                    Log.e("NetworkError", "网络错误", e); // 使用日志记录错误
+                    Log.e("GetsongurlNetworkError", "网络错误", e); // 使用日志记录错误
                 }
 
                 override fun onComplete() {
