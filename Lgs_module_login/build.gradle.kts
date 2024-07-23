@@ -1,6 +1,8 @@
 plugins {
-    alias(libs.plugins.android.application)
+ //  alias(libs.plugins.android.application)
+   id("com.android.library")
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-kapt")
 }
 
 android {
@@ -8,11 +10,11 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.lgs_module.login"
+      //  applicationId = "com.example.lgs_module.login"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+     //   versionCode = 1
+     //   versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -37,9 +39,11 @@ android {
         viewBinding =true
     }
 }
+kapt { arguments { arg("AROUTER_MODULE_NAME", project.name) } }
 
 dependencies {
-
+    implementation("com.alibaba:arouter-api:1.5.2")
+    kapt("com.alibaba:arouter-compiler:1.5.2")
         // RxJava
         implementation ("io.reactivex.rxjava3:rxjava:3.1.6")
         implementation ("io.reactivex.rxjava3:rxandroid:3.0.2")
