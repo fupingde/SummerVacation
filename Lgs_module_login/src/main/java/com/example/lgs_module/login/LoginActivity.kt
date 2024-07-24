@@ -98,7 +98,8 @@ class LoginActivity : AppCompatActivity() {
                         if (userid.toInt() != 0) {
                             Toast.makeText(this@LoginActivity, "登录成功", Toast.LENGTH_SHORT)
                                 .show()
-
+                            ARouter.getInstance().build("/search/SearchActivity")
+                                .navigation()
                         }
                         Log.d("fas", "完成登录")
                     }
