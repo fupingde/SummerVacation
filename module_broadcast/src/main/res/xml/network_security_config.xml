@@ -3,9 +3,11 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">82.156.18.110</domain>
         <domain includeSubdomains="true">p4.music.126.net</domain>
+        <domain includeSubdomains="true">iadmusicmat.music.126.net </domain>
         <domain includeSubdomains="true">p3.music.126.net</domain>
         <domain includeSubdomains="true">p1.music.126.net</domain>
         <domain includeSubdomains="true">p2.music.126.net</domain>
         <domain includeSubdomains="true">vod.126.net</domain>
+
     </domain-config>
 </network-security-config>

@@ -98,7 +98,7 @@ class LoginActivity : AppCompatActivity() {
                         if (userid.toInt() != 0) {
                             Toast.makeText(this@LoginActivity, "登录成功", Toast.LENGTH_SHORT)
                                 .show()
-                            ARouter.getInstance().build("/search/SearchActivity")
+                            ARouter.getInstance().build("/main/MainActivity")
                                 .navigation()
                         }
                         Log.d("fas", "完成登录")
@@ -226,7 +226,7 @@ class LoginActivity : AppCompatActivity() {
                     if (id.toInt() != 0) {
 
                         Toast.makeText(this@LoginActivity, "登录成功", Toast.LENGTH_SHORT).show()
-                        ARouter.getInstance().build("/search/SearchActivity")
+                        ARouter.getInstance().build("/main/MainActivity")
                             .navigation()
                     } else {
                         Toast.makeText(this@LoginActivity, "登录失败，请重试", Toast.LENGTH_SHORT)

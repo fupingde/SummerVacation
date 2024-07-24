@@ -24,7 +24,7 @@ class SongAdapter() : ListAdapter<Song, SongAdapter.ViewHolder>(ItemDiffCallback
     @SuppressLint("SuspiciousIndentation")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_song, parent, false)
+            .inflate(R.layout.item_songslic, parent, false)
       val viewHolder=ViewHolder(view)
         viewHolder.itemView.setOnClickListener {
             Toast.makeText(parent.context,"不好意思，多模块还没做",Toast.LENGTH_SHORT).show()

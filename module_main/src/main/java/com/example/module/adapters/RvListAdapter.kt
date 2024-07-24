@@ -13,17 +13,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.example.Network.Bean.Playlist
+import com.example.Network.Bean.Playlistr
 import com.example.module.main.R
 import com.example.module.ui.activities.SongListActivity
 
-class RvListAdapter():ListAdapter<Playlist,RvListAdapter.InnerHolder> (ItemDiffcallback()){
-    class ItemDiffcallback : DiffUtil.ItemCallback<Playlist>() {
-        override fun areItemsTheSame(oldItem: Playlist, newItem: Playlist): Boolean {
+class RvListAdapter():ListAdapter<Playlistr,RvListAdapter.InnerHolder> (ItemDiffcallback()){
+    class ItemDiffcallback : DiffUtil.ItemCallback<Playlistr>() {
+        override fun areItemsTheSame(oldItem: Playlistr, newItem: Playlistr): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Playlist, newItem: Playlist): Boolean {
+        override fun areContentsTheSame(oldItem: Playlistr, newItem: Playlistr): Boolean {
             return oldItem == newItem
 
         }

@@ -2,10 +2,10 @@ package com.example.Network.Bean
 
 data class ListsData(
     val code: Int,
-    val list: List<Playlist>
+    val list: List<Playlistr>
 )
 
-data class Playlist(
+data class Playlistr(
     val updateFrequency: String,
     val backgroundCoverId: Long,
     val tsSongCount: Int,

@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.Network.Bean.ListsData
 import com.example.Network.Bean.Playlist
+import com.example.Network.Bean.Playlistr
 import com.example.Network.api.Retrofit
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -13,8 +14,8 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 class DynamicViewModel : ViewModel() {
-    private val _songData: MutableLiveData<List<Playlist>> = MutableLiveData()
-    val songData: LiveData<List<Playlist>>
+    private val _songData: MutableLiveData<List<Playlistr>> = MutableLiveData()
+    val songData: LiveData<List<Playlistr>>
         get() = _songData
 
 
