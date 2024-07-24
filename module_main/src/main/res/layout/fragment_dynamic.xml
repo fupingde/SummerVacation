@@ -7,11 +7,18 @@
     android:layout_marginLeft="7dp"
     android:layout_marginRight="7dp"
     >
+<!--<androidx.recyclerview.widget.RecyclerView-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"-->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/listrefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/rv_listid"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-
-
+    android:layout_height="match_parent"/>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <!-- 动态内容 -->
 
