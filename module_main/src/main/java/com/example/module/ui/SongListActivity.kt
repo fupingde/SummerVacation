@@ -97,7 +97,5 @@ class SongListActivity : AppCompatActivity() {
             putExtra("SONG_PICTUREURL", song.al.picUrl)
         }
         startActivity(intent)
-
-
     }
 }

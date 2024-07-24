@@ -26,7 +26,7 @@ class SongListViewModel : ViewModel() {
     }
 
     private fun fetchSongs(playlistId: Long) {
-        val disposable = Retrofit.apiService.getSongs(playlistId, 50, 0)
+        val disposable = Retrofit.apiService.getSongs(playlistId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->
