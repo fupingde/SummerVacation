@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.alibaba.android.arouter.launcher.ARouter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -45,5 +46,9 @@ class SingerAdapter(val data: List<Artist>) : RecyclerView.Adapter<SingerAdapter
              CenterCrop(),
              RoundedCorners(30)
          ).into(holder.singImage)
+        holder.itemView.setOnClickListener {
+            ARouter.getInstance().build("/singer/SingerdetailActivity").withLong("singerid",item.artistId)
+                .navigation()
+        }
     }
 }

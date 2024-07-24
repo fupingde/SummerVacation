@@ -44,10 +44,10 @@ class MvAdapter() : ListAdapter<Mv, MvAdapter.InnerHolder>(ItemDiffcallback()) {
         holder.from.text = item.alias?.get(0)
         Glide.with(holder.itemView.context)
             .load(item.cover).into(holder.mvimage)
-holder.itemView.setOnClickListener {
-    ARouter.getInstance().build("/broadcast/BroadcastActivity").withLong("mvid",item.id)
-        .navigation()
-}
+        holder.itemView.setOnClickListener {
+            ARouter.getInstance().build("/broadcast/BroadcastActivity").withLong("mvid", item.id)
+                .navigation()
+        }
     }
 
 

@@ -38,7 +38,9 @@ class SongAdapter() : ListAdapter<Song, SongAdapter.ViewHolder>(ItemDiffCallback
         holder.name.text = item.name
         holder.songlist.text=item.album.name
         holder.singer.text=item.artists[0].name
+        holder.itemView.setOnClickListener {
 
+        }
     }
     class ItemDiffCallback : DiffUtil.ItemCallback<Song>() {
         override fun areItemsTheSame(oldItem: Song, newItem: Song): Boolean {
