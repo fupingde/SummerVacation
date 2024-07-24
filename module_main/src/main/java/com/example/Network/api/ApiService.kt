@@ -2,6 +2,7 @@ package com.example.Network.api
 
 
 import com.example.Network.Bean.Banner
+import com.example.Network.Bean.ListsData
 import com.example.Network.Bean.NewSongs
 import com.example.Network.Bean.ReMenGeDanBean
 import com.example.Network.Bean.Songs
@@ -30,4 +31,9 @@ interface ApiService {
     fun geturl(
         @Query("id") id: Long
     ):Observable<songsurl>
+
+    @GET("/toplist")
+    fun gettoplist():Observable<ListsData>
+
+
     }

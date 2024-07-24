@@ -28,10 +28,9 @@ class RecommendFragment : Fragment() {
 
         val adapter = ViewPagerAdapter(requireActivity())
         viewPager.adapter = adapter
-
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = when (position) {
-                0 -> "动态"
+                0 -> "推荐"
                 1 -> "发现"
                 else -> null
             }

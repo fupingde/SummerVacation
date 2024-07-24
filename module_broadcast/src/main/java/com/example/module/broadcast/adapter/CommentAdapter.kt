@@ -34,8 +34,9 @@ class CommentAdapter() : ListAdapter<Onecomment, CommentAdapter.InnerHolder>(Ite
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InnerHolder {
-        val view=LayoutInflater.from(parent.context).inflate(R.layout.item_comments,parent,false)
-        val viewHolder=InnerHolder(view)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_comments, parent, false)
+        val viewHolder = InnerHolder(view)
         viewHolder.itemView.setOnClickListener {
 
         }
@@ -43,11 +44,11 @@ class CommentAdapter() : ListAdapter<Onecomment, CommentAdapter.InnerHolder>(Ite
     }
 
     override fun onBindViewHolder(holder: InnerHolder, position: Int) {
-  val item=getItem(position)
-        holder.commentText.text=item.content
-        holder.commentNumber.text=item.likedCount.toString()
-        holder.userName.text=item.user.nickname
-        holder.putTime.text=item.timeStr
+        val item = getItem(position)
+        holder.commentText.text = item.content
+        holder.commentNumber.text = item.likedCount.toString()
+        holder.userName.text = item.user.nickname
+        holder.putTime.text = item.timeStr
 
         Glide.with(holder.itemView.context).load(item.user.avatarUrl)
             .circleCrop().into(holder.ueserImage)
