@@ -1,6 +1,5 @@
-package com.example.Network
+package com.example.Network.api
 
-import com.example.Network.api.ApiService
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory

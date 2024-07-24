@@ -7,7 +7,7 @@ import com.example.Network.Bean.Banner
 import com.example.Network.Bean.NewSongs
 import com.example.Network.Bean.ReMenGeDanBean
 import com.example.Network.Bean.TuijianGedanBean
-import com.example.Network.Retrofit
+import com.example.Network.api.Retrofit
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 

@@ -1,4 +1,4 @@
-package com.example.module.ui.activities
+package com.example.module.ui
 
 import android.content.ComponentName
 import android.content.Context
@@ -12,10 +12,9 @@ import android.util.Log
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.example.Network.Retrofit
+import com.example.Network.api.Retrofit
 import com.example.module.main.R
 import com.example.module.main.databinding.ActivityMusicPlayBinding
-import com.example.module.ui.MainActivity
 import com.example.module.ui.services.MusicService
 import com.example.module.ui.viewmodel.SongViewModel
 import com.example.module.ui.viewmodel.ViewModelSingleton
@@ -26,6 +25,8 @@ import java.util.concurrent.TimeUnit
 
 class MusicPlayActivity : AppCompatActivity() {
 
+    data class LyricLine(val time: Int, val text: String)
+    private var lyrics: List<LyricLine> = emptyList()
     private lateinit var songViewModel: SongViewModel
     private lateinit var binding: ActivityMusicPlayBinding
     private var musicService: MusicService? = null
@@ -90,6 +91,7 @@ class MusicPlayActivity : AppCompatActivity() {
                 if (fromUser) {
                     musicService?.getMediaPlayer()?.seekTo(progress)
                     binding.currentTime.text = formatTime(progress)
+                    updateLyricsView(progress)
                 }
             }
 
@@ -99,6 +101,7 @@ class MusicPlayActivity : AppCompatActivity() {
 
         bindAndStartService()
         getSongUrl(songId)
+        getLyrics(songId)
     }
 
     private fun bindAndStartService() {
@@ -258,8 +261,10 @@ class MusicPlayActivity : AppCompatActivity() {
     private val updateRunnable: Runnable = object : Runnable {
         override fun run() {
             musicService?.let {
-                binding.seekBar.progress = it.getCurrentPosition()
-                binding.currentTime.text = formatTime(it.getCurrentPosition())
+                val currentPosition = it.getCurrentPosition()
+                binding.seekBar.progress = currentPosition
+                binding.currentTime.text = formatTime(currentPosition)
+                updateLyricsView(currentPosition)
                 handler.postDelayed(this, 1000)
             }
         }
@@ -293,5 +298,45 @@ class MusicPlayActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         compositeDisposable.clear()
+    }
+
+    private fun parseLyrics(lyrics: String): List<LyricLine> {
+        val lines = lyrics.split("\n")
+        val lyricLines = mutableListOf<LyricLine>()
+
+        val timeRegex = Regex("""\[(\d{2}):(\d{2})\.(\d{2,3})\]""")
+        for (line in lines) {
+            val matchResult = timeRegex.find(line) ?: continue
+            val (minutes, seconds, milliseconds) = matchResult.destructured
+            val time = minutes.toInt() * 60 * 1000 + seconds.toInt() * 1000 + milliseconds.toInt()
+            val text = line.replace(timeRegex, "").trim()
+            if (text.isNotEmpty()) {
+                lyricLines.add(LyricLine(time, text))
+            }
+        }
+        return lyricLines
+    }
+
+    private fun getLyrics(songId: Long) {
+        val disposable = Retrofit.apiService.getlyric(songId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ lyricResponse ->
+                val lyricText = lyricResponse.lrc.lyric
+                lyrics = parseLyrics(lyricText)  // 这里更新歌词
+            }, { error ->
+                error.printStackTrace()
+                Log.e("MusicPlayActivity", "Error fetching lyrics", error)
+            })
+        compositeDisposable.add(disposable)
+    }
+
+    private fun updateLyricsView(currentTime: Int) {
+        val currentIndex = lyrics.indexOfLast { it.time <= currentTime }
+        val currentLyric = lyrics.getOrNull(currentIndex)
+        val nextLyric = lyrics.getOrNull(currentIndex + 1)
+
+        binding.lyricsView.text = currentLyric?.text ?: ""
+        binding.lyricsView2.text = nextLyric?.text ?: ""
     }
 }
