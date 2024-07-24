@@ -91,7 +91,6 @@ class MusicPlayActivity : AppCompatActivity() {
                 if (fromUser) {
                     musicService?.getMediaPlayer()?.seekTo(progress)
                     binding.currentTime.text = formatTime(progress)
-                    updateLyricsView(progress)
                 }
             }
 
@@ -172,6 +171,7 @@ class MusicPlayActivity : AppCompatActivity() {
             }
         }
     }
+
 
     private fun handlePlayPause() {
         Log.d("MusicPlayActivity", "button is clicked.")
@@ -257,18 +257,17 @@ class MusicPlayActivity : AppCompatActivity() {
     private fun startSeekBarUpdate() {
         handler.post(updateRunnable)
     }
-
     private val updateRunnable: Runnable = object : Runnable {
         override fun run() {
             musicService?.let {
-                val currentPosition = it.getCurrentPosition()
-                binding.seekBar.progress = currentPosition
-                binding.currentTime.text = formatTime(currentPosition)
-                updateLyricsView(currentPosition)
+                binding.seekBar.progress = it.getCurrentPosition()
+                binding.currentTime.text = formatTime(it.getCurrentPosition())
+                updateLyricsView(it.getCurrentPosition())
                 handler.postDelayed(this, 1000)
             }
         }
     }
+
 
     private fun formatTime(milliseconds: Int): String {
         val minutes = TimeUnit.MILLISECONDS.toMinutes(milliseconds.toLong())
@@ -299,7 +298,6 @@ class MusicPlayActivity : AppCompatActivity() {
         super.onDestroy()
         compositeDisposable.clear()
     }
-
     private fun parseLyrics(lyrics: String): List<LyricLine> {
         val lines = lyrics.split("\n")
         val lyricLines = mutableListOf<LyricLine>()
@@ -331,12 +329,22 @@ class MusicPlayActivity : AppCompatActivity() {
         compositeDisposable.add(disposable)
     }
 
+
     private fun updateLyricsView(currentTime: Int) {
         val currentIndex = lyrics.indexOfLast { it.time <= currentTime }
         val currentLyric = lyrics.getOrNull(currentIndex)
         val nextLyric = lyrics.getOrNull(currentIndex + 1)
 
-        binding.lyricsView.text = currentLyric?.text ?: ""
-        binding.lyricsView2.text = nextLyric?.text ?: ""
+        if (nextLyric == null && currentLyric != null) {
+            binding.lyricsView.text = currentLyric.text
+            binding.lyricsView2.text = ""
+        } else {
+            binding.lyricsView.text = currentLyric?.text ?: ""
+            binding.lyricsView2.text = nextLyric?.text ?: ""
+        }
     }
+
+
+
+
 }
