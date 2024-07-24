@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private var songId: Long? = null
+    private var songId: Long = -1L
     private var songName: String? = null
     private var songArtist: String? = null
     private var songPictureUrl: String? = null
@@ -54,6 +54,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         songViewModel = ViewModelSingleton.getSongViewModel(application)
+
+        // 接收传递过来的歌曲信息
+        intent?.let {
+            songId = it.getLongExtra("SONG_ID", -1L)
+            songName = it.getStringExtra("SONG_NAME")
+            songArtist = it.getStringExtra("SONG_ARTIST")
+            songPictureUrl = it.getStringExtra("SONG_PICTUREURL")
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -150,7 +158,7 @@ class MainActivity : AppCompatActivity() {
     private fun observeSongData() {
         songViewModel.songId.observe(this, Observer { id ->
             Log.d("MainActivity", "Song ID updated: $id")
-            songId = id
+            songId = id.toLong()
         })
         songViewModel.songName.observe(this, Observer { name ->
             Log.d("MainActivity", "Song Name updated: $name")

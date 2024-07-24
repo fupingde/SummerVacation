@@ -15,7 +15,10 @@ import com.bumptech.glide.Glide
 import com.example.Network.Retrofit
 import com.example.module.main.R
 import com.example.module.main.databinding.ActivityMusicPlayBinding
+import com.example.module.ui.MainActivity
 import com.example.module.ui.services.MusicService
+import com.example.module.ui.viewmodel.SongViewModel
+import com.example.module.ui.viewmodel.ViewModelSingleton
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -23,6 +26,7 @@ import java.util.concurrent.TimeUnit
 
 class MusicPlayActivity : AppCompatActivity() {
 
+    private lateinit var songViewModel: SongViewModel
     private lateinit var binding: ActivityMusicPlayBinding
     private var musicService: MusicService? = null
     private var isBound = false
@@ -31,6 +35,10 @@ class MusicPlayActivity : AppCompatActivity() {
     private val compositeDisposable = CompositeDisposable()
     private var songUrl: String? = null
 
+    private var songId: Long = -1L
+    private var songName: String? = null
+    private var artistName: String? = null
+    private var songImageUrl: String? = null
     private var rotationAngle = 0f
     private val rotationHandler = Handler(Looper.getMainLooper())
     private val rotationRunnable: Runnable = object : Runnable {
@@ -62,10 +70,12 @@ class MusicPlayActivity : AppCompatActivity() {
         binding = ActivityMusicPlayBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val songId = intent.getLongExtra("SONG_ID", -1L)
-        val songName = intent.getStringExtra("SONG_NAME") ?: ""
-        val artistName = intent.getStringExtra("SONG_ARTIST") ?: ""
-        val songImageUrl = intent.getStringExtra("SONG_PICTUREURL") ?: ""
+        // 使用单例类获取SongViewModel实例
+        songViewModel = ViewModelSingleton.getSongViewModel(application)
+        songId = intent.getLongExtra("SONG_ID", -1L)
+        songName = intent.getStringExtra("SONG_NAME") ?: ""
+        artistName = intent.getStringExtra("SONG_ARTIST") ?: ""
+        songImageUrl = intent.getStringExtra("SONG_PICTUREURL") ?: ""
 
         binding.songTitle.text = songName
         binding.songArtist.text = artistName
@@ -181,13 +191,16 @@ class MusicPlayActivity : AppCompatActivity() {
                         // 播放新歌曲
                         musicService?.playMusic(url)
                         binding.playPauseButton.setImageResource(R.drawable.play)
-                        musicService?.getMediaPlayer()?.setOnPreparedListener { mp ->
-                            binding.seekBar.max = mp.duration
-                            binding.totalTime.text = formatTime(mp.duration)
-                            mp.start()
-                            startSeekBarUpdate()
-                            rotationHandler.post(rotationRunnable)
+                        startSeekBarUpdate()
+                        rotationHandler.post(rotationRunnable)
+                        val intent = Intent(this, MainActivity::class.java).apply {
+                            putExtra("SONG_ID", songId)
+                            putExtra("SONG_NAME", songName)
+                            putExtra("SONG_ARTIST", artistName)
+                            putExtra("SONG_PICTUREURL", songImageUrl)
                         }
+                        songViewModel.updateSongData(songId, songName?:"",artistName?:"", songImageUrl?:"")
+                        Log.d("SongListActivity", "SongViewModel updated with URL: $songId, $songName,$artistName$songImageUrl")
                     }
                 }
 
@@ -202,6 +215,14 @@ class MusicPlayActivity : AppCompatActivity() {
                         binding.playPauseButton.setImageResource(R.drawable.play)
                         startSeekBarUpdate()
                         rotationHandler.post(rotationRunnable)
+                        val intent = Intent(this, MainActivity::class.java).apply {
+                            putExtra("SONG_ID", songId)
+                            putExtra("SONG_NAME", songName)
+                            putExtra("SONG_ARTIST", artistName)
+                            putExtra("SONG_PICTUREURL", songImageUrl)
+                        }
+                        songViewModel.updateSongData(songId, songName?:"",artistName?:"", songImageUrl?:"")
+                        Log.d("SongListActivity", "SongViewModel updated with URL: $songId, $songName,$artistName$songImageUrl")
                     } else {
                         Log.d("MusicPlayActivity", "getCurrentSongUrl() != url,url:$url,currenturl:${musicService?.getCurrentSongUrl()}")
                         musicService?.playMusic(url)
@@ -214,6 +235,14 @@ class MusicPlayActivity : AppCompatActivity() {
                             startSeekBarUpdate()
                             rotationHandler.post(rotationRunnable)
                         }
+                        val intent = Intent(this, MainActivity::class.java).apply {
+                            putExtra("SONG_ID", songId)
+                            putExtra("SONG_NAME", songName)
+                            putExtra("SONG_ARTIST", artistName)
+                            putExtra("SONG_PICTUREURL", songImageUrl)
+                        }
+                        songViewModel.updateSongData(songId, songName?:"",artistName?:"", songImageUrl?:"")
+                        Log.d("SongListActivity", "SongViewModel updated with URL: $songId, $songName,$artistName$songImageUrl")
                     }
                 }
             }

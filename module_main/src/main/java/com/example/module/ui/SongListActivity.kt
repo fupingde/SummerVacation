@@ -99,7 +99,6 @@ class SongListActivity : AppCompatActivity() {
         }
         startActivity(intent)
 
-        songViewModel.updateSongData(song.id, song.name, song.ar.firstOrNull()?.name ?: "", song.al.picUrl)
-        Log.d("SongListActivity", "SongViewModel updated with URL: ${song.al.picUrl}")
+
     }
 }
