@@ -7,6 +7,8 @@ import com.example.Network.Bean.NewSongs
 import com.example.Network.Bean.ReMenGeDanBean
 import com.example.Network.Bean.Songs
 import com.example.Network.Bean.TuijianGedanBean
+import com.example.Network.Bean.liuxinggedan
+import com.example.Network.Bean.lyric
 import com.example.Network.Bean.songsurl
 import io.reactivex.Observable
 import retrofit2.http.GET
@@ -21,11 +23,9 @@ interface ApiService {
     fun getBanner(): Observable<Banner>
     @GET("/personalized/newsong")
     fun getnewSongs(): Observable<NewSongs>
-    @GET("playlist/track/all")
+    @GET("/playlist/track/all")
     fun getSongs(
-            @Query("id") id: Long,
-            @Query("limit") limit: Int,
-            @Query("offset") offset: Int
+            @Query("id") id: Long
         ): Observable<Songs>
     @GET("/song/url")
     fun geturl(
@@ -36,4 +36,8 @@ interface ApiService {
     fun gettoplist():Observable<ListsData>
 
 
+    @GET("/lyric")
+    fun getlyric(@Query("id")id:Long):Observable<lyric>
+    @GET("/style/playlist")
+    fun getLiuXingGeDan(@Query("tagId")tagId:Long):Observable<liuxinggedan>
     }

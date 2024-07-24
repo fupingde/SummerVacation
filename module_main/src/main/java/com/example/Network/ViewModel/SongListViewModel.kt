@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.Network.Bean.Songs
-import com.example.Network.Retrofit
+import com.example.Network.api.Retrofit
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -26,7 +26,7 @@ class SongListViewModel : ViewModel() {
     }
 
     private fun fetchSongs(playlistId: Long) {
-        val disposable = Retrofit.apiService.getSongs(playlistId, 50, 0)
+        val disposable = Retrofit.apiService.getSongs(playlistId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->

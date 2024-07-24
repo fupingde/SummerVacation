@@ -12,14 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SummerVacation">
         <activity
-            android:name="com.example.module.SongNullActivity"
+            android:name="com.example.module.ui.SongNullActivity"
             android:exported="false" />
         <service
             android:name="com.example.module.ui.services.MusicService"
             android:exported="true" />
 
         <activity
-            android:name="com.example.module.ui.activities.MusicPlayActivity"
+            android:name="com.example.module.ui.MusicPlayActivity"
             android:exported="false" />
         <activity
             android:name="com.example.module.ui.activities.SongListActivity"

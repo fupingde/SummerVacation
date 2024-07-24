@@ -17,7 +17,8 @@ import com.example.module.ui.adapters.Mainrv1Adapter
 import com.example.module.ui.adapters.Mainrv2Adapter
 import com.example.module.ui.adapters.Mainvp4Adapter
 import com.example.module.ui.viewmodel.RecommendViewModel
-import DepthAndZoomPageTransformer
+import com.example.module.ui.adapters.Mainrv3Adapter
+import com.example.module.ui.custom.SmoothScrollPageTransformer
 
 class RecommendContentFragment : Fragment() {
 
@@ -29,14 +30,10 @@ class RecommendContentFragment : Fragment() {
     private val handler = Handler(Looper.getMainLooper())
     private val autoScrollRunnable = object : Runnable {
         override fun run() {
-            val itemCount = binding.mainrv1.adapter?.itemCount ?: 0
+            val itemCount = binding.mainvp.adapter?.itemCount ?: 0
             if (itemCount > 0) {
-                val nextItem = (binding.mainrv1.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition() + 1
-                if (nextItem < itemCount) {
-                    binding.mainrv1.smoothScrollToPosition(nextItem)
-                } else {
-                    binding.mainrv1.smoothScrollToPosition(0)
-                }
+                val nextItem = (binding.mainvp.currentItem + 1) % itemCount
+                binding.mainvp.currentItem = nextItem
             }
             handler.postDelayed(this, 6000)
         }
@@ -46,8 +43,8 @@ class RecommendContentFragment : Fragment() {
         override fun run() {
             val itemCount = binding.bannerViewPager.adapter?.itemCount ?: 0
             if (itemCount > 0) {
-                val nextItem = binding.bannerViewPager.currentItem + 1
-                binding.bannerViewPager.currentItem = if (nextItem < itemCount) nextItem else 0
+                val nextItem = (binding.bannerViewPager.currentItem + 1) % itemCount
+                binding.bannerViewPager.currentItem = nextItem
             }
             handler.postDelayed(this, 6000)
         }
@@ -77,8 +74,6 @@ class RecommendContentFragment : Fragment() {
         recommendViewModel.tuijianGedan.observe(viewLifecycleOwner, { data ->
             val adapter = Mainrv1Adapter(data, onItemClick)
             binding.mainrv1.adapter = adapter
-
-            handler.post(autoScrollRunnable)
         })
 
         recommendViewModel.remenGedan.observe(viewLifecycleOwner, { data ->
@@ -86,24 +81,30 @@ class RecommendContentFragment : Fragment() {
             binding.mainrv2.adapter = adapter
         })
 
+        recommendViewModel.liuxinggedan.observe(viewLifecycleOwner, { data ->
+            val adapter = Mainrv3Adapter(data, onItemClick)
+            binding.mainrv3.adapter = adapter
+        })
+
         recommendViewModel.banner.observe(viewLifecycleOwner, { bannerData ->
             val bannerAdapter = BannerAdapter(bannerData.banners)
             binding.bannerViewPager.adapter = bannerAdapter
-            binding.bannerViewPager.setPageTransformer(DepthAndZoomPageTransformer())
-
+            binding.bannerViewPager.setPageTransformer(SmoothScrollPageTransformer())
             handler.post(bannerAutoScrollRunnable)
         })
 
         recommendViewModel.newSongs.observe(viewLifecycleOwner, { newSongs ->
-            val adapter = Mainvp4Adapter(newSongs.result)
+            val adapter = Mainvp4Adapter(requireContext(),newSongs.result)
             binding.mainvp.adapter = adapter
-            binding.mainvp.setPageTransformer(DepthAndZoomPageTransformer())
+            binding.mainvp.setPageTransformer(SmoothScrollPageTransformer())
+            handler.post(autoScrollRunnable)
         })
 
         recommendViewModel.fetchTuijianGedan()
         recommendViewModel.fetchRemenGedan()
         recommendViewModel.fetchBanner()
         recommendViewModel.fetchNewSongs()
+        recommendViewModel.fetchLiuXingGedan()
     }
 
     private fun setupRecyclerView() {
@@ -112,6 +113,9 @@ class RecommendContentFragment : Fragment() {
 
         val layoutManager2 = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.mainrv2.layoutManager = layoutManager2
+
+        val layoutManager3 = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.mainrv3.layoutManager = layoutManager3
     }
 
     override fun onDestroyView() {

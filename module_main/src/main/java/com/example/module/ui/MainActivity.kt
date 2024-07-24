@@ -18,8 +18,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.example.module.main.R
 import com.example.module.main.databinding.ActivityMainBinding
-import com.example.module.ui.activities.MusicPlayActivity
-import com.example.module.ui.fragments.DynamicFragment
 import com.example.module.ui.fragments.MyFragment
 import com.example.module.ui.fragments.RecommendFragment
 import com.example.module.ui.viewmodel.SongViewModel
