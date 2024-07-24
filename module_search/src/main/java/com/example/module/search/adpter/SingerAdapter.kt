@@ -47,7 +47,8 @@ class SingerAdapter(val data: List<Artist>) : RecyclerView.Adapter<SingerAdapter
              RoundedCorners(30)
          ).into(holder.singImage)
         holder.itemView.setOnClickListener {
-
+            ARouter.getInstance().build("/singer/SingerdetailActivity").withLong("singerid",item.artistId)
+                .navigation()
         }
     }
 }

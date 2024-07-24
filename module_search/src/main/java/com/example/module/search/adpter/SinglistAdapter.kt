@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.alibaba.android.arouter.launcher.ARouter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -61,7 +62,8 @@ class SinglistAdapter() :ListAdapter<Album1,SinglistAdapter.InnerHolder>(ItemDif
             .into(holder.image)
       //  Log.d("SinglistAdapter", "onBindViewHolder: " + item.name + " - " + item.artist.name);
         holder.itemView.setOnClickListener {
-
+            ARouter.getInstance().build("/albums/AlbumActivity").withLong("id",item.id)
+                .navigation()
         }
     }
 }

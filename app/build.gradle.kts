@@ -61,4 +61,6 @@ dependencies {
     implementation(project(":module_broadcast"))
     implementation(project(":module_search"))
     implementation(project(":Lgs_module_login"))
+    implementation(project(":module_albums"))
+    implementation(project(":module_singer"))
 }
