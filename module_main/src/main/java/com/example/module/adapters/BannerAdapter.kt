@@ -23,15 +23,16 @@ class BannerAdapter(private val bannerData: List<BannerX>) : RecyclerView.Adapte
                 .into(binding.imageView)
 
             // 设置点击事件，打开URL
-            binding.root.setOnClickListener {
-                val intent = Intent(Intent.ACTION_VIEW).apply {
-                    data = Uri.parse(banner.url)
+                binding.root.setOnClickListener {
+                    if (banner.url.startsWith("http")) {
+                    val intent = Intent(Intent.ACTION_VIEW).apply {
+                        data = Uri.parse(banner.url)
+                    }
+                    binding.root.context.startActivity(intent)
                 }
-                binding.root.context.startActivity(intent)
             }
         }
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BannerViewHolder {
         val binding = ItemBannerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return BannerViewHolder(binding)

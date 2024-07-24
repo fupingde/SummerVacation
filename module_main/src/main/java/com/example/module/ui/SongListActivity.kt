@@ -13,9 +13,11 @@ import com.bumptech.glide.Glide
 import com.example.Network.Bean.Song2
 import com.example.module.main.R
 import com.example.module.main.databinding.ActivitySongListBinding
+import com.example.module.ui.MainActivity
 import com.example.module.ui.adapters.SongsAdapter
 import com.example.module.ui.viewmodel.SongListViewModel
 import com.example.module.ui.viewmodel.SongViewModel
+import com.example.module.ui.viewmodel.ViewModelSingleton
 import com.google.android.material.appbar.AppBarLayout
 
 class SongListActivity : AppCompatActivity() {
@@ -29,10 +31,8 @@ class SongListActivity : AppCompatActivity() {
         binding = ActivitySongListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        songViewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-        ).get(SongViewModel::class.java)
+        // 使用单例类获取SongViewModel实例
+        songViewModel = ViewModelSingleton.getSongViewModel(application)
 
         val playlistId = intent.getLongExtra("playlistId", -1L)
         Log.d("SongListActivity", "Received playlistId: $playlistId")
@@ -41,7 +41,6 @@ class SongListActivity : AppCompatActivity() {
         val playlistImageUrl = intent.getStringExtra("playlistImageUrl") ?: ""
         Log.d("SongListActivity", "Received playlistImageUrl: $playlistImageUrl")
 
-        // 设置Toolbar
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = ""
@@ -50,52 +49,44 @@ class SongListActivity : AppCompatActivity() {
             finish()
         }
 
-        // 设置顶部背景图片
         Glide.with(this)
             .load(playlistImageUrl)
             .into(binding.playlistImage)
 
-        // 设置缩略图和名称
         Glide.with(this)
             .load(playlistImageUrl)
             .into(binding.playlistThumbnail)
 
         binding.playlistName.text = playlistName
 
-        // 设置RecyclerView
         binding.songrv.layoutManager = LinearLayoutManager(this)
 
-        // 观察歌曲数据变化并更新UI
         viewModel.songs.observe(this, Observer { songs ->
             val adapter = SongsAdapter(songs.songs, this::onSongItemClick)
             binding.songrv.adapter = adapter
         })
 
-        // 设置歌单名称
         viewModel.playlistName.observe(this, Observer { name ->
             binding.playlistName.text = name
         })
 
-        // 设置传入的数据
         viewModel.setPlaylistData(playlistId, playlistName)
 
-        // 动态调整Toolbar标题和背景
         binding.appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
             val scrollRange = appBarLayout.totalScrollRange
             if (scrollRange + verticalOffset == 0) {
                 binding.toolbar.title = playlistName
-                binding.toolbar.setBackgroundResource(R.drawable.background) // 设置背景图片
+                binding.toolbar.setBackgroundResource(R.drawable.background)
                 binding.marqueeTextView.text = playlistName
-                binding.marqueeTextView.isSelected = true // 启动跑马灯效果
+                binding.marqueeTextView.isSelected = true
             } else {
                 binding.toolbar.title = ""
-                binding.toolbar.setBackgroundColor(ContextCompat.getColor(this, android.R.color.transparent)) // 确保背景透明
+                binding.toolbar.setBackgroundColor(ContextCompat.getColor(this, android.R.color.transparent))
                 binding.marqueeTextView.text = ""
-                binding.marqueeTextView.isSelected = false // 关闭跑马灯效果
+                binding.marqueeTextView.isSelected = false
             }
         })
 
-        // 设置CollapsingToolbarLayout的折叠后样式
         binding.collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar)
     }
 
@@ -108,7 +99,6 @@ class SongListActivity : AppCompatActivity() {
         }
         startActivity(intent)
 
-        // 更新 SongViewModel 数据
-        songViewModel.updateSongData(song.id, song.name, song.ar.firstOrNull()?.name ?: "", song.al.picUrl)
+
     }
 }
