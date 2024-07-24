@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.Network.Bean.ListsData
 import com.example.Network.Bean.Playlist
-import com.example.Network.Retrofit
+import com.example.Network.api.Retrofit
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
