@@ -43,13 +43,16 @@ class MusicService : Service() {
 
     private fun initializeMediaPlayer(url: String) {
         Log.d("MusicPlayActivity", "initializeMediaPlayer")
+        Log.d("MusicPlayActivity", "duartion:${getDuration()}")
         Log.d("MusicPlayActivity", "initializeMediaPlayer  isplaying:$_isPlaying")
         mediaPlayer?.release()
         mediaPlayer = MediaPlayer().apply {
             setDataSource(url)
             setOnPreparedListener { mp ->
+                Log.d("MusicPlayActivity", "duartion:${getDuration()}")
                 isPrepared = true
                 mp.start()
+                Log.d("MusicPlayActivity", "duartion:${getDuration()}")
                 _isPlaying = true
                 handler.post(updateRunnable)
             }

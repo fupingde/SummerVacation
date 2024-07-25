@@ -4,6 +4,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
@@ -61,7 +62,6 @@ class MusicPlayActivity : AppCompatActivity() {
             isBound = true
             updateUI()
         }
-
         override fun onServiceDisconnected(name: ComponentName?) {
             isBound = false
         }
@@ -163,7 +163,10 @@ class MusicPlayActivity : AppCompatActivity() {
                     rotationHandler.removeCallbacks(rotationRunnable)
                 }
                 binding.seekBar.max = musicService?.getDuration() ?: 0
+                Log.d("duration", "musicService:$musicService")
+                Log.d("duration", "Duration:${musicService?.getDuration()}")
                 binding.seekBar.progress = musicService?.getCurrentPosition() ?: 0
+                Log.d("duration", "Duration:${musicService?.getDuration()}")
                 binding.totalTime.text = formatTime(musicService?.getDuration() ?: 0)
                 startSeekBarUpdate()
             } else {
@@ -172,11 +175,31 @@ class MusicPlayActivity : AppCompatActivity() {
                 binding.currentTime.text = "00:00"
                 binding.totalTime.text = "00:00"
                 rotationHandler.removeCallbacks(rotationRunnable)
+                binding.seekBar.max = musicService?.getDuration() ?: 0
+                Log.d("duration", "musicService:$musicService")
+                Log.d("duration", "Duration:${musicService?.getDuration()}")
+//                binding.seekBar.progress = musicService?.getCurrentPosition() ?: 0
+                Log.d("duration", "Duration:${musicService?.getDuration()}")
+                binding.totalTime.text = formatTime(getMusicDuration(songUrl?:""))
+//                startSeekBarUpdate()
             }
         }
     }
 
-
+    fun getMusicDuration(url: String): Int {
+        val mediaPlayer = MediaPlayer()
+        return try {
+            mediaPlayer.setDataSource(url)
+            mediaPlayer.prepare()  // 这里是同步方法，会阻塞直到准备完成
+            val duration = mediaPlayer.duration
+            mediaPlayer.release()
+            duration
+        } catch (e: Exception) {
+            Log.e("MusicDuration", "Error: ${e.message}")
+            mediaPlayer.release()
+            -1
+        }
+    }
     private fun handlePlayPause() {
         Log.d("MusicPlayActivity", "button is clicked.")
         if (isBound) {
@@ -188,7 +211,8 @@ class MusicPlayActivity : AppCompatActivity() {
                         binding.playPauseButton.setImageResource(R.drawable.pause)
                         handler.removeCallbacks(updateRunnable)
                         rotationHandler.removeCallbacks(rotationRunnable)
-                    } else {
+                        updateUI()
+                    }else{
                         // 停止当前正在播放的音乐
                         musicService?.pauseMusic()
                         handler.removeCallbacks(updateRunnable)
@@ -256,6 +280,7 @@ class MusicPlayActivity : AppCompatActivity() {
                         binding.playPauseButton.setImageResource(R.drawable.play)
                         musicService?.getMediaPlayer()?.setOnPreparedListener { mp ->
                             binding.seekBar.max = mp.duration
+                            Log.d("duration", "mp.duration:${mp.duration}")
                             binding.totalTime.text = formatTime(mp.duration)
                             mp.start()
                             startSeekBarUpdate()
