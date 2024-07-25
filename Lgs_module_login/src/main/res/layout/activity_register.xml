@@ -2,86 +2,112 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
-    android:background="@drawable/ic_launcher_loginbackground"
+    android:id="@+id/registactivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/activity_horizontal_margin"
     tools:context=".RegisterActivity">
 
-
-    <EditText
-        android:id="@+id/phonen"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_phone"
-        android:hint="手机号码："
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.049" />
-
-    <Button
-        android:id="@+id/send"
+    <!-- 添加一个标题 TextView -->
+    <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="发送"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.049"
-        tools:ignore="MissingConstraints" />
-
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="密码："
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/nickName"
-        app:layout_constraintVertical_bias="0.102"
-        tools:ignore="MissingConstraints" />
-
-    <EditText
-        android:id="@+id/nickName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="昵称"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/captcha"
-        app:layout_constraintVertical_bias="0.157" />
-
-    <EditText
-        android:id="@+id/captcha"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="验证码："
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/phonen"
-        app:layout_constraintVertical_bias="0.154" />
-
-    <Button
-        android:id="@+id/regist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
+        android:layout_marginTop="24dp"
         android:text="注册"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="24sp"
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:id="@+id/register_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- 手机号码 EditText 和 发送按钮 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/phonen"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_phone"
+                android:hint="手机号码："
+                android:padding="12dp"
+                android:background="@drawable/edittext_background"
+                android:drawablePadding="8dp"/>
+
+            <Button
+                android:id="@+id/send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="发送"
+                android:textColor="@android:color/white"
+                android:background="@drawable/button_background"/>
+        </LinearLayout>
+
+        <!-- 验证码 EditText -->
+        <EditText
+            android:id="@+id/captcha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="验证码："
+            android:padding="12dp"
+            android:background="@drawable/edittext_background"
+            android:drawablePadding="8dp"/>
+
+        <!-- 昵称 EditText -->
+        <EditText
+            android:id="@+id/nickName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="昵称"
+            android:padding="12dp"
+            android:background="@drawable/edittext_background"
+            android:drawablePadding="8dp"/>
+
+        <!-- 密码 EditText -->
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:layout_marginTop="8dp"
+            android:hint="密码："
+            android:padding="12dp"
+            android:background="@drawable/edittext_background"
+            android:drawableLeft="@drawable/ic_lock"
+            android:drawablePadding="8dp"/>
+
+        <!-- 注册按钮 -->
+        <Button
+            android:id="@+id/regist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="注册"
+            android:textColor="@android:color/white"
+            android:background="@drawable/button_background"/>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

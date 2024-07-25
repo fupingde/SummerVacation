@@ -42,6 +42,9 @@ class SingerFragment :Fragment(){
         mbinding.rvMv.layoutManager =LinearLayoutManager(requireContext())
     }
 
-
+    override fun onDestroyView() {
+        _mbinding=null
+        super.onDestroyView()
+    }
 
 }

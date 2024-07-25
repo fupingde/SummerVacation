@@ -17,10 +17,12 @@ import com.example.singer.detail.ui.ViewModel.SongViewModel
 import com.example.singer.detail.ui.fragment.DetailFragment
 import com.example.singer.detail.ui.fragment.SongFragment
 import com.google.android.material.tabs.TabLayoutMediator
+
 @Route(path = "/singer/SingerdetailActivity")
 class SingerdetailActivity : AppCompatActivity() {
     @Autowired(name = "singerid")
-    @JvmField var singerid:Long=0
+    @JvmField
+    var singerid: Long = 0
     val mbinding by lazy { ActivitySingerdetailBinding.inflate(layoutInflater) }
     val viewModel by lazy { ViewModelProvider(this)[SongViewModel::class.java] }
     private val fragmentLsit = ArrayList<FragmentInterface>()
@@ -35,6 +37,14 @@ class SingerdetailActivity : AppCompatActivity() {
     }
 
     private fun initView() {
+        setSupportActionBar(mbinding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.title = ""
+        mbinding.toolbar.setNavigationOnClickListener {
+            // 返回按钮点击事件，结束当前活动
+            finish()
+        }
         viewModel.imageData.observe(this, Observer { image ->
             image?.let {
                 Glide.with(this).load(it[0].picUrl)
@@ -43,23 +53,23 @@ class SingerdetailActivity : AppCompatActivity() {
         })
         fragmentLsit.let {
 
-            it.add(object :FragmentInterface{
+            it.add(object : FragmentInterface {
                 override fun back(): Fragment {
                     return DetailFragment()
                 }
             })
-            it.add(object :FragmentInterface{
+            it.add(object : FragmentInterface {
                 override fun back(): Fragment {
                     return SongFragment()
                 }
             })
         }
 
-mbinding.viewPager.adapter=VpAdapter(this,fragmentLsit)
-        TabLayoutMediator(mbinding.tabLayout,mbinding.viewPager){tab,position->
-            tab.text=when(position){
-                0->"主页"
-                else->"歌曲"
+        mbinding.viewPager.adapter = VpAdapter(this, fragmentLsit)
+        TabLayoutMediator(mbinding.tabLayout, mbinding.viewPager) { tab, position ->
+            tab.text = when (position) {
+                0 -> "主页"
+                else -> "歌曲"
 
             }
 

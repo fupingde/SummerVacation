@@ -1,5 +1,6 @@
 package com.example.lgs_module.login
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -63,7 +64,13 @@ class LoginActivity : AppCompatActivity() {
                 .addToBackStack(null)  // Optional: add to back stack to allow user to navigate back
                 .commit()
         }
-
+        supportFragmentManager.addOnBackStackChangedListener {
+            if (supportFragmentManager.backStackEntryCount == 0) {
+                // 显示初始布局
+                mbinding.initialLayout.visibility = View.VISIBLE
+                mbinding.fragmentContainer.visibility = View.GONE
+            }
+        }
         resend.setOnClickListener {
             sendMessage()
 
@@ -98,6 +105,9 @@ class LoginActivity : AppCompatActivity() {
                         if (userid.toInt() != 0) {
                             Toast.makeText(this@LoginActivity, "登录成功", Toast.LENGTH_SHORT)
                                 .show()
+                            val editor = getSharedPreferences("logindata", Context.MODE_PRIVATE).edit()
+                            editor.putLong("loginid",userid)
+                            editor.apply()
                             ARouter.getInstance().build("/main/MainActivity")
                                 .navigation()
                         }
@@ -106,6 +116,8 @@ class LoginActivity : AppCompatActivity() {
 
                     override fun onNext(t: Visitor) {
                         userid = t.userId
+
+
                         Log.d("fas", t.toString())
                     }
 
@@ -153,21 +165,21 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun startCountDown() {
-        sendButton.isEnabled = false
-        val countDownTimer = object : CountDownTimer(60000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                sendButton.text = "倒计时: ${millisUntilFinished / 1000}秒"
-                // 修改按钮背景颜色示例
-                sendButton.setBackgroundColor(Color.WHITE)
-            }
+        runOnUiThread {
+            sendButton.isEnabled = false
+            val countDownTimer = object : CountDownTimer(60000, 1000) {
+                override fun onTick(millisUntilFinished: Long) {
+                    sendButton.text = "倒计时: ${millisUntilFinished / 1000}秒"
+                    sendButton.setBackgroundColor(Color.BLUE)
+                }
 
-
-            override fun onFinish() {
-                sendButton.text = "发送"
-                sendButton.isEnabled = true
-                // 恢复按钮背景颜色示例
-                sendButton.setBackgroundColor(Color.WHITE)
+                override fun onFinish() {
+                    sendButton.text = "发送"
+                    sendButton.isEnabled = true
+                    sendButton.setBackgroundColor(Color.WHITE)
+                }
             }
+            countDownTimer.start()
         }
     }
 
@@ -224,7 +236,9 @@ class LoginActivity : AppCompatActivity() {
 
                 override fun onComplete() {
                     if (id.toInt() != 0) {
-
+                        val editor = getSharedPreferences("logindata", Context.MODE_PRIVATE).edit()
+                        editor.putLong("loginid",id)
+                        editor.apply()
                         Toast.makeText(this@LoginActivity, "登录成功", Toast.LENGTH_SHORT).show()
                         ARouter.getInstance().build("/main/MainActivity")
                             .navigation()
@@ -239,7 +253,7 @@ class LoginActivity : AppCompatActivity() {
 
                 override fun onNext(t: Regitser) {
                     id = t.account.id
-                    Log.d("fas", "登录完成")
+                    Log.d("fas", "登录完成，id为"+id)
 
 
                 }

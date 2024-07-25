@@ -24,10 +24,9 @@ import com.example.module.search.viewmodel.AlbumViewModel
 import com.example.module.search.viewmodel.MvViewModel
 import com.example.module.search.viewmodel.SingerViewModel
 import com.google.android.material.tabs.TabLayoutMediator
+
 @Route(path = "/search/SearchActivity")
 class SearchActivity : AppCompatActivity() {
-
-
     val mbinding by lazy {
         ActivitySearchBinding.inflate(layoutInflater)
     }
@@ -48,14 +47,16 @@ class SearchActivity : AppCompatActivity() {
 
     private fun initClick() {
         mbinding.tvSearch.setOnClickListener {
+            if (mbinding.searchView.query.toString()!=null){
             songviewModel.getSongInfo(mbinding.searchView.query.toString())
             albumViewModel.getSongInfo(mbinding.searchView.query.toString())
             singerViewModel.getSongInfo(mbinding.searchView.query.toString())
             mvViewModel.getMvidata(mbinding.searchView.query.toString())
-            Log.d("edixView", mbinding.searchView.query.toString())
-
+            Log.d("edixView", mbinding.searchView.query.toString())}
         }
-
+        mbinding.imBack.setOnClickListener {
+            finish()
+        }
     }
 
     private fun initView() {

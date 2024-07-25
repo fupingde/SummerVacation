@@ -3,13 +3,17 @@ package com.example.module.broadcast.ui
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.PopupMenu
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
+import com.example.module.broadcast.R
 import com.example.module.broadcast.ViewModel.MvViewModel
 import com.example.module.broadcast.ViewModel.MvdataViewModel
 import com.example.module.broadcast.ViewModel.OtherViewModel
@@ -47,6 +51,35 @@ class BroadcastActivity : AppCompatActivity() {
 
     @SuppressLint("SuspiciousIndentation")
     private fun initView() {
+        mbinding.buttonBack.setOnClickListener {
+            finish()
+        }
+            mbinding.buttonDetail.setOnClickListener {view->
+                val popupMenu = PopupMenu(this, view)
+                val inflater: MenuInflater = popupMenu.menuInflater
+                inflater.inflate(R.menu.popup_menu, popupMenu.menu)
+                popupMenu.setOnMenuItemClickListener { item: MenuItem ->
+                    when (item.itemId) {
+                        R.id.option1 -> {
+                            // 处理选项1点击
+
+                            true
+                        }
+                        R.id.option2 -> {
+                            // 处理选项2点击
+                            true
+                        }
+
+                        else -> false
+                    }
+                }
+
+                // 显示 PopupMenu
+                popupMenu.show()
+            }
+
+
+
         //隐藏状态栏
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -73,6 +106,7 @@ class BroadcastActivity : AppCompatActivity() {
 
         })
         mbinding.buttonBack.setOnClickListener {
+            finish()
 //            ARouter.getInstance().build("/search/SearchActivity").navigation()
         }
 

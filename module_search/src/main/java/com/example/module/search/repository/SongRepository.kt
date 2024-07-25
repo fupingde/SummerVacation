@@ -1,6 +1,5 @@
 package com.example.module.search.repository
 
-import android.provider.UserDictionary.Words
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.module.search.bean.Search
@@ -17,7 +16,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 object SongRepository {
     private const val BASE_URL = "http://82.156.18.110:3000"
 
-    //把retrofit对象和apiService对象的构造先提取出来
     val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
@@ -27,30 +25,36 @@ object SongRepository {
     fun SearchSongs(keywords: String, _songData: MutableLiveData<List<Song>>) {
         Log.d("fas","keyword:"+keywords)
         val service = retrofit.create(SearchSong::class.java)
-        service.getSongInfo(keywords).subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())//在安卓主线程（执行onNext的逻辑）
+        service.getSongInfo(keywords)
+            .subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<Search> {
                 override fun onSubscribe(d: Disposable) {
-                  //  Log.d("fas", "开始连接搜索")
+                    // Log.d("fas", "开始连接搜索")
                 }
 
                 override fun onError(e: Throwable) {
-                    e.printStackTrace();
-                    Log.e("NetworkError", "网络错误", e); // 使用日志记录错误
+                    e.printStackTrace()
+                    Log.e("NetworkError", "网络错误", e)
                 }
 
                 override fun onComplete() {
-                //    Log.d("fas", "完成搜索")
-
+                    // Log.d("fas", "完成搜索")
                 }
 
                 override fun onNext(t: Search) {
-                   // _songData.postValue(t)
-                 _songData.postValue(t.result.songs)
+                    t.result?.let { result ->
+                        result.songs?.let { songs ->
+                            _songData.postValue(songs)
+                        } ?: run {
+                            Log.e("DataError", "歌曲列表为空")
+                            _songData.postValue(emptyList()) // 或者其他处理方式
+                        }
+                    } ?: run {
+                        Log.e("DataError", "结果为空")
+                        _songData.postValue(emptyList()) // 或者其他处理方式
+                    }
                 }
-
             })
     }
-
-
 }

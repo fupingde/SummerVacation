@@ -34,6 +34,14 @@ class AlbumActivity : AppCompatActivity() {
     }
 
     private fun initView() {
+        setSupportActionBar(mbinding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.title = ""
+        mbinding.toolbar.setNavigationOnClickListener {
+            // 返回按钮点击事件，结束当前活动
+            finish()
+        }
         mbinding.describe.maxLines = 3
         mbinding.describe.ellipsize = TextUtils.TruncateAt.END
         mbinding.enableclick.setOnClickListener {

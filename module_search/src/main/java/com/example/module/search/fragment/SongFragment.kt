@@ -23,9 +23,8 @@ class SongFragment : Fragment() {
     private val songViewModel by lazy {
         ViewModelProvider(requireActivity())[SongViewModel::class.java]
     }
-     private val mbinding by lazy {
-         FramentSongBinding.inflate(layoutInflater)
-     }
+     private var _mbinding:FramentSongBinding ?=null
+    private val mbinding get() = _mbinding!!
     private val songAdapter by lazy {
         SongAdapter()
 
@@ -36,6 +35,7 @@ class SongFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        _mbinding=FramentSongBinding.inflate(inflater,container,false)
         // Inflate the layout for this fragment
         return   mbinding.root
      }
@@ -57,5 +57,10 @@ class SongFragment : Fragment() {
       }
         mbinding.rvSong.adapter=songAdapter
         mbinding.rvSong.layoutManager = LinearLayoutManager(context)
+    }
+
+    override fun onDestroyView() {
+        _mbinding=null
+        super.onDestroyView()
     }
 }

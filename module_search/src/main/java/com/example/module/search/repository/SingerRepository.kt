@@ -43,7 +43,8 @@ object SingerRepository {
                 override fun onNext(t: ResponseData) {
                     // _songData.postValue(t)
                     Log.d("Singer.Value",t.toString())
-                    _singerData.postValue(t.data.list)
+                    t?.let {
+                    _singerData.postValue(t.data.list)}
                 }
 
             })

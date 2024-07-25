@@ -80,4 +80,9 @@ class CommentFragment : BottomSheetDialogFragment() {
             }
 
     }
+
+    override fun onDestroyView() {
+        _mbinding=null
+        super.onDestroyView()
+    }
 }

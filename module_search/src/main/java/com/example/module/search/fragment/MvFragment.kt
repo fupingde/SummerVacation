@@ -16,21 +16,27 @@ class MvFragment :Fragment(){
     private val singerViewModel by lazy {
         ViewModelProvider(requireActivity())[SingerViewModel::class.java]
     }
-    private val mBinding by lazy { FragmentMvBinding.inflate(layoutInflater) }
+    private var _mBinding:FragmentMvBinding ?=null
+    private val mBinding get() = _mBinding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        _mBinding=FragmentMvBinding.inflate(inflater,container,false)
         // Inflate the layout for this fragment
         return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        singerViewModel.singerData.observe(viewLifecycleOwner){
-            mBinding.rvMv.adapter=SingerAdapter(it)
-            mBinding.rvMv.layoutManager=LinearLayoutManager(context)
+        singerViewModel.singerData.observe(viewLifecycleOwner) {
+            mBinding.rvMv.adapter = SingerAdapter(it)
+            mBinding.rvMv.layoutManager = LinearLayoutManager(context)
 
         }
+    }
+    override fun onDestroyView() {
+       _mBinding=null
+        super.onDestroyView()
     }
 }

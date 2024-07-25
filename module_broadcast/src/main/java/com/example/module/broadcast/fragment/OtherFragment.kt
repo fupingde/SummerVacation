@@ -17,9 +17,8 @@ import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 
 class OtherFragment : Fragment() {
-    val mbinding by lazy {
-        MvFragmentBinding.inflate(layoutInflater)
-    }
+    var _mbinding :MvFragmentBinding ?=null
+    val mbinding get() = _mbinding!!
 
     val mvViewModel by lazy { ViewModelProvider(this)[MvViewModel::class.java] }
     val mvdataViewModel by lazy { ViewModelProvider(this)[MvdataViewModel::class.java] }
@@ -32,6 +31,7 @@ class OtherFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        _mbinding=MvFragmentBinding.inflate(inflater,container,false)
         return mbinding.root
     }
 
@@ -104,6 +104,7 @@ class OtherFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        _mbinding=null
         exoPlayer.release()
     }
 

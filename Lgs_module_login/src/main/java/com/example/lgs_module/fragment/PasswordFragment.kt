@@ -19,9 +19,9 @@ import retrofit2.HttpException
 import java.io.IOException
 
 class PasswordFragment : Fragment() {
-    private val vbinding by lazy {
-        FragmentPwloginBinding.inflate(layoutInflater)
-    }
+
+    private var _vbinding :FragmentPwloginBinding ?=null
+    private val vbinding get() = _vbinding!!
     private var id: Long = 0
 
     override fun onCreateView(
@@ -29,11 +29,12 @@ class PasswordFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        _vbinding=FragmentPwloginBinding.inflate(inflater, container, false)
         return vbinding.root
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         vbinding.back.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
@@ -42,8 +43,9 @@ class PasswordFragment : Fragment() {
         }
     }
 
+
     private fun login() {
-        LoginRepository.getApiService().cap_Login(vbinding.phonenm.text.toString(), vbinding.password.text.toString())
+        LoginRepository.getApiService().pw_Login(vbinding.phonenm.text.toString(), vbinding.password.text.toString())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<Regitser> {
@@ -85,5 +87,10 @@ class PasswordFragment : Fragment() {
                 Toast.makeText(context, "未知错误发生", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    override fun onDestroyView() {
+        _vbinding=null
+        super.onDestroyView()
     }
 }
