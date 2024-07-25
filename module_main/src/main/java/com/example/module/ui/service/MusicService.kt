@@ -2,20 +2,22 @@ package com.example.module.ui.services
 
 import android.app.Service
 import android.content.Intent
-import android.media.MediaPlayer
 import android.os.Binder
 import android.os.Handler
 import android.os.IBinder
 import android.util.Log
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.common.MediaItem
+import androidx.media3.common.PlaybackException
+import androidx.media3.common.Player
 
 class MusicService : Service() {
 
     private val binder = MusicBinder()
-    private var mediaPlayer: MediaPlayer? = null
+    private var exoPlayer: ExoPlayer? = null
     private var _isPlaying: Boolean = false
     private var songUrl: String? = null
-    private var isPrepared: Boolean = false
-    private val handler =Handler()
+    private val handler = Handler()
 
     override fun onBind(intent: Intent?): IBinder {
         Log.d("MusicService", "Service bound")
@@ -32,58 +34,56 @@ class MusicService : Service() {
     }
 
     fun playMusic(url: String) {
-        if (mediaPlayer == null || songUrl != url) {
-            initializeMediaPlayer(url)
-        } else if (!_isPlaying && isPrepared) {
-            mediaPlayer?.start()
+        if (exoPlayer == null || songUrl != url) {
+            initializeExoPlayer(url)
+        } else if (!_isPlaying) {
+            exoPlayer?.play()
             _isPlaying = true
             handler.post(updateRunnable)
         }
     }
 
-    private fun initializeMediaPlayer(url: String) {
-        Log.d("MusicPlayActivity", "initializeMediaPlayer")
-        Log.d("MusicPlayActivity", "duartion:${getDuration()}")
-        Log.d("MusicPlayActivity", "initializeMediaPlayer  isplaying:$_isPlaying")
-        mediaPlayer?.release()
-        mediaPlayer = MediaPlayer().apply {
-            setDataSource(url)
-            setOnPreparedListener { mp ->
-                Log.d("MusicPlayActivity", "duartion:${getDuration()}")
-                isPrepared = true
-                mp.start()
-                Log.d("MusicPlayActivity", "duartion:${getDuration()}")
-                _isPlaying = true
-                handler.post(updateRunnable)
-            }
-            setOnErrorListener { mp, what, extra ->
-                true
-            }
-            setOnCompletionListener {
-                _isPlaying = false
-                handler.removeCallbacks(updateRunnable)
-            }
-            prepareAsync()
+    private fun initializeExoPlayer(url: String) {
+        Log.d("MusicService", "initializeExoPlayer")
+        exoPlayer?.release()
+        exoPlayer = ExoPlayer.Builder(this).build().apply {
+            setMediaItem(MediaItem.fromUri(url))
+            prepare()
+            addListener(object : Player.Listener {
+                override fun onPlaybackStateChanged(state: Int) {
+                    if (state == Player.STATE_READY) {
+                        _isPlaying = true
+                        play()
+                        handler.post(updateRunnable)
+                    } else if (state == Player.STATE_ENDED) {
+                        _isPlaying = false
+                        handler.removeCallbacks(updateRunnable)
+                    }
+                }
+
+                override fun onPlayerError(error: PlaybackException) {
+                    Log.e("MusicService", "Player error: ${error.message}")
+                    _isPlaying = false
+                }
+            })
         }
         songUrl = url
-        isPrepared = true
     }
 
     fun pauseMusic() {
-        Log.d("MusicPlayActivity", "pauseMusic")
-        mediaPlayer?.pause()
+        Log.d("MusicService", "pauseMusic")
+        exoPlayer?.pause()
         _isPlaying = false
         handler.removeCallbacks(updateRunnable)
-        Log.d("MusicPlayActivity", "music pause")
+        Log.d("MusicService", "music paused")
     }
 
-
     fun getCurrentPosition(): Int {
-        return mediaPlayer?.currentPosition ?: 0
+        return exoPlayer?.currentPosition?.toInt() ?: 0
     }
 
     fun getDuration(): Int {
-        return mediaPlayer?.duration ?: 0
+        return exoPlayer?.duration?.toInt() ?: 0
     }
 
     fun isPlaying(): Boolean {
@@ -95,19 +95,20 @@ class MusicService : Service() {
     }
 
     fun isPrepared(): Boolean {
-        return isPrepared
+        return exoPlayer?.playWhenReady ?: false
     }
 
-    fun getMediaPlayer(): MediaPlayer? {
-        return mediaPlayer
+    fun getExoPlayer(): ExoPlayer? {
+        return exoPlayer
     }
 
-    fun change_isplaying(){
-        _isPlaying=!_isPlaying
+    fun change_isplaying() {
+        _isPlaying = !_isPlaying
     }
+
     private val updateRunnable: Runnable = object : Runnable {
         override fun run() {
-            mediaPlayer?.let {
+            exoPlayer?.let {
                 if (_isPlaying) {
                     handler.postDelayed(this, 1000)
                 }
