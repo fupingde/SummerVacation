@@ -57,4 +57,41 @@ object SongRepository {
                 }
             })
     }
+    fun getMoreSongs(keywords: String,page:Int, _songData: MutableLiveData<List<Song>>){
+        val service = retrofit.create(SearchSong::class.java)
+        service.getmoreSongs(keywords,(page-1)*30)
+            .subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Observer<Search> {
+                override fun onSubscribe(d: Disposable) {
+                    // Log.d("fas", "开始连接搜索")
+                }
+
+                override fun onError(e: Throwable) {
+                    e.printStackTrace()
+                    Log.e("NetworkError", "网络错误", e)
+                }
+
+                override fun onComplete() {
+                    // Log.d("fas", "完成搜索")
+                }
+
+                override fun onNext(t: Search) {
+                    t.result?.let { result ->
+                        result.songs?.let { songs ->
+                            val currentsongs=_songData.value?: emptyList()
+                            val updatesongs=currentsongs+songs
+                            _songData.postValue(updatesongs)
+                        } ?: run {
+                            Log.e("DataError", "歌曲列表为空")
+                            _songData.postValue(emptyList()) // 或者其他处理方式
+                        }
+                    } ?: run {
+                        Log.e("DataError", "结果为空")
+                        _songData.postValue(emptyList()) // 或者其他处理方式
+                    }
+                }
+            })
+    }
+
 }
