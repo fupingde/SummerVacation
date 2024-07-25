@@ -39,4 +39,9 @@ class DetailFragment:Fragment() {
         })
     }
 
+    override fun onDestroyView() {
+        _mbinding=null
+        super.onDestroyView()
+    }
+
 }

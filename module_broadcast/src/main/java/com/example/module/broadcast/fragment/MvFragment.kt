@@ -23,7 +23,8 @@ import com.google.android.exoplayer2.video.VideoSize
 class MvFragment : Fragment() {
     val mvViewModel by lazy { ViewModelProvider(requireActivity())[MvViewModel::class.java] }
     val mvdataViewModel by lazy { ViewModelProvider(requireActivity())[MvdataViewModel::class.java] }
-    val mbinding by lazy { MvFragmentBinding.inflate(layoutInflater) }
+    var _mbinding: MvFragmentBinding ?=null
+    val mbinding get() = _mbinding!!
     var commentid: Long = 0
     lateinit var url: String
     lateinit var exoPlayer: ExoPlayer
@@ -32,6 +33,7 @@ class MvFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        _mbinding= MvFragmentBinding.inflate(inflater,container,false)
         return mbinding.root
     }
 

@@ -18,12 +18,14 @@ class SinglistFragment : Fragment() {
     private val singlistViewModel by lazy {
         ViewModelProvider(requireActivity())[AlbumViewModel::class.java]
     }
-    private val mbinding by lazy { FragmentSinglistBinding.inflate(layoutInflater) }
+    private var _mbinding:FragmentSinglistBinding?=null
+    private val mbinding get() = _mbinding!!
     private val singlistAdapter by lazy { SinglistAdapter() }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        _mbinding=FragmentSinglistBinding.inflate(inflater,container,false)
         // Inflate the layout for this fragment
         return mbinding.root
     }
@@ -31,19 +33,27 @@ class SinglistFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        try {
-            singlistViewModel.albumData.observe(viewLifecycleOwner, Observer { albums ->
-                albums?.let {
-                    Log.d("SingListFragment", "${it.result.albums}")
-                    singlistAdapter.submitList(it.result.albums)
+
+        singlistViewModel.albumData.observe(viewLifecycleOwner, Observer { dataAlbum ->
+            // 进行全面的空检查
+            if (dataAlbum != null && dataAlbum.result != null) {
+                val albums = dataAlbum.result.albums
+                if (albums != null) {
+                    singlistAdapter.submitList(albums)
+                } else {
+                    Log.d("SinglistFragment", "Albums is null")
                 }
-            })
-        } catch (e: Exception) {
-            e.printStackTrace()
-            Log.d("fas", e.toString())
-        }
+            } else {
+                Log.d("SinglistFragment", "DataAlbum or result is null")
+            }
+        })
 
         mbinding.rvSinglist.adapter = singlistAdapter
         mbinding.rvSinglist.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    override fun onDestroyView() {
+        _mbinding=null
+        super.onDestroyView()
     }
 }

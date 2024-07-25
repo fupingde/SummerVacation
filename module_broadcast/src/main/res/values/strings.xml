@@ -3,6 +3,9 @@
     <string name="album_cover">album_covern</string>
     <string name="play_pause">播放/暂停</string>
     <string name="previous">前一首 Track</string>
+
+
+
     <string name="next">下一首</string>
-     />
+    />
 </resources>

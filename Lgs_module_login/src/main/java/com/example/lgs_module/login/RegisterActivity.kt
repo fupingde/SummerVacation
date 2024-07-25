@@ -140,13 +140,11 @@ class RegisterActivity : AppCompatActivity() {
             val countDownTimer = object : CountDownTimer(60000, 1000) {
                 override fun onTick(millisUntilFinished: Long) {
                     sendButton.text = "倒计时: ${millisUntilFinished / 1000}秒"
-                    sendButton.setBackgroundColor(Color.BLUE)
                 }
 
                 override fun onFinish() {
                     sendButton.text = "发送"
                     sendButton.isEnabled = true
-                    sendButton.setBackgroundColor(Color.WHITE)
                 }
             }
             countDownTimer.start()

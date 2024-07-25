@@ -26,6 +26,7 @@ import java.util.concurrent.TimeUnit
 class MusicPlayActivity : AppCompatActivity() {
 
     data class LyricLine(val time: Int, val text: String)
+
     private var lyrics: List<LyricLine> = emptyList()
     private lateinit var songViewModel: SongViewModel
     private lateinit var binding: ActivityMusicPlayBinding
@@ -133,7 +134,10 @@ class MusicPlayActivity : AppCompatActivity() {
                 } else {
                     currentSongUrl = songUrl
                     if (!isBound) {
-                        Log.d("MusicPlayActivity", "Attempting to bind service again after fetching URL")
+                        Log.d(
+                            "MusicPlayActivity",
+                            "Attempting to bind service again after fetching URL"
+                        )
                         bindAndStartService()
                     }
                     updateUI()
@@ -179,12 +183,12 @@ class MusicPlayActivity : AppCompatActivity() {
             Log.d("MusicPlayActivity", "isplaying:${musicService?.isPlaying()}")
             if (musicService?.isPlaying() == true) {
                 currentSongUrl?.let { url ->
-                    if (musicService?.getCurrentSongUrl() == url){
+                    if (musicService?.getCurrentSongUrl() == url) {
                         musicService?.pauseMusic()
                         binding.playPauseButton.setImageResource(R.drawable.pause)
                         handler.removeCallbacks(updateRunnable)
                         rotationHandler.removeCallbacks(rotationRunnable)
-                    }else{
+                    } else {
                         // 停止当前正在播放的音乐
                         musicService?.pauseMusic()
                         handler.removeCallbacks(updateRunnable)
@@ -202,8 +206,16 @@ class MusicPlayActivity : AppCompatActivity() {
                             putExtra("SONG_ARTIST", artistName)
                             putExtra("SONG_PICTUREURL", songImageUrl)
                         }
-                        songViewModel.updateSongData(songId, songName?:"",artistName?:"", songImageUrl?:"")
-                        Log.d("SongListActivity", "SongViewModel updated with URL: $songId, $songName,$artistName$songImageUrl")
+                        songViewModel.updateSongData(
+                            songId,
+                            songName ?: "",
+                            artistName ?: "",
+                            songImageUrl ?: ""
+                        )
+                        Log.d(
+                            "SongListActivity",
+                            "SongViewModel updated with URL: $songId, $songName,$artistName$songImageUrl"
+                        )
                     }
                 }
 
@@ -224,10 +236,21 @@ class MusicPlayActivity : AppCompatActivity() {
                             putExtra("SONG_ARTIST", artistName)
                             putExtra("SONG_PICTUREURL", songImageUrl)
                         }
-                        songViewModel.updateSongData(songId, songName?:"",artistName?:"", songImageUrl?:"")
-                        Log.d("SongListActivity", "SongViewModel updated with URL: $songId, $songName,$artistName$songImageUrl")
+                        songViewModel.updateSongData(
+                            songId,
+                            songName ?: "",
+                            artistName ?: "",
+                            songImageUrl ?: ""
+                        )
+                        Log.d(
+                            "SongListActivity",
+                            "SongViewModel updated with URL: $songId, $songName,$artistName$songImageUrl"
+                        )
                     } else {
-                        Log.d("MusicPlayActivity", "getCurrentSongUrl() != url,url:$url,currenturl:${musicService?.getCurrentSongUrl()}")
+                        Log.d(
+                            "MusicPlayActivity",
+                            "getCurrentSongUrl() != url,url:$url,currenturl:${musicService?.getCurrentSongUrl()}"
+                        )
                         musicService?.playMusic(url)
                         musicService?.change_isplaying()
                         binding.playPauseButton.setImageResource(R.drawable.play)
@@ -244,8 +267,16 @@ class MusicPlayActivity : AppCompatActivity() {
                             putExtra("SONG_ARTIST", artistName)
                             putExtra("SONG_PICTUREURL", songImageUrl)
                         }
-                        songViewModel.updateSongData(songId, songName?:"",artistName?:"", songImageUrl?:"")
-                        Log.d("SongListActivity", "SongViewModel updated with URL: $songId, $songName,$artistName$songImageUrl")
+                        songViewModel.updateSongData(
+                            songId,
+                            songName ?: "",
+                            artistName ?: "",
+                            songImageUrl ?: ""
+                        )
+                        Log.d(
+                            "SongListActivity",
+                            "SongViewModel updated with URL: $songId, $songName,$artistName$songImageUrl"
+                        )
                     }
                 }
             }
@@ -257,6 +288,7 @@ class MusicPlayActivity : AppCompatActivity() {
     private fun startSeekBarUpdate() {
         handler.post(updateRunnable)
     }
+
     private val updateRunnable: Runnable = object : Runnable {
         override fun run() {
             musicService?.let {
@@ -298,6 +330,7 @@ class MusicPlayActivity : AppCompatActivity() {
         super.onDestroy()
         compositeDisposable.clear()
     }
+
     private fun parseLyrics(lyrics: String): List<LyricLine> {
         val lines = lyrics.split("\n")
         val lyricLines = mutableListOf<LyricLine>()
@@ -343,8 +376,6 @@ class MusicPlayActivity : AppCompatActivity() {
             binding.lyricsView2.text = nextLyric?.text ?: ""
         }
     }
-
-
 
 
 }

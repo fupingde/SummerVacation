@@ -46,9 +46,9 @@ class SongFragment : Fragment() {
         mbinding.rv.layoutManager = LinearLayoutManager(context)
     }
 
-    override fun onDestroy() {
-        _mbinding=null
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _mbinding = null
     }
 }
 

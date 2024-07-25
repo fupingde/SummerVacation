@@ -26,9 +26,9 @@ object AlbumRepository {
         .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .build()
 
-    fun SearchSongs(keywords: String,type:Int, _albumData: MutableLiveData<DataAlbum>) {
+    fun SearchSongs(keywords: String, type: Int, _albumData: MutableLiveData<DataAlbum>) {
         val service = retrofit.create(SearchSong::class.java)
-        service.getAlbum(keywords,10).subscribeOn(Schedulers.newThread())
+        service.getAlbum(keywords, 10).subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())//在安卓主线程（执行onNext的逻辑）
             .subscribe(object : Observer<DataAlbum> {
                 override fun onSubscribe(d: Disposable) {
@@ -48,10 +48,10 @@ object AlbumRepository {
                 override fun onNext(t: DataAlbum) {
                     // _songData.postValue(t)
                     // 在循环结束后，将累积的列表发布到 LiveData
-
-                    _albumData.postValue(t)
-                  Log.d("Album.value",t.toString())
-
+                    if (t != null) {
+                        _albumData.postValue(t)
+                        Log.d("Album.value", t.toString())
+                    }
                 }
 
             })

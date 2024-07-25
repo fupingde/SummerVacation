@@ -50,8 +50,9 @@ class RecommendFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         _binding = null
+        super.onDestroyView()
+
     }
 
     private inner class ViewPagerAdapter(fragmentActivity: FragmentActivity) :
