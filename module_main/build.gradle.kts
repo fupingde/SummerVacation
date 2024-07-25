@@ -60,7 +60,10 @@ dependencies {
     implementation("io.reactivex.rxjava2:rxjava:2.2.21")
     implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
     implementation("com.github.bumptech.glide:glide:4.13.2")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
     kapt("com.github.bumptech.glide:compiler:4.13.2")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
+    implementation ("androidx.media3:media3-exoplayer:1.0.0")
+    implementation ("androidx.media3:media3-ui:1.0.0")
 }

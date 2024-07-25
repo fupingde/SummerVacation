@@ -12,6 +12,7 @@ import android.os.Looper
 import android.util.Log
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.media3.common.Player
 import com.bumptech.glide.Glide
 import com.example.Network.api.Retrofit
 import com.example.module.main.R
@@ -90,7 +91,7 @@ class MusicPlayActivity : AppCompatActivity() {
         binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) {
-                    musicService?.getMediaPlayer()?.seekTo(progress)
+                    musicService?.getExoPlayer()?.seekTo(progress.toLong())
                     binding.currentTime.text = formatTime(progress)
                 }
             }
@@ -107,14 +108,9 @@ class MusicPlayActivity : AppCompatActivity() {
     private fun bindAndStartService() {
         Intent(this, MusicService::class.java).also { intent ->
             startService(intent)
-            val success = bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
-            if (!success) {
-                Handler(Looper.getMainLooper()).postDelayed({
-                    bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
-                }, 1000)
+            bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
             }
         }
-    }
 
     private fun getSongUrl(songId: Long) {
         Log.d("MusicPlayActivity", "Fetching song URL for song ID: $songId")
@@ -163,10 +159,7 @@ class MusicPlayActivity : AppCompatActivity() {
                     rotationHandler.removeCallbacks(rotationRunnable)
                 }
                 binding.seekBar.max = musicService?.getDuration() ?: 0
-                Log.d("duration", "musicService:$musicService")
-                Log.d("duration", "Duration:${musicService?.getDuration()}")
                 binding.seekBar.progress = musicService?.getCurrentPosition() ?: 0
-                Log.d("duration", "Duration:${musicService?.getDuration()}")
                 binding.totalTime.text = formatTime(musicService?.getDuration() ?: 0)
                 startSeekBarUpdate()
             } else {
@@ -176,17 +169,12 @@ class MusicPlayActivity : AppCompatActivity() {
                 binding.totalTime.text = "00:00"
                 rotationHandler.removeCallbacks(rotationRunnable)
                 binding.seekBar.max = musicService?.getDuration() ?: 0
-                Log.d("duration", "musicService:$musicService")
-                Log.d("duration", "Duration:${musicService?.getDuration()}")
-//                binding.seekBar.progress = musicService?.getCurrentPosition() ?: 0
-                Log.d("duration", "Duration:${musicService?.getDuration()}")
-                binding.totalTime.text = formatTime(getMusicDuration(songUrl?:""))
-//                startSeekBarUpdate()
+                binding.totalTime.text = formatTime(getMusicDuration(songUrl ?: ""))
             }
         }
     }
 
-    fun getMusicDuration(url: String): Int {
+    private fun getMusicDuration(url: String): Int {
         val mediaPlayer = MediaPlayer()
         return try {
             mediaPlayer.setDataSource(url)
@@ -200,6 +188,7 @@ class MusicPlayActivity : AppCompatActivity() {
             -1
         }
     }
+
     private fun handlePlayPause() {
         Log.d("MusicPlayActivity", "button is clicked.")
         if (isBound) {
@@ -212,7 +201,7 @@ class MusicPlayActivity : AppCompatActivity() {
                         handler.removeCallbacks(updateRunnable)
                         rotationHandler.removeCallbacks(rotationRunnable)
                         updateUI()
-                    }else{
+                    } else {
                         // 停止当前正在播放的音乐
                         musicService?.pauseMusic()
                         handler.removeCallbacks(updateRunnable)
@@ -244,7 +233,6 @@ class MusicPlayActivity : AppCompatActivity() {
                 }
 
                 Log.d("MusicPlayActivity", "pause music")
-
 
             } else {
                 currentSongUrl?.let { url ->
@@ -278,14 +266,17 @@ class MusicPlayActivity : AppCompatActivity() {
                         musicService?.playMusic(url)
                         musicService?.change_isplaying()
                         binding.playPauseButton.setImageResource(R.drawable.play)
-                        musicService?.getMediaPlayer()?.setOnPreparedListener { mp ->
-                            binding.seekBar.max = mp.duration
-                            Log.d("duration", "mp.duration:${mp.duration}")
-                            binding.totalTime.text = formatTime(mp.duration)
-                            mp.start()
-                            startSeekBarUpdate()
-                            rotationHandler.post(rotationRunnable)
-                        }
+                        musicService?.getExoPlayer()?.addListener(object : Player.Listener {
+                            override fun onPlaybackStateChanged(state: Int) {
+                                if (state == Player.STATE_READY) {
+                                    binding.seekBar.max = musicService?.getDuration() ?: 0
+                                    Log.d("duration", "Duration:${musicService?.getDuration()}")
+                                    binding.totalTime.text = formatTime(musicService?.getDuration() ?: 0)
+                                    startSeekBarUpdate()
+                                    rotationHandler.post(rotationRunnable)
+                                }
+                            }
+                        })
                         val intent = Intent(this, MainActivity::class.java).apply {
                             putExtra("SONG_ID", songId)
                             putExtra("SONG_NAME", songName)
@@ -324,7 +315,6 @@ class MusicPlayActivity : AppCompatActivity() {
             }
         }
     }
-
 
     private fun formatTime(milliseconds: Int): String {
         val minutes = TimeUnit.MILLISECONDS.toMinutes(milliseconds.toLong())
@@ -387,7 +377,6 @@ class MusicPlayActivity : AppCompatActivity() {
         compositeDisposable.add(disposable)
     }
 
-
     private fun updateLyricsView(currentTime: Int) {
         val currentIndex = lyrics.indexOfLast { it.time <= currentTime }
         val currentLyric = lyrics.getOrNull(currentIndex)
@@ -401,6 +390,4 @@ class MusicPlayActivity : AppCompatActivity() {
             binding.lyricsView2.text = nextLyric?.text ?: ""
         }
     }
-
-
 }
