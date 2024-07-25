@@ -71,34 +71,34 @@ class RecommendContentFragment : Fragment() {
             startActivity(intent)
         }
 
-        recommendViewModel.tuijianGedan.observe(viewLifecycleOwner, { data ->
+        recommendViewModel.tuijianGedan.observe(viewLifecycleOwner) { data ->
             val adapter = Mainrv1Adapter(data, onItemClick)
             binding.mainrv1.adapter = adapter
-        })
+        }
 
-        recommendViewModel.remenGedan.observe(viewLifecycleOwner, { data ->
+        recommendViewModel.remenGedan.observe(viewLifecycleOwner) { data ->
             val adapter = Mainrv2Adapter(data, onItemClick)
             binding.mainrv2.adapter = adapter
-        })
+        }
 
-        recommendViewModel.liuxinggedan.observe(viewLifecycleOwner, { data ->
+        recommendViewModel.liuxinggedan.observe(viewLifecycleOwner) { data ->
             val adapter = Mainrv3Adapter(data, onItemClick)
             binding.mainrv3.adapter = adapter
-        })
+        }
 
-        recommendViewModel.banner.observe(viewLifecycleOwner, { bannerData ->
+        recommendViewModel.banner.observe(viewLifecycleOwner) { bannerData ->
             val bannerAdapter = BannerAdapter(bannerData.banners)
             binding.bannerViewPager.adapter = bannerAdapter
             binding.bannerViewPager.setPageTransformer(SmoothScrollPageTransformer())
             handler.post(bannerAutoScrollRunnable)
-        })
+        }
 
-        recommendViewModel.newSongs.observe(viewLifecycleOwner, { newSongs ->
-            val adapter = Mainvp4Adapter(requireContext(),newSongs.result)
+        recommendViewModel.newSongs.observe(viewLifecycleOwner) { newSongs ->
+            val adapter = Mainvp4Adapter(requireContext(), newSongs.result)
             binding.mainvp.adapter = adapter
             binding.mainvp.setPageTransformer(SmoothScrollPageTransformer())
             handler.post(autoScrollRunnable)
-        })
+        }
 
         recommendViewModel.fetchTuijianGedan()
         recommendViewModel.fetchRemenGedan()

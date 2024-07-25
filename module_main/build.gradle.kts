@@ -1,5 +1,6 @@
 plugins {
-    alias(libs.plugins.android.application)
+    id("com.android.library")
+    //alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-kapt")
 }
@@ -12,11 +13,11 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.module.main"
+      //  applicationId = "com.example.module.main"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+       // versionCode = 1
+       // versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -38,14 +39,18 @@ android {
         jvmTarget = "1.8"
     }
 }
+kapt { arguments { arg("AROUTER_MODULE_NAME", project.name) } }
 
 dependencies {
+    implementation("com.alibaba:arouter-api:1.5.2")
+    kapt("com.alibaba:arouter-compiler:1.5.2")
     implementation(libs.volley)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.swiperefreshlayout)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

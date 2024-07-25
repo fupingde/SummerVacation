@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
@@ -22,6 +23,7 @@ import com.example.module.ui.fragments.MyFragment
 import com.example.module.ui.fragments.RecommendFragment
 import com.example.module.ui.viewmodel.SongViewModel
 import com.example.module.ui.viewmodel.ViewModelSingleton
+@Route(path = "/main/MainActivity")
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
