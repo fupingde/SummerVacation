@@ -8,6 +8,7 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.annotation.Autowired
@@ -22,6 +23,7 @@ import com.example.module.search.fragment.SongFragment
 import com.example.module.search.network.FragmentInterface
 import com.example.module.search.viewmodel.AlbumViewModel
 import com.example.module.search.viewmodel.MvViewModel
+import com.example.module.search.viewmodel.SharedViewModel
 import com.example.module.search.viewmodel.SingerViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -35,6 +37,7 @@ class SearchActivity : AppCompatActivity() {
     val albumViewModel by lazy { ViewModelProvider(this)[AlbumViewModel::class.java] }
     val singerViewModel by lazy { ViewModelProvider(this)[SingerViewModel::class.java] }
     val mvViewModel by lazy { ViewModelProvider(this)[MvViewModel::class.java] }
+    val sharedViewModel by lazy { ViewModelProvider(this)[SharedViewModel::class.java] }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -54,6 +57,22 @@ class SearchActivity : AppCompatActivity() {
             mvViewModel.getMvidata(mbinding.searchView.query.toString())
             Log.d("edixView", mbinding.searchView.query.toString())}
         }
+        mbinding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            android.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let {
+                    sharedViewModel.searchQuery.value = it
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let {
+                    sharedViewModel.searchQuery.value = it
+                }
+                return true
+            }
+        })
         mbinding.imBack.setOnClickListener {
             finish()
         }
@@ -68,6 +87,7 @@ class SearchActivity : AppCompatActivity() {
         fragmentLsit.let {
             it.add(object : FragmentInterface {
                 override fun back(): Fragment {
+
                     return SongFragment()
                 }
 

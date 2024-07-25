@@ -10,13 +10,17 @@ class SongViewModel : ViewModel() {
     private val _songData: MutableLiveData<List<Song>> = MutableLiveData()
     val songData: LiveData<List<Song>>
         get() = _songData
-
+    private var page = 1
 
     //得到单曲的信息
     fun getSongInfo(keyword: String) {
-      SongRepository.SearchSongs(keyword,_songData)
+        SongRepository.SearchSongs(keyword, _songData)
 
     }
 
+    fun getmoreSongs(keyword: String) {
+        SongRepository.getMoreSongs(keyword, page, _songData)
+        page++
+    }
 
 }
