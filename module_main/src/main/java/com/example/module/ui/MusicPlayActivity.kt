@@ -213,7 +213,7 @@ class MusicPlayActivity : AppCompatActivity() {
                         binding.playPauseButton.setImageResource(R.drawable.play)
                         startSeekBarUpdate()
                         rotationHandler.post(rotationRunnable)
-                        val intent = Intent(this, MainActivity::class.java).apply {
+                        Intent(this, MainActivity::class.java).apply {
                             putExtra("SONG_ID", songId)
                             putExtra("SONG_NAME", songName)
                             putExtra("SONG_ARTIST", artistName)
@@ -231,9 +231,7 @@ class MusicPlayActivity : AppCompatActivity() {
                         )
                     }
                 }
-
                 Log.d("MusicPlayActivity", "pause music")
-
             } else {
                 currentSongUrl?.let { url ->
                     if (musicService?.getCurrentSongUrl() == url) {
@@ -242,7 +240,7 @@ class MusicPlayActivity : AppCompatActivity() {
                         binding.playPauseButton.setImageResource(R.drawable.play)
                         startSeekBarUpdate()
                         rotationHandler.post(rotationRunnable)
-                        val intent = Intent(this, MainActivity::class.java).apply {
+                        Intent(this, MainActivity::class.java).apply {
                             putExtra("SONG_ID", songId)
                             putExtra("SONG_NAME", songName)
                             putExtra("SONG_ARTIST", artistName)
@@ -277,7 +275,7 @@ class MusicPlayActivity : AppCompatActivity() {
                                 }
                             }
                         })
-                        val intent = Intent(this, MainActivity::class.java).apply {
+                        Intent(this, MainActivity::class.java).apply {
                             putExtra("SONG_ID", songId)
                             putExtra("SONG_NAME", songName)
                             putExtra("SONG_ARTIST", artistName)
