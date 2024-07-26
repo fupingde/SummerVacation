@@ -75,6 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/zhuanfa"
+                android:layout_marginBottom="5dp"
                 android:background="?attr/selectableItemBackgroundBorderless"/>
 
             <ImageButton
@@ -98,7 +99,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp">
 
         <TextView
             android:id="@+id/currentTime"

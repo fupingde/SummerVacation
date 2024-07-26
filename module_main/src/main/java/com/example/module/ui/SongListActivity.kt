@@ -3,6 +3,7 @@ package com.example.module.ui.activities
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -10,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.Network.Bean.Song2
+import com.example.module.database.MyDatabaseHelper
 import com.example.module.main.R
 import com.example.module.main.databinding.ActivitySongListBinding
 import com.example.module.ui.MusicPlayActivity
@@ -24,11 +26,15 @@ class SongListActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySongListBinding
     private val viewModel: SongListViewModel by viewModels()
     private lateinit var songViewModel: SongViewModel
+    private lateinit var dbHelper: MyDatabaseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySongListBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // 初始化数据库助手
+        dbHelper = MyDatabaseHelper(this)
 
         // 使用单例类获取SongViewModel实例
         songViewModel = ViewModelSingleton.getSongViewModel(application)
@@ -87,6 +93,38 @@ class SongListActivity : AppCompatActivity() {
         })
 
         binding.collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar)
+
+        // 在设置 collectbutton 点击监听器之前检查数据库中是否有相关数据
+        val isCollected = dbHelper.isPlaylistCollected(playlistId)
+
+        if (isCollected) {
+
+            binding.collectbutton.setImageResource(R.drawable.collected)
+        } else {
+            binding.collectbutton.setImageResource(R.drawable.shoucang)  // 假设 R.drawable.default_collect 是默认图片
+        }
+
+        binding.collectbutton.setOnClickListener {
+            // 获取播放列表数据
+            val playlistId = intent.getLongExtra("playlistId", -1L)
+            val playlistName = intent.getStringExtra("playlistName") ?: ""
+            val playlistImageUrl = intent.getStringExtra("playlistImageUrl") ?: ""
+
+            // 检查数据库中是否有相关数据
+            val isCollected = dbHelper.isPlaylistCollected(playlistId)
+
+            if (isCollected) {
+                // 如果数据已存在，删除数据并更换按钮图片
+                dbHelper.deleteCollectedPlaylist(playlistId)
+                binding.collectbutton.setImageResource(R.drawable.shoucang)  // 假设 R.drawable.default_collect 是默认图片
+                Toast.makeText(this, "取消收藏", Toast.LENGTH_SHORT).show()
+            } else {
+                // 如果数据不存在，添加数据并更换按钮图片
+                dbHelper.insertCollectedPlaylist(playlistId, playlistName, playlistImageUrl)
+                binding.collectbutton.setImageResource(R.drawable.collected)
+                Toast.makeText(this, "收藏成功", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun onSongItemClick(song: Song2, songs: List<Song2>, position: Int) {
