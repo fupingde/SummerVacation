@@ -9,31 +9,31 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.module.broadcast.ViewModel.MvViewModel
 import com.example.module.broadcast.ViewModel.MvdataViewModel
 import com.example.module.broadcast.databinding.MvFragmentBinding
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.video.VideoSize
+import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
+import androidx.media3.common.VideoSize
+import androidx.media3.exoplayer.ExoPlayer
 
 class MvFragment : Fragment() {
     val mvViewModel by lazy { ViewModelProvider(requireActivity())[MvViewModel::class.java] }
     val mvdataViewModel by lazy { ViewModelProvider(requireActivity())[MvdataViewModel::class.java] }
-    var _mbinding: MvFragmentBinding ?=null
+    var _mbinding: MvFragmentBinding? = null
     val mbinding get() = _mbinding!!
     var commentid: Long = 0
     lateinit var url: String
     lateinit var exoPlayer: ExoPlayer
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _mbinding= MvFragmentBinding.inflate(inflater,container,false)
+        _mbinding = MvFragmentBinding.inflate(inflater, container, false)
         return mbinding.root
     }
 
@@ -41,11 +41,10 @@ class MvFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-
     }
 
     private fun initView() {
-        initcommentClick()
+        initCommentClick()
         exoPlayer = ExoPlayer.Builder(requireContext()).build()
         exoPlayer.addListener(object : Player.Listener {
             override fun onVideoSizeChanged(videoSize: VideoSize) {
@@ -55,13 +54,11 @@ class MvFragment : Fragment() {
         })
         mbinding.playerView.player = exoPlayer
 
-
-
         mvViewModel.songData.observe(viewLifecycleOwner, Observer { mvUrl ->
             mvUrl?.let {
                 val mediaItemUrl = it[0].url
-                url=it[0].url
-                initshareClick()
+                url = it[0].url
+                initShareClick()
                 if (mediaItemUrl.isNullOrEmpty()) {
                     Log.e("MvFragment", "Invalid media item URL")
                     return@Observer
@@ -83,29 +80,24 @@ class MvFragment : Fragment() {
         })
     }
 
-
-    private fun initshareClick() {
+    private fun initShareClick() {
         mbinding.shareButton.setOnClickListener {
             mvdataViewModel.mdata.observe(viewLifecycleOwner, Observer { date ->
                 date?.let {
-                    val mvnamead = it[0].name
+                    val mvNameAd = it[0].name
                     val shareIntent = Intent().apply {
-                        val title = "$mvnamead\n $url"
+                        val title = "$mvNameAd\n $url"
                         action = Intent.ACTION_SEND
                         putExtra(Intent.EXTRA_TEXT, title)
-                        type="text/plain"}
-                    startActivity(Intent.createChooser(shareIntent,"选择要分享的应用"))
+                        type = "text/plain"
                     }
-                })
-
-            }
+                    startActivity(Intent.createChooser(shareIntent, "选择要分享的应用"))
+                }
+            })
         }
+    }
 
-
-
-
-    private fun initcommentClick() {
-
+    private fun initCommentClick() {
         mbinding.commentButton.setOnClickListener {
             mvViewModel.songData.observe(viewLifecycleOwner, Observer { mvUrl ->
                 mvUrl?.let {
@@ -115,7 +107,6 @@ class MvFragment : Fragment() {
                     commentFragment.show(childFragmentManager, "CommentFragment")
                 }
             })
-
         }
     }
 

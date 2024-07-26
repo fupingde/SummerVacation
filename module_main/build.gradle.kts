@@ -70,4 +70,6 @@ dependencies {
     implementation ("com.google.android.material:material:1.4.0")
     implementation ("androidx.media3:media3-exoplayer:1.0.0")
     implementation ("androidx.media3:media3-ui:1.0.0")
+    implementation(project(":Lgs_module_login"))
+
 }

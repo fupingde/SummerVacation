@@ -76,7 +76,6 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="10dp"
                 android:src="@drawable/zhuanfa"
-                android:layout_marginBottom="5dp"
                 android:background="?attr/selectableItemBackgroundBorderless"/>
 
             <ImageButton

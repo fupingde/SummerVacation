@@ -6,7 +6,7 @@
     tools:context=".fragment.MvFragment">
 
     <!-- 视频播放视图 -->
-    <com.google.android.exoplayer2.ui.PlayerView
+    <androidx.media3.ui.PlayerView
         android:id="@+id/playerView"
         android:layout_width="0dp"
         android:layout_height="0dp"

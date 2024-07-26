@@ -42,7 +42,6 @@ class ARouterActivity : AppCompatActivity() {
 
     private fun initView() {
         // 确保所有必需的参数都已经被注入
-
             val intent = Intent(this, MusicPlayActivity::class.java).apply {
                 putExtra("SONG_ID", songId)
                 putExtra("SONG_NAME", songName)

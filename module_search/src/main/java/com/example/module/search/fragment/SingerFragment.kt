@@ -13,13 +13,13 @@ import com.example.module.search.adpter.MvAdapter
 import com.example.module.search.databinding.FragmentMvBinding
 import com.example.module.search.viewmodel.MvViewModel
 
-class SingerFragment :Fragment(){
+class SingerFragment : Fragment() {
     private val mvViewModel by lazy {
         ViewModelProvider(requireActivity())[MvViewModel::class.java]
     }
-    private var _mbinding:FragmentMvBinding?=null
-    private val mbinding get()=_mbinding!!
-
+    private var _mbinding: FragmentMvBinding? = null
+    private val mbinding get() = _mbinding!!
+    private lateinit var mvAdapter: MvAdapter
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,19 +31,19 @@ class SingerFragment :Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       val mvAdapter=MvAdapter()
-        mvViewModel.songData.observe(viewLifecycleOwner, Observer { mv->
+        mvAdapter = MvAdapter()
+        mvViewModel.songData.observe(viewLifecycleOwner, Observer { mv ->
             mv?.let {
-                Log.d("mvdatas",it.toString())
+                Log.d("mvdatas", it.toString())
                 mvAdapter.submitList(it)
             }
         })
-        mbinding.rvMv.adapter =mvAdapter
-        mbinding.rvMv.layoutManager =LinearLayoutManager(requireContext())
+        mbinding.rvMv.adapter = mvAdapter
+        mbinding.rvMv.layoutManager = LinearLayoutManager(requireContext())
     }
 
     override fun onDestroyView() {
-        _mbinding=null
+        _mbinding = null
         super.onDestroyView()
     }
 

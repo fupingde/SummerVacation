@@ -13,85 +13,83 @@ import com.example.module.broadcast.ViewModel.MvViewModel
 import com.example.module.broadcast.ViewModel.MvdataViewModel
 import com.example.module.broadcast.ViewModel.OtherViewModel
 import com.example.module.broadcast.databinding.MvFragmentBinding
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.MediaItem
+import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
+import androidx.media3.exoplayer.ExoPlayer
 
 class OtherFragment : Fragment() {
-    var _mbinding :MvFragmentBinding ?=null
+    var _mbinding: MvFragmentBinding? = null
     val mbinding get() = _mbinding!!
 
-    val mvViewModel by lazy { ViewModelProvider(this)[MvViewModel::class.java] }
-    val mvdataViewModel by lazy { ViewModelProvider(this)[MvdataViewModel::class.java] }
-    val otherViewModel by lazy { ViewModelProvider(this)[OtherViewModel::class.java] }
+    private lateinit var mvViewModel:MvViewModel
+    private lateinit var mvdataViewModel:MvdataViewModel
+    private lateinit var otherViewModel  :OtherViewModel
     val exoPlayer by lazy { ExoPlayer.Builder(requireContext()).build() }
-    lateinit var url:String
-    var commentid:Long=0
+    lateinit var url: String
+    var commentid: Long = 0
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _mbinding=MvFragmentBinding.inflate(inflater,container,false)
+        _mbinding = MvFragmentBinding.inflate(inflater, container, false)
         return mbinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initView()
     }
 
     private fun initView() {
+        mvViewModel= ViewModelProvider(this)[MvViewModel::class.java]
+        mvdataViewModel=ViewModelProvider(this)[MvdataViewModel::class.java]
+        otherViewModel=ViewModelProvider(this)[OtherViewModel::class.java]
         val mvid = arguments?.getLong(ARG_MV_ID)
-        var mvorder = arguments?.getInt(ARG_MV_ORDER)
+        val mvorder = arguments?.getInt(ARG_MV_ORDER)
 
         mbinding.playerView.player = exoPlayer
-        Log.d("mvid","传入的id和order"+mvid+","+mvorder)
+        Log.d("mvid", "传入的id和order" + mvid + "," + mvorder)
         if (mvid != null) {
             otherViewModel.getSongInfo(mvid)
         }
 
-        otherViewModel.OtehrMvid.observe(viewLifecycleOwner, Observer { id->
+        otherViewModel.OtehrMvid.observe(viewLifecycleOwner, Observer { id ->
             id?.let {
                 if (mvorder != null) {
                     mvViewModel.getSongInfo(it[mvorder].id)
                     mvdataViewModel.getMvdata(it[mvorder].id)
-                    commentid=it[mvorder].id
+                    commentid = it[mvorder].id
                     initClick()
                 }
             }
         })
 
-
-        mvViewModel.songData.observe(viewLifecycleOwner, Observer { mvurl->
-                mvurl?.let {
-                    if (mvorder!=null) {
-                        val mediaItem = MediaItem.fromUri(it[0].url)
-                        url=it[0].url
-                        initShareClick()
-                        exoPlayer.setMediaItem(mediaItem)
-                        exoPlayer.prepare()
-                        exoPlayer.playWhenReady = true
-
-                    }
-
-
+        mvViewModel.songData.observe(viewLifecycleOwner, Observer { mvurl ->
+            mvurl?.let {
+                if (mvorder != null) {
+                    val mediaItem = MediaItem.fromUri(it[0].url)
+                    url = it[0].url
+                    initShareClick()
+                    exoPlayer.setMediaItem(mediaItem)
+                    exoPlayer.prepare()
+                    exoPlayer.playWhenReady = true
                 }
+            }
         })
-        mvdataViewModel.mdata.observe(viewLifecycleOwner, Observer { mvdata->
+
+        mvdataViewModel.mdata.observe(viewLifecycleOwner, Observer { mvdata ->
             mvdata?.let {
-                if (mvorder!=null) {
+                if (mvorder != null) {
                     mbinding.goodCount.text = mvdata[0].subCount.toString()
                     mbinding.shareCount.text = mvdata[0].shareCount.toString()
                     mbinding.commentCount.text = mvdata[0].commentCount.toString()
                 }
             }
-
         })
-
-
     }
-    //在当前视频播放时候其他视频暂停
+
     override fun onPause() {
         super.onPause()
         exoPlayer.pause()
@@ -104,10 +102,9 @@ class OtherFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _mbinding=null
+        _mbinding = null
         exoPlayer.release()
     }
-
 
     companion object {
         private const val ARG_MV_ID = "mv_id"
@@ -122,13 +119,15 @@ class OtherFragment : Fragment() {
             return fragment
         }
     }
+
     private fun initClick() {
         mbinding.commentButton.setOnClickListener {
-            Log.d("comment","id"+commentid.toString())
-            val commentFragment=CommentFragment.newInstance(commentid)
+            Log.d("comment", "id" + commentid.toString())
+            val commentFragment = CommentFragment.newInstance(commentid)
             commentFragment.show(childFragmentManager, "CommentFragment")
         }
     }
+
     private fun initShareClick() {
         mbinding.shareButton.setOnClickListener {
             mvdataViewModel.mdata.observe(viewLifecycleOwner, Observer { date ->
@@ -138,12 +137,11 @@ class OtherFragment : Fragment() {
                         val title = "$mvnamead\n $url"
                         action = Intent.ACTION_SEND
                         putExtra(Intent.EXTRA_TEXT, title)
-                        type="text/plain"}
-                    startActivity(Intent.createChooser(shareIntent,"选择要分享的应用"))
+                        type = "text/plain"
+                    }
+                    startActivity(Intent.createChooser(shareIntent, "选择要分享的应用"))
                 }
             })
-
         }
     }
-
 }
