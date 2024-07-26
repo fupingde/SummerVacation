@@ -20,7 +20,7 @@ class SinglistFragment : Fragment() {
     }
     private var _mbinding:FragmentSinglistBinding?=null
     private val mbinding get() = _mbinding!!
-    private val singlistAdapter by lazy { SinglistAdapter() }
+    private lateinit var singlistAdapter :SinglistAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,7 +33,7 @@ class SinglistFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+         singlistAdapter=SinglistAdapter()
         singlistViewModel.albumData.observe(viewLifecycleOwner, Observer { dataAlbum ->
             // 进行全面的空检查
             if (dataAlbum != null && dataAlbum.result != null) {
