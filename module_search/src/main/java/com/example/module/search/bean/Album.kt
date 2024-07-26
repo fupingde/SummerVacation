@@ -5,5 +5,6 @@ data class Album(
     val id: Long,
     val name: String,
     val picId: Long,
+     val img1v1Url:String,
     val size: Long,
 )

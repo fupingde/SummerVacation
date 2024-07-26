@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.alibaba.android.arouter.launcher.ARouter
 import com.example.module.search.R
 import com.example.module.search.bean.Song
 
@@ -39,7 +40,10 @@ class SongAdapter() : ListAdapter<Song, SongAdapter.ViewHolder>(ItemDiffCallback
         holder.songlist.text=item.album.name
         holder.singer.text=item.artists[0].name
         holder.itemView.setOnClickListener {
-
+            ARouter.getInstance().build("/main/ARouterActivity").withLong("songId", item.id).withString("songName",item.name)
+                .withString("artistName",item.artists[0].name)
+                .withString("songImageUrl",item.album.img1v1Url)
+                .navigation()
         }
     }
     class ItemDiffCallback : DiffUtil.ItemCallback<Song>() {
