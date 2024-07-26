@@ -8,6 +8,9 @@
       <SelectionState runConfigName="Lgs_moudule_drawerView">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
+      <SelectionState runConfigName="module_main">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
     </selectionStates>
   </component>
 </project>

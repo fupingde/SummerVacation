@@ -22,9 +22,7 @@
             android:name="com.example.module.ui.services.MusicService"
             android:exported="false" />
 
-        <activity
-            android:name="com.example.module.ui.MusicPlayActivity"
-            android:exported="false" />
+        <activity android:name="com.example.module.ui.MusicPlayActivity"></activity>
         <activity
             android:name="com.example.module.ui.activities.SongListActivity"
             android:exported="false" />

@@ -1,5 +1,4 @@
 package com.example.module.ui
-
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
@@ -11,10 +10,12 @@ import android.os.IBinder
 import android.os.Looper
 import android.util.Log
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.media3.common.Player
 import com.bumptech.glide.Glide
 import com.example.Network.api.Retrofit
+import com.example.module.database.MyDatabaseHelper
 import com.example.module.main.R
 import com.example.module.main.databinding.ActivityMusicPlayBinding
 import com.example.module.ui.services.MusicService
@@ -84,8 +85,24 @@ class MusicPlayActivity : AppCompatActivity() {
         binding.songArtist.text = artistName
         Glide.with(this).load(songImageUrl).into(binding.albumCover)
 
+        // 设置收藏按钮的初始图片
+        val dbHelper = MyDatabaseHelper(this)
+        if (dbHelper.isSongCollected(songId)) {
+            binding.collectbutton.setImageResource(R.drawable.collected)
+        } else {
+            binding.collectbutton.setImageResource(R.drawable.shoucang)
+        }
+
         binding.playPauseButton.setOnClickListener {
             handlePlayPause()
+        }
+
+        binding.collectbutton.setOnClickListener {
+            handleCollectButtonClick()
+        }
+
+        binding.downloadbutton.setOnClickListener {
+            handleDownloadButtonClick()
         }
 
         binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
@@ -105,12 +122,33 @@ class MusicPlayActivity : AppCompatActivity() {
         getLyrics(songId)
     }
 
+    private fun handleDownloadButtonClick() {
+        val dbHelper = MyDatabaseHelper(this)
+        if (dbHelper.isSongDownloaded(songId)) {
+            Toast.makeText(this, "歌曲已下载", Toast.LENGTH_SHORT).show()
+        } else {
+            dbHelper.insertDownloadedSong(songId, songName ?: "", artistName ?: "", songImageUrl ?: "")
+            Toast.makeText(this, "歌曲下载成功", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun handleCollectButtonClick() {
+        val dbHelper = MyDatabaseHelper(this)
+        if (dbHelper.isSongCollected(songId)) {
+            dbHelper.deleteCollectedSong(songId)
+            binding.collectbutton.setImageResource(R.drawable.shoucang)
+        } else {
+            dbHelper.insertCollectedSong(songId, songName ?: "", artistName ?: "", songImageUrl ?: "")
+            binding.collectbutton.setImageResource(R.drawable.collected)
+        }
+    }
+
     private fun bindAndStartService() {
         Intent(this, MusicService::class.java).also { intent ->
             startService(intent)
             bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
-            }
         }
+    }
 
     private fun getSongUrl(songId: Long) {
         Log.d("MusicPlayActivity", "Fetching song URL for song ID: $songId")
