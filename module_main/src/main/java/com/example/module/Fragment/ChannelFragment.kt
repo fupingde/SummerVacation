@@ -5,14 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.module.main.databinding.FragmentMyBinding
+import com.example.module.main.databinding.FragmentMusicBinding
 
-class MyFragment : Fragment() {
-    private var _binding: FragmentMyBinding? = null
+class ChannelFragment : Fragment() {
+    private var _binding: FragmentMusicBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = FragmentMyBinding.inflate(inflater, container, false)
+        _binding = FragmentMusicBinding.inflate(inflater, container, false)
         return binding.root
     }
 
