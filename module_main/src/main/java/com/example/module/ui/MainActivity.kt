@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
     private val rotationRunnable: Runnable = object : Runnable {
         override fun run() {
             customFab.rotation = rotationAngle
-            rotationAngle += 2f
+            rotationAngle += 1f
             if (rotationAngle >= 360f) {
                 rotationAngle = 0f
             }

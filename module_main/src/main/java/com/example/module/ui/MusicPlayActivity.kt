@@ -548,9 +548,6 @@ class MusicPlayActivity : AppCompatActivity() {
     }
 
 
-
-
-
     private fun playPreviousSong() {
         if (playlistSongs.isNotEmpty()) {
             val currentIndex = playlistSongs.indexOfFirst { it.id == songId }
