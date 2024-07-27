@@ -16,11 +16,12 @@ import com.example.module.broadcast.databinding.MvFragmentBinding
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
+import com.example.module.broadcast.R
 
 class OtherFragment : Fragment() {
     var _mbinding: MvFragmentBinding? = null
     val mbinding get() = _mbinding!!
-
+     var ispush =false
     private lateinit var mvViewModel:MvViewModel
     private lateinit var mvdataViewModel:MvdataViewModel
     private lateinit var otherViewModel  :OtherViewModel
@@ -46,6 +47,16 @@ class OtherFragment : Fragment() {
         mvViewModel= ViewModelProvider(this)[MvViewModel::class.java]
         mvdataViewModel=ViewModelProvider(this)[MvdataViewModel::class.java]
         otherViewModel=ViewModelProvider(this)[OtherViewModel::class.java]
+        mbinding.likeButton.setOnClickListener {
+            if (ispush===false){
+                mbinding.likeButton.setImageResource(R.drawable.ic_ispush)
+                ispush=true
+            }
+            else{
+                mbinding.likeButton.setImageResource(R.drawable.ic_push)
+                ispush=false
+            }
+        }
         val mvid = arguments?.getLong(ARG_MV_ID)
         val mvorder = arguments?.getInt(ARG_MV_ORDER)
 
