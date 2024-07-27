@@ -5,9 +5,14 @@
 
     <application>
         <activity
-            android:name="com.example.module.ui.ARouterActivity"
+            android:name="com.example.module.ui.MydownloadActivity"
             android:exported="false" />
-        <!-- android:allowBackup="true" -->
+        <activity
+            android:name="com.example.module.ui.MycollectedActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.module.ui.ARouterActivity"
+            android:exported="false" /> <!-- android:allowBackup="true" -->
         <!-- android:icon="@mipmap/ic_launcher" -->
         <!-- android:label="@string/app_name" -->
         <!-- android:roundIcon="@mipmap/ic_launcher_round" -->
@@ -22,7 +27,7 @@
             android:name="com.example.module.ui.services.MusicService"
             android:exported="false" />
 
-        <activity android:name="com.example.module.ui.MusicPlayActivity"></activity>
+        <activity android:name="com.example.module.ui.MusicPlayActivity" />
         <activity
             android:name="com.example.module.ui.activities.SongListActivity"
             android:exported="false" />

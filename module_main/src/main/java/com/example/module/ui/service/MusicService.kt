@@ -14,7 +14,7 @@ import androidx.media3.common.Player
 class MusicService : Service() {
 
     private val binder = MusicBinder()
-    private var exoPlayer: ExoPlayer? = null
+    private var player: ExoPlayer? = null
     private var _isPlaying: Boolean = false
     private var songUrl: String? = null
     private val handler = Handler()
@@ -34,10 +34,10 @@ class MusicService : Service() {
     }
 
     fun playMusic(url: String) {
-        if (exoPlayer == null || songUrl != url) {
+        if (player == null || songUrl != url) {
             initializeExoPlayer(url)
         } else if (!_isPlaying) {
-            exoPlayer?.play()
+            player?.playWhenReady = true
             _isPlaying = true
             handler.post(updateRunnable)
         }
@@ -45,15 +45,15 @@ class MusicService : Service() {
 
     private fun initializeExoPlayer(url: String) {
         Log.d("MusicService", "initializeExoPlayer")
-        exoPlayer?.release()
-        exoPlayer = ExoPlayer.Builder(this).build().apply {
+        player?.release()
+        player = ExoPlayer.Builder(this).build().apply {
             setMediaItem(MediaItem.fromUri(url))
             prepare()
             addListener(object : Player.Listener {
                 override fun onPlaybackStateChanged(state: Int) {
                     if (state == Player.STATE_READY) {
                         _isPlaying = true
-                        play()
+                        playWhenReady = true
                         handler.post(updateRunnable)
                     } else if (state == Player.STATE_ENDED) {
                         _isPlaying = false
@@ -72,22 +72,26 @@ class MusicService : Service() {
 
     fun pauseMusic() {
         Log.d("MusicService", "pauseMusic")
-        exoPlayer?.pause()
+        player?.playWhenReady = false
         _isPlaying = false
         handler.removeCallbacks(updateRunnable)
         Log.d("MusicService", "music paused")
     }
 
     fun getCurrentPosition(): Int {
-        return exoPlayer?.currentPosition?.toInt() ?: 0
+        return player?.currentPosition?.toInt() ?: 0
     }
 
     fun getDuration(): Int {
-        return exoPlayer?.duration?.toInt() ?: 0
+        return player?.duration?.toInt() ?: 0
     }
 
     fun isPlaying(): Boolean {
         return _isPlaying
+    }
+
+    fun getPlayer(): ExoPlayer? {
+        return player
     }
 
     fun getCurrentSongUrl(): String? {
@@ -95,12 +99,15 @@ class MusicService : Service() {
     }
 
     fun isPrepared(): Boolean {
-        return exoPlayer?.playWhenReady ?: false
+        return player?.playWhenReady ?: false
+    }
+    fun seekTo(position: Long) {
+        player?.seekTo(position)
+        player?.playWhenReady = true
+        _isPlaying = true
+        handler.post(updateRunnable)
     }
 
-    fun getExoPlayer(): ExoPlayer? {
-        return exoPlayer
-    }
 
     fun change_isplaying() {
         _isPlaying = !_isPlaying
@@ -108,7 +115,7 @@ class MusicService : Service() {
 
     private val updateRunnable: Runnable = object : Runnable {
         override fun run() {
-            exoPlayer?.let {
+            player?.let {
                 if (_isPlaying) {
                     handler.postDelayed(this, 1000)
                 }

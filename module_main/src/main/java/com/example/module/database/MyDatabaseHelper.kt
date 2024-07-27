@@ -4,6 +4,8 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.content.ContentValues
+import com.example.Network.Bean.CollctedSong
+import com.example.Network.Bean.MyrvBean
 
 class MyDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
@@ -70,6 +72,41 @@ class MyDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NA
         db.insert(TABLE_COLLECTED_NAME, null, values)
         db.close()
     }
+    fun getAllCollectedSongs(): List<CollctedSong> {
+        val songs = mutableListOf<CollctedSong>()
+        val db = this.readableDatabase
+        val cursor = db.query(TABLE_COLLECTED_NAME, null, null, null, null, null, null)
+        with(cursor) {
+            while (moveToNext()) {
+                val id = getLong(getColumnIndexOrThrow(COLUMN_SONG_ID))
+                val name = getString(getColumnIndexOrThrow(COLUMN_SONG_NAME))
+                val artist = getString(getColumnIndexOrThrow(COLUMN_SONG_ARTIST))
+                val songPictureUrl=getString(getColumnIndexOrThrow(COLUMN_SONG_PICTUREURL))
+                songs.add(CollctedSong(id, name, artist,songPictureUrl))
+            }
+        }
+        cursor.close()
+        db.close()
+        return songs
+    }
+    fun getAllDownloadedSongs(): List<CollctedSong> {
+        val songs = mutableListOf<CollctedSong>()
+        val db = this.readableDatabase
+        val cursor = db.query(TABLE_DOWNLOADED_NAME, null, null, null, null, null, null)
+        with(cursor) {
+            while (moveToNext()) {
+                val id = getLong(getColumnIndexOrThrow(COLUMN_SONG_ID))
+                val name = getString(getColumnIndexOrThrow(COLUMN_SONG_NAME))
+                val artist = getString(getColumnIndexOrThrow(COLUMN_SONG_ARTIST))
+                val songPictureUrl=getString(getColumnIndexOrThrow(COLUMN_SONG_PICTUREURL))
+                songs.add(CollctedSong(id, name, artist,songPictureUrl))
+            }
+        }
+        cursor.close()
+        db.close()
+        return songs
+    }
+
 
     fun deleteCollectedSong(songId: Long) {
         val db = this.writableDatabase
@@ -88,6 +125,25 @@ class MyDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NA
         cursor.close()
         db.close()
         return exists
+    }
+    fun getCollectedCount(): Int {
+        val db = this.readableDatabase
+        val cursor = db.rawQuery("SELECT COUNT(*) FROM $TABLE_COLLECTED_NAME", null)
+        cursor.moveToFirst()
+        val count = cursor.getInt(0)
+        cursor.close()
+        db.close()
+        return count
+    }
+
+    fun getDownloadedCount(): Int {
+        val db = this.readableDatabase
+        val cursor = db.rawQuery("SELECT COUNT(*) FROM $TABLE_DOWNLOADED_NAME", null)
+        cursor.moveToFirst()
+        val count = cursor.getInt(0)
+        cursor.close()
+        db.close()
+        return count
     }
 
     fun insertDownloadedSong(songId: Long, songName: String, songArtist: String, songPictureUrl: String) {
@@ -144,4 +200,21 @@ class MyDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NA
         db.close()
         return exists
     }
+    fun getAllCollectedPlaylists(): List<MyrvBean> {
+        val playlists = mutableListOf<MyrvBean>()
+        val db = this.readableDatabase
+        val cursor = db.query(TABLE_COLLECTED_PLAYLISTS, null, null, null, null, null, null)
+        with(cursor) {
+            while (moveToNext()) {
+                val id = getLong(getColumnIndexOrThrow(COLUMN_PLAYLIST_ID))
+                val name = getString(getColumnIndexOrThrow(COLUMN_PLAYLIST_NAME))
+                val imageUrl = getString(getColumnIndexOrThrow(COLUMN_PLAYLIST_IMAGEURL))
+                playlists.add(MyrvBean(id, name, imageUrl))
+            }
+        }
+        cursor.close()
+        db.close()
+        return playlists
+    }
+
 }
