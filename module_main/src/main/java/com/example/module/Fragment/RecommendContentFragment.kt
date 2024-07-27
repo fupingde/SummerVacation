@@ -1,6 +1,5 @@
 package com.example.module.ui.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -10,8 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alibaba.android.arouter.launcher.ARouter
 import com.example.module.main.databinding.FragmentRecommendContentBinding
-import com.example.module.ui.activities.SongListActivity
 import com.example.module.ui.adapters.BannerAdapter
 import com.example.module.ui.adapters.Mainrv1Adapter
 import com.example.module.ui.adapters.Mainrv2Adapter
@@ -63,12 +62,12 @@ class RecommendContentFragment : Fragment() {
         setupRecyclerView()
 
         val onItemClick: (Long, String, String) -> Unit = { playlistId, playlistName, playlistImageUrl ->
-            val intent = Intent(requireContext(), SongListActivity::class.java).apply {
-                putExtra("playlistId", playlistId)
-                putExtra("playlistName", playlistName)
-                putExtra("playlistImageUrl", playlistImageUrl)
-            }
-            startActivity(intent)
+            // 使用 ARouter 传递数据
+            ARouter.getInstance().build("/main/SongListActivity")
+                .withLong("playlistId", playlistId)
+                .withString("playlistName", playlistName)
+                .withString("playlistImageUrl", playlistImageUrl)
+                .navigation()
         }
 
         recommendViewModel.tuijianGedan.observe(viewLifecycleOwner) { data ->

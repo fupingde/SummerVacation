@@ -1,17 +1,16 @@
 package com.example.module.ui.adapters
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.alibaba.android.arouter.launcher.ARouter
 import com.bumptech.glide.Glide
 import com.example.Network.Bean.Result2
 import com.example.module.main.R
-import com.example.module.ui.MusicPlayActivity
 
 class Mainvp4Adapter(private val context: Context, private val songs: List<Result2>) : RecyclerView.Adapter<Mainvp4Adapter.NewSongViewHolder>() {
 
@@ -29,13 +28,13 @@ class Mainvp4Adapter(private val context: Context, private val songs: List<Resul
             .into(holder.imageView)
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(context, MusicPlayActivity::class.java).apply {
-                putExtra("SONG_ID", song.song.id)
-                putExtra("SONG_NAME", song.song.name)
-                putExtra("SONG_ARTIST", song.song.artists.firstOrNull()?.name)
-                putExtra("SONG_PICTUREURL", song.picUrl)
-            }
-            context.startActivity(intent)
+            // 使用 ARouter 传递数据
+            ARouter.getInstance().build("/main/MusicPlayActivity")
+                .withLong("songId", song.song.id)
+                .withString("songName", song.song.name)
+                .withString("artistName", song.song.artists.firstOrNull()?.name)
+                .withString("songImageUrl", song.picUrl)
+                .navigation()
         }
     }
 

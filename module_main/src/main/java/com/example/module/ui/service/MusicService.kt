@@ -108,7 +108,6 @@ class MusicService : Service() {
         handler.post(updateRunnable)
     }
 
-
     fun change_isplaying() {
         _isPlaying = !_isPlaying
     }

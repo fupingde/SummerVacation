@@ -1,6 +1,5 @@
 package com.example.module.ui.activities
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -9,26 +8,26 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.bumptech.glide.Glide
 import com.example.Network.Bean.Song2
 import com.example.module.database.MyDatabaseHelper
 import com.example.module.main.R
 import com.example.module.main.databinding.ActivitySongListBinding
-import com.example.module.ui.MusicPlayActivity
 import com.example.module.ui.adapters.SongsAdapter
 import com.example.module.ui.viewmodel.SongListViewModel
 import com.example.module.ui.viewmodel.SongViewModel
 import com.example.Network.SingletionClass.ViewModelSingleton
-import com.example.module.ui.fragments.PlaylistBottomSheetFragment
 import com.google.android.material.appbar.AppBarLayout
 
+@Route(path = "/main/SongListActivity")
 class SongListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySongListBinding
     private val viewModel: SongListViewModel by viewModels()
     private lateinit var songViewModel: SongViewModel
     private lateinit var dbHelper: MyDatabaseHelper
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,7 +99,6 @@ class SongListActivity : AppCompatActivity() {
         val isCollected = dbHelper.isPlaylistCollected(playlistId)
 
         if (isCollected) {
-
             binding.collectbutton.setImageResource(R.drawable.collected)
         } else {
             binding.collectbutton.setImageResource(R.drawable.shoucang)
@@ -130,16 +128,13 @@ class SongListActivity : AppCompatActivity() {
     }
 
     private fun onSongItemClick(song: Song2, songs: List<Song2>, position: Int) {
-        val intent = Intent(this, MusicPlayActivity::class.java).apply {
-            putExtra("SONG_ID", song.id)
-            putExtra("SONG_NAME", song.name)
-            putExtra("SONG_ARTIST", song.ar.firstOrNull()?.name)
-            putExtra("SONG_PICTUREURL", song.al.picUrl)
-            putExtra("PLAYLIST_SONGS", ArrayList(songs)) // 确保传递的数据是 ArrayList<Song2>
-            Log.d("musicplayactivity", "PLAYLIST_SONGS:${ArrayList(songs)} ")
-        }
-        startActivity(intent)
+        // 使用 ARouter 传递数据
+        ARouter.getInstance().build("/main/MusicPlayActivity")
+            .withLong("songId", song.id)
+            .withString("songName", song.name)
+            .withString("artistName", song.ar.firstOrNull()?.name)
+            .withString("songImageUrl", song.al.picUrl)
+            .withSerializable("playlistSongs", ArrayList(songs)) // 确保传递的数据是 ArrayList<Song2>
+            .navigation()
     }
-
-
 }

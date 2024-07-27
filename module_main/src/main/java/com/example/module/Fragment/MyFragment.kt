@@ -188,7 +188,7 @@ class MyFragment : Fragment() {
                 else -> "频道"
             }
         }.attach()
-   loadData()
+        loadData()
         setupRecyclerView(dbHelper)
     }
 
