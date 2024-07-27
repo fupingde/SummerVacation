@@ -42,7 +42,7 @@ class SongAdapter() : ListAdapter<Song, SongAdapter.ViewHolder>(ItemDiffCallback
         holder.singer.text=item.artists[0].name
 //        Log.d("songadapterurl", item.album.img1v1Url)
         holder.itemView.setOnClickListener {
-            ARouter.getInstance().build("/main/ARouterActivity").withLong("songId", item.id).withString("songName",item.name)
+            ARouter.getInstance().build("/main/MusicPlayActivity").withLong("songId", item.id).withString("songName",item.name)
                 .withString("artistName",item.artists[0].name)
                 .withString("songImageUrl",item.album.img1v1Url)
                 .navigation()

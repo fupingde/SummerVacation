@@ -39,7 +39,7 @@ class RvAdapter(): ListAdapter<Song, RvAdapter.ViewHolder>(ItemDiffCallback()) {
         holder.name.text = item.name
         holder.songlist.text=item.al.name
         holder.singer.text=item.ar[0].name
-        holder.itemView.setOnClickListener {  ARouter.getInstance().build("/main/ARouterActivity").withLong("songId", item.id).withString("songName",item.name)
+        holder.itemView.setOnClickListener {  ARouter.getInstance().build("/main/MusicPlayActivity").withLong("songId", item.id).withString("songName",item.name)
             .withString("artistName",item.ar[0].name)
             .withString("songImageUrl",item.al.pic_str)
             .navigation()
