@@ -1,17 +1,12 @@
 package com.example.module.adapters
 
-
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.alibaba.android.arouter.launcher.ARouter
 import com.example.Network.Bean.CollctedSong
-import com.example.Network.Bean.Song2
 import com.example.module.main.databinding.ItemSongBinding
-import com.example.module.ui.MusicPlayActivity
-
 
 class MycollectedrvAdapter(private val context: Context, private val songs: List<CollctedSong>) : RecyclerView.Adapter<MycollectedrvAdapter.SongViewHolder>() {
 
@@ -29,18 +24,17 @@ class MycollectedrvAdapter(private val context: Context, private val songs: List
         holder.binding.songArtist.text = song.artist
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(context, MusicPlayActivity::class.java).apply {
-                putExtra("SONG_ID", song.id)
-                putExtra("SONG_NAME", song.name)
-                putExtra("SONG_ARTIST", song.artist)
-                putExtra("SONG_PICTUREURL", song.songPictureUrl)
-            }
-            context.startActivity(intent)
+            // 使用 ARouter 传递数据
+            ARouter.getInstance().build("/main/MusicPlayActivity")
+                .withLong("songId", song.id)
+                .withString("songName", song.name)
+                .withString("artistName", song.artist)
+                .withString("songImageUrl", song.songPictureUrl)
+                .navigation()
         }
     }
 
     override fun getItemCount(): Int {
         return songs.size
     }
-
 }

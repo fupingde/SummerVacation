@@ -1,6 +1,5 @@
 package com.example.module.ui
 
-import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Handler
@@ -11,7 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
+import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity() {
     private val rotationRunnable: Runnable = object : Runnable {
         override fun run() {
             customFab.rotation = rotationAngle
-            rotationAngle += 2f
+            rotationAngle += 1f
             if (rotationAngle >= 360f) {
                 rotationAngle = 0f
             }
@@ -46,25 +47,29 @@ class MainActivity : AppCompatActivity() {
     private var recommendFragment: RecommendFragment? = null
     private var myFragment: MyFragment? = null
 
-    private var songId: Long = -1L
-    private var songName: String? = null
-    private var songArtist: String? = null
-    private var songPictureUrl: String? = null
+    @Autowired(name = "songId")
+    @JvmField
+    var songId: Long = -1L
+
+    @Autowired(name = "songName")
+    @JvmField
+    var songName: String? = null
+
+    @Autowired(name = "artistName")
+    @JvmField
+    var songArtist: String? = null
+
+    @Autowired(name = "songImageUrl")
+    @JvmField
+    var songPictureUrl: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        ARouter.getInstance().inject(this)
         songViewModel = ViewModelSingleton.getSongViewModel(application)
-
-        // 接收传递过来的歌曲信息
-        intent?.let {
-            songId = it.getLongExtra("SONG_ID", -1L)
-            songName = it.getStringExtra("SONG_NAME")
-            songArtist = it.getStringExtra("SONG_ARTIST")
-            songPictureUrl = it.getStringExtra("SONG_PICTUREURL")
-        }
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -158,13 +163,13 @@ class MainActivity : AppCompatActivity() {
 
         // 为 customFab 添加点击事件
         customFab.setOnClickListener {
-            val intent = Intent(this, MusicPlayActivity::class.java).apply {
-                putExtra("SONG_ID", songId)
-                putExtra("SONG_NAME", songName)
-                putExtra("SONG_ARTIST", songArtist)
-                putExtra("SONG_PICTUREURL", songPictureUrl)
-            }
-            startActivity(intent)
+            // 使用 ARouter 传递数据
+            ARouter.getInstance().build("/main/MusicPlayActivity")
+                .withLong("songId", songId)
+                .withString("songName", songName)
+                .withString("artistName", songArtist)
+                .withString("songImageUrl", songPictureUrl)
+                .navigation()
         }
 
         rotationHandler.post(rotationRunnable)
