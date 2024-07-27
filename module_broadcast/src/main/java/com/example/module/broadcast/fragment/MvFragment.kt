@@ -18,6 +18,7 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.VideoSize
 import androidx.media3.exoplayer.ExoPlayer
+import com.example.module.broadcast.R
 
 class MvFragment : Fragment() {
     val mvViewModel by lazy { ViewModelProvider(requireActivity())[MvViewModel::class.java] }
@@ -26,6 +27,7 @@ class MvFragment : Fragment() {
     val mbinding get() = _mbinding!!
     var commentid: Long = 0
     lateinit var url: String
+    var ispush=false
     lateinit var exoPlayer: ExoPlayer
 
     override fun onCreateView(
@@ -45,6 +47,16 @@ class MvFragment : Fragment() {
 
     private fun initView() {
         initCommentClick()
+        mbinding.likeButton.setOnClickListener {
+           if (ispush===false){
+           mbinding.likeButton.setImageResource(R.drawable.ic_ispush)
+            ispush=true
+           }
+            else{
+               mbinding.likeButton.setImageResource(R.drawable.ic_push)
+               ispush=false
+           }
+        }
         exoPlayer = ExoPlayer.Builder(requireContext()).build()
         exoPlayer.addListener(object : Player.Listener {
             override fun onVideoSizeChanged(videoSize: VideoSize) {
