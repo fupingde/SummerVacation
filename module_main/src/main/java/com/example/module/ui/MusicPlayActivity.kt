@@ -19,6 +19,9 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
+import com.alibaba.android.arouter.facade.annotation.Autowired
+import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.bumptech.glide.Glide
 import com.example.Network.Bean.Song2
 import com.example.Network.api.Retrofit
@@ -34,7 +37,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
-
+@Route(path = "/main/MusicPlayActivity")
 class MusicPlayActivity : AppCompatActivity() {
 
     data class LyricLine(val time: Int, val text: String)
@@ -50,10 +53,21 @@ class MusicPlayActivity : AppCompatActivity() {
     private val compositeDisposable = CompositeDisposable()
     private var songUrl: String? = null
 
-    private var songId: Long = -1L
-    private var songName: String? = null
-    private var artistName: String? = null
-    private var songImageUrl: String? = null
+    @Autowired(name = "songId")
+    @JvmField
+    var songId: Long = 0
+
+    @Autowired(name = "songName")
+    @JvmField
+    var songName: String= null.toString()
+
+    @Autowired(name = "artistName")
+    @JvmField
+    var artistName: String= null.toString()
+
+    @Autowired(name = "songImageUrl")
+    @JvmField
+    var songImageUrl: String= null.toString()
     private var playlistSongs: List<Song2> = emptyList()
     private var playOrderState = 0 // 0: playorder, 1: cycle, 2: random
     private var isTransitioningToNextSong = false
@@ -86,14 +100,16 @@ class MusicPlayActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMusicPlayBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        ARouter.getInstance().inject(this)
 
         // 使用单例类获取SongViewModel实例
         songViewModel = ViewModelSingleton.getSongViewModel(application)
         songListViewModel = ViewModelProvider(this).get(SongListViewModel::class.java)
+      if (intent.getLongExtra("SONG_ID", -1L)!=-1L){
         songId = intent.getLongExtra("SONG_ID", -1L)
         songName = intent.getStringExtra("SONG_NAME") ?: ""
         artistName = intent.getStringExtra("SONG_ARTIST") ?: ""
-        songImageUrl = intent.getStringExtra("SONG_PICTUREURL") ?: ""
+        songImageUrl = intent.getStringExtra("SONG_PICTUREURL") ?: ""}
         playlistSongs = intent.getSerializableExtra("PLAYLIST_SONGS") as? ArrayList<Song2> ?: ArrayList()
         // 添加日志以查看传递的歌曲数据
         Log.d("MusicPlayActivity", "Received Song ID: $songId")
