@@ -26,6 +26,7 @@ class MyFragment : Fragment() {
     private val REQUEST_PERMISSION_CODE = 1001
     private val PICK_IMAGE_REQUEST = 1
     private var login = false
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,117 +39,109 @@ class MyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+    }
 
+    override fun onResume() {
+        super.onResume()
+        // 在这里重新加载数据
+        loadData()
     }
 
     private fun initView() {
-        var userid: Long = 0
-        var username: String = null.toString()
-        var imageurl: String = null.toString()
-        var visitid: Long = 0
-        initclick()
-        val sharedPreferences = context?.getSharedPreferences("logindata", Context.MODE_PRIVATE)
-        if (sharedPreferences != null) {
-            userid = sharedPreferences.getLong("loginid", 0)
-            username = sharedPreferences.getString("usename", null).toString()
-            imageurl = sharedPreferences.getString("imageurl", null).toString()
-            login = true
-        }
-        if (userid.toInt() != 0 && username != null && imageurl != null) {
-            binding.avatarName.text = username
-            Glide.with(requireActivity()).load(imageurl).circleCrop().into(binding.nickImage)
-            clickexchangeImage()
-
-        } else {
-            val sharedPreferencese =
-                context?.getSharedPreferences("visitdata", Context.MODE_PRIVATE)
-            if (sharedPreferencese != null) {
-                visitid = sharedPreferencese.getLong("visitid", 0)
-            }
-            if (visitid.toInt() != 0) {
-                binding.avatarName.text = "游客"
-                initLoginclick()
-            }
-        }
-        val fragmentLsit = ArrayList<FragmentInterfacer>()
-        fragmentLsit.let {
-            it.add(object : FragmentInterfacer {
+        initClick()
+        val fragmentList = arrayListOf<FragmentInterfacer>(
+            object : FragmentInterfacer {
                 override fun back(): Fragment {
                     return MusicFragment()
                 }
-            })
-            it.add(object : FragmentInterfacer {
+            },
+            object : FragmentInterfacer {
                 override fun back(): Fragment {
                     return StoryFragment()
                 }
-            })
-            it.add(object : FragmentInterfacer {
+            },
+            object : FragmentInterfacer {
                 override fun back(): Fragment {
                     return ChannelFragment()
                 }
-            })
-        }
-        binding.viewPagersr2.adapter = MyVp2Adapter(requireActivity(), fragmentLsit)
-        TabLayoutMediator(binding.tabLayoutsr, binding.viewPagersr2) { tab, positon ->
-            tab.text = when (positon) {
+            }
+        )
+        binding.viewPagersr2.adapter = MyVp2Adapter(requireActivity(), fragmentList)
+        TabLayoutMediator(binding.tabLayoutsr, binding.viewPagersr2) { tab, position ->
+            tab.text = when (position) {
                 0 -> "音乐"
                 1 -> "故事"
                 else -> "频道"
             }
-
         }.attach()
     }
 
+    private fun loadData() {
+        var userId: Long = 0
+        var userName: String? = null
+        var imageUrl: String? = null
+        var visitId: Long = 0
 
+        val sharedPreferences = context?.getSharedPreferences("logindata", Context.MODE_PRIVATE)
+        if (sharedPreferences != null) {
+            userId = sharedPreferences.getLong("loginid", 0)
+            userName = sharedPreferences.getString("usename", null)
+            imageUrl = sharedPreferences.getString("imageurl", null)
+            login = true
+        }
 
+        if (userId != 0L && !userName.isNullOrEmpty() && !imageUrl.isNullOrEmpty()) {
+            binding.avatarName.text = userName
+            Glide.with(requireActivity()).load(imageUrl).circleCrop().into(binding.nickImage)
+            clickExchangeImage()
+        } else {
+            val sharedPreferencese =
+                context?.getSharedPreferences("visitdata", Context.MODE_PRIVATE)
+            if (sharedPreferencese != null) {
+                visitId = sharedPreferencese.getLong("visitid", 0)
+            }
+            if (visitId != 0L) {
+                binding.avatarName.text = "游客"
+                initLoginClick()
+            }
+        }
+    }
 
-
-    private fun initLoginclick() {
+    private fun initLoginClick() {
         binding.nickImage.setOnClickListener {
             val sharedPreferences = context?.getSharedPreferences("visitdata", Context.MODE_PRIVATE)
             val editor = sharedPreferences?.edit()
-
-            if (editor != null) {
-                editor.clear()
-                editor.apply()
-            }
+            editor?.clear()?.apply()
             ARouter.getInstance().build("/login/LoginActivity").navigation()
             // 清空所有数据
         }
     }
 
-    private fun initclick() {
+    private fun initClick() {
         binding.toolbarBtn2.setOnClickListener {
-        val sharedPreferences =
-            context?.getSharedPreferences("logindata", Context.MODE_PRIVATE)
-        val editor = sharedPreferences?.edit()
-        if (editor != null) {
-            editor.clear()
-            editor.apply()
+            val sharedPreferences = context?.getSharedPreferences("logindata", Context.MODE_PRIVATE)
+            val editor = sharedPreferences?.edit()
+            editor?.clear()?.apply()
             ARouter.getInstance().build("/login/LoginActivity").navigation()
         }
-    }
 
         binding.toolbarBtn1.setOnClickListener {
-            ARouter.getInstance().build("/search/SearchActivity")
-                .navigation()
+            ARouter.getInstance().build("/search/SearchActivity").navigation()
         }
     }
 
-    private fun clickexchangeImage() {
+    private fun clickExchangeImage() {
         binding.nickImage.setOnClickListener {
             requestPermissions()
             openImagePicker()
         }
-
     }
 
     private fun requestPermissions() {
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.READ_EXTERNAL_STORAGE
-            )
-            != PackageManager.PERMISSION_GRANTED
+            ) != PackageManager.PERMISSION_GRANTED
         ) {
             ActivityCompat.requestPermissions(
                 requireActivity(),
@@ -169,21 +162,17 @@ class MyFragment : Fragment() {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.data != null) {
             val imageUri = data.data
             imageUri?.let {
-                // Use imageUri to load the image
                 loadImage(it)
             }
         }
     }
 
-    private fun loadImage(it: Uri) {
-        Glide.with(this)
-            .load(it).circleCrop()
-            .into(binding.nickImage)
+    private fun loadImage(uri: Uri) {
+        Glide.with(this).load(uri).circleCrop().into(binding.nickImage)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 }
