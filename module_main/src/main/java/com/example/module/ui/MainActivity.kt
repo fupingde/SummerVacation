@@ -25,7 +25,6 @@ import com.example.module.ui.viewmodel.SongViewModel
 import com.example.Network.SingletionClass.ViewModelSingleton
 
 @Route(path = "/main/MainActivity")
-
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var songViewModel: SongViewModel
@@ -43,6 +42,9 @@ class MainActivity : AppCompatActivity() {
             rotationHandler.postDelayed(this, 50)
         }
     }
+
+    private var recommendFragment: RecommendFragment? = null
+    private var myFragment: MyFragment? = null
 
     private var songId: Long = -1L
     private var songName: String? = null
@@ -70,17 +72,29 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        // 初始化Fragment
+        recommendFragment = RecommendFragment()
+        myFragment = MyFragment()
+
+        supportFragmentManager.beginTransaction().apply {
+            add(R.id.fragment_container, recommendFragment!!)
+            add(R.id.fragment_container, myFragment!!)
+            hide(myFragment!!)
+        }.commit()
+
         binding.bottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_recommend -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, RecommendFragment())
+                        .hide(myFragment!!)
+                        .show(recommendFragment!!)
                         .commit()
                     true
                 }
-                R.id.navigation_my -> { // 移除 navigation_dynamic
+                R.id.navigation_my -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, MyFragment())
+                        .hide(recommendFragment!!)
+                        .show(myFragment!!)
                         .commit()
                     true
                 }
@@ -91,7 +105,7 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, RecommendFragment())
+                .show(recommendFragment!!)
                 .commit()
         }
 
