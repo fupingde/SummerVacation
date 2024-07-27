@@ -62,6 +62,7 @@ class SinglistAdapter() :ListAdapter<Album1,SinglistAdapter.InnerHolder>(ItemDif
             .into(holder.image)
       //  Log.d("SinglistAdapter", "onBindViewHolder: " + item.name + " - " + item.artist.name);
         holder.itemView.setOnClickListener {
+
             ARouter.getInstance().build("/albums/AlbumActivity").withLong("id",item.id)
                 .navigation()
         }

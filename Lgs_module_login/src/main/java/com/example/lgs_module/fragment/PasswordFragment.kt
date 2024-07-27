@@ -1,5 +1,6 @@
 package com.example.lgs_module.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -23,7 +24,8 @@ class PasswordFragment : Fragment() {
     private var _vbinding :FragmentPwloginBinding ?=null
     private val vbinding get() = _vbinding!!
     private var id: Long = 0
-
+    var imageurl:String= null.toString()
+    var userName:String= null.toString()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -58,6 +60,16 @@ class PasswordFragment : Fragment() {
                 }
 
                 override fun onComplete() {
+
+                    val editor = context?.getSharedPreferences("logindata", Context.MODE_PRIVATE)
+                        ?.edit()
+                    if (editor != null) {
+                        editor.putLong("loginid",id)
+                        editor.putString("imageurl",imageurl)
+                        editor.putString("usename",userName)
+                        editor.apply()
+                    }
+
                     ARouter.getInstance().build("/main/MainActivity").navigation()
                     Toast.makeText(context, "登录成功", Toast.LENGTH_SHORT).show()
                     Log.d("fas", "连接完成")
@@ -65,6 +77,8 @@ class PasswordFragment : Fragment() {
 
                 override fun onNext(t: Regitser) {
                     id = t.account.id
+                    imageurl=t.profile.avatarUrl
+                    userName=t.account.userName
                 }
             })
     }
