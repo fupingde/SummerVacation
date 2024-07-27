@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.alibaba.android.arouter.launcher.ARouter
 import com.example.module.albums.R
 import com.example.module.albums.bean.Song
 
@@ -38,8 +39,10 @@ class RvAdapter(): ListAdapter<Song, RvAdapter.ViewHolder>(ItemDiffCallback()) {
         holder.name.text = item.name
         holder.songlist.text=item.al.name
         holder.singer.text=item.ar[0].name
-        holder.itemView.setOnClickListener {
-
+        holder.itemView.setOnClickListener {  ARouter.getInstance().build("/main/ARouterActivity").withLong("songId", item.id).withString("songName",item.name)
+            .withString("artistName",item.ar[0].name)
+            .withString("songImageUrl",item.al.pic_str)
+            .navigation()
         }
     }
     class ItemDiffCallback : DiffUtil.ItemCallback<Song>() {

@@ -32,6 +32,9 @@ class LoginActivity : AppCompatActivity() {
     val mbinding by lazy {
         ActivityLoginBinding.inflate(layoutInflater)
     }
+
+    var imageurl:String= null.toString()
+    var userName:String= null.toString()
     var date = false
     var judgeDate = false
     var id: Long = 0
@@ -47,9 +50,19 @@ class LoginActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(mbinding.root)
 //        ARouter.getInstance().inject(this)
+        initView()
         initclick()
 
+    }
 
+    private fun initView() {
+        val sharedPreferences = getSharedPreferences("logindata", Context.MODE_PRIVATE)
+       val usloginid = sharedPreferences.getLong("loginid", 0)
+       if (usloginid.toInt() !=0){
+           ARouter.getInstance().build("/main/MainActivity")
+               .navigation()
+           finish()
+       }
     }
 
     private fun initclick() {
@@ -105,11 +118,12 @@ class LoginActivity : AppCompatActivity() {
                         if (userid.toInt() != 0) {
                             Toast.makeText(this@LoginActivity, "登录成功", Toast.LENGTH_SHORT)
                                 .show()
-                            val editor = getSharedPreferences("logindata", Context.MODE_PRIVATE).edit()
-                            editor.putLong("loginid",userid)
+                            val editor = getSharedPreferences("visitdata", Context.MODE_PRIVATE).edit()
+                            editor.putLong("visitid",userid)
                             editor.apply()
                             ARouter.getInstance().build("/main/MainActivity")
                                 .navigation()
+                            finish()
                         }
                         Log.d("fas", "完成登录")
                     }
@@ -238,10 +252,13 @@ class LoginActivity : AppCompatActivity() {
                     if (id.toInt() != 0) {
                         val editor = getSharedPreferences("logindata", Context.MODE_PRIVATE).edit()
                         editor.putLong("loginid",id)
+                        editor.putString("imageurl",imageurl)
+                        editor.putString("usename",userName)
                         editor.apply()
                         Toast.makeText(this@LoginActivity, "登录成功", Toast.LENGTH_SHORT).show()
                         ARouter.getInstance().build("/main/MainActivity")
                             .navigation()
+                        finish()
                     } else {
                         Toast.makeText(this@LoginActivity, "登录失败，请重试", Toast.LENGTH_SHORT)
                             .show()
@@ -253,8 +270,9 @@ class LoginActivity : AppCompatActivity() {
 
                 override fun onNext(t: Regitser) {
                     id = t.account.id
+                    imageurl=t.profile.avatarUrl
+                    userName=t.account.userName
                     Log.d("fas", "登录完成，id为"+id)
-
 
                 }
 

@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.alibaba.android.arouter.launcher.ARouter
 import com.example.singer.detail.R
 import com.example.singer.detail.ui.bean.Song
 
@@ -37,7 +38,11 @@ class RvAdapter():ListAdapter<Song,RvAdapter.InnerHolder>(ItemDiffCallback()) {
        val iem=getItem(position)
         holder.name.text=iem.name
         holder.singername.text=iem.ar[0].name
-
+        holder.itemView.setOnClickListener {  ARouter.getInstance().build("/main/ARouterActivity").withLong("songId", iem.id).withString("songName",iem.name)
+            .withString("artistName",iem.ar[0].name)
+            .withString("songImageUrl","https://p1.music.126.net/NWv6PtSBkyWZzqbJVzBr7g==/109951169164936450.jpg")
+            .navigation()
+        }
     }
 
 

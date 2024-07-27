@@ -1,6 +1,7 @@
 package com.example.module.search.adpter
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,6 +40,7 @@ class SongAdapter() : ListAdapter<Song, SongAdapter.ViewHolder>(ItemDiffCallback
         holder.name.text = item.name
         holder.songlist.text=item.album.name
         holder.singer.text=item.artists[0].name
+//        Log.d("songadapterurl", item.album.img1v1Url)
         holder.itemView.setOnClickListener {
             ARouter.getInstance().build("/main/ARouterActivity").withLong("songId", item.id).withString("songName",item.name)
                 .withString("artistName",item.artists[0].name)

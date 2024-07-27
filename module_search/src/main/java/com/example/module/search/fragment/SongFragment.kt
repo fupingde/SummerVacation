@@ -30,10 +30,7 @@ class SongFragment : Fragment() {
     }
     private var _mbinding: FramentSongBinding? = null
     private val mbinding get() = _mbinding!!
-    private val songAdapter by lazy {
-        SongAdapter()
-
-    }
+    private lateinit var songAdapter:SongAdapter
 
 
     override fun onCreateView(
@@ -51,6 +48,7 @@ class SongFragment : Fragment() {
     }
 
     private fun initView() {
+        songAdapter=SongAdapter()
         val VISIBLE_THRESHOLD = 5
 
         try {

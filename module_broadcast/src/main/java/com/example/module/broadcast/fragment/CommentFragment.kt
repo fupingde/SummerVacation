@@ -17,18 +17,19 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 class CommentFragment : BottomSheetDialogFragment() {
     private var _mbinding: FragmentCommentsBinding? = null
     private val mbinding get() = _mbinding!!
-    private val commentViewModel by lazy { ViewModelProvider(this)[CommentViewModel::class.java] }
+    private lateinit var commentViewModel:CommentViewModel
     private val VISIBLE_THRESHOLD = 5
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View? {;
         _mbinding = FragmentCommentsBinding.inflate(inflater, container, false)
         return mbinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        commentViewModel=ViewModelProvider(this)[CommentViewModel::class.java]
         val id = arguments?.getLong(ARG_ID)
         Log.d("commentid", id.toString())
         if (id != null) {
