@@ -9,11 +9,10 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/Lgs_module_login" />
-            <option value="$PROJECT_DIR$/Lgs_moudule_drawerView" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/module_albums" />
             <option value="$PROJECT_DIR$/module_broadcast" />
+            <option value="$PROJECT_DIR$/module_login" />
             <option value="$PROJECT_DIR$/module_main" />
             <option value="$PROJECT_DIR$/module_main/api_base" />
             <option value="$PROJECT_DIR$/module_search" />
