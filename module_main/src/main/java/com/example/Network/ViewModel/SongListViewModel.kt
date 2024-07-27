@@ -32,6 +32,9 @@ class SongListViewModel : ViewModel() {
             .subscribe({ response ->
                 _songs.value = response
                 Log.d("SongListViewModel", "Songs fetched successfully: ${response.songs.size}")
+                response.songs.forEach { song ->
+                    Log.d("SongListViewModel", "Fetched Song: ${song.name} by ${song.ar.joinToString(", ") { it.name }}")
+                }
             }, { error ->
                 Log.e("SongListViewModel", "Error fetching songs", error)
                 if (error is retrofit2.HttpException) {

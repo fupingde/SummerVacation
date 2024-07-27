@@ -68,6 +68,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
     implementation ("com.google.android.material:material:1.4.0")
+    implementation ("androidx.fragment:fragment-ktx:1.3.6")
     implementation ("androidx.media3:media3-exoplayer:1.0.0")
     implementation ("androidx.media3:media3-ui:1.0.0")
     implementation(project(":module_login"))

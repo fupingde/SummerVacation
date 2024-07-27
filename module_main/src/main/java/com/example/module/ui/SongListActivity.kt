@@ -18,7 +18,8 @@ import com.example.module.ui.MusicPlayActivity
 import com.example.module.ui.adapters.SongsAdapter
 import com.example.module.ui.viewmodel.SongListViewModel
 import com.example.module.ui.viewmodel.SongViewModel
-import com.example.module.ui.viewmodel.ViewModelSingleton
+import com.example.Network.SingletionClass.ViewModelSingleton
+import com.example.module.ui.fragments.PlaylistBottomSheetFragment
 import com.google.android.material.appbar.AppBarLayout
 
 class SongListActivity : AppCompatActivity() {
@@ -27,6 +28,7 @@ class SongListActivity : AppCompatActivity() {
     private val viewModel: SongListViewModel by viewModels()
     private lateinit var songViewModel: SongViewModel
     private lateinit var dbHelper: MyDatabaseHelper
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,7 +103,7 @@ class SongListActivity : AppCompatActivity() {
 
             binding.collectbutton.setImageResource(R.drawable.collected)
         } else {
-            binding.collectbutton.setImageResource(R.drawable.shoucang)  // 假设 R.drawable.default_collect 是默认图片
+            binding.collectbutton.setImageResource(R.drawable.shoucang)
         }
 
         binding.collectbutton.setOnClickListener {
@@ -116,7 +118,7 @@ class SongListActivity : AppCompatActivity() {
             if (isCollected) {
                 // 如果数据已存在，删除数据并更换按钮图片
                 dbHelper.deleteCollectedPlaylist(playlistId)
-                binding.collectbutton.setImageResource(R.drawable.shoucang)  // 假设 R.drawable.default_collect 是默认图片
+                binding.collectbutton.setImageResource(R.drawable.shoucang)
                 Toast.makeText(this, "取消收藏", Toast.LENGTH_SHORT).show()
             } else {
                 // 如果数据不存在，添加数据并更换按钮图片
@@ -133,7 +135,11 @@ class SongListActivity : AppCompatActivity() {
             putExtra("SONG_NAME", song.name)
             putExtra("SONG_ARTIST", song.ar.firstOrNull()?.name)
             putExtra("SONG_PICTUREURL", song.al.picUrl)
+            putExtra("PLAYLIST_SONGS", ArrayList(songs)) // 确保传递的数据是 ArrayList<Song2>
+            Log.d("musicplayactivity", "PLAYLIST_SONGS:${ArrayList(songs)} ")
         }
         startActivity(intent)
     }
+
+
 }

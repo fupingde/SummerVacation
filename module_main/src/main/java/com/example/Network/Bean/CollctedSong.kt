@@ -1,0 +1,3 @@
+package com.example.Network.Bean
+
+data class CollctedSong (val id: Long, val name: String, val artist: String,val songPictureUrl:String)

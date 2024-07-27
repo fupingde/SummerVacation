@@ -1,5 +1,6 @@
 package com.example.module.ui.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +18,10 @@ class SongsAdapter(
             binding.songName.text = song.name
             binding.songArtist.text = song.ar.joinToString(", ") { it.name }
 
+            Log.d("SongsAdapter", "Binding song: ${song.name} at position $position")
+
             binding.root.setOnClickListener {
+                Log.d("SongsAdapter", "Clicked on song: ${song.name} at position $position")
                 onItemClick(song, songs, position)
             }
         }
