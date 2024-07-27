@@ -67,5 +67,4 @@ dependencies {
     implementation(project(":module_login"))
     implementation(project(":module_albums"))
     implementation(project(":module_singer"))
-    implementation(project(":module_main"))
 }

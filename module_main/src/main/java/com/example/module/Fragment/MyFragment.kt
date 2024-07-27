@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,7 +45,7 @@ class MyFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         // 在这里重新加载数据
-        loadData()
+     //   loadData()
     }
 
     private fun initView() {
@@ -74,6 +75,7 @@ class MyFragment : Fragment() {
                 else -> "频道"
             }
         }.attach()
+        loadData()
     }
 
     private fun loadData() {
@@ -114,6 +116,7 @@ class MyFragment : Fragment() {
             editor?.clear()?.apply()
             ARouter.getInstance().build("/login/LoginActivity").navigation()
             // 清空所有数据
+            requireActivity().finish()
         }
     }
 
@@ -122,7 +125,11 @@ class MyFragment : Fragment() {
             val sharedPreferences = context?.getSharedPreferences("logindata", Context.MODE_PRIVATE)
             val editor = sharedPreferences?.edit()
             editor?.clear()?.apply()
+            val sharedPreferences2 = context?.getSharedPreferences("visitdata", Context.MODE_PRIVATE)
+            val visitEditor = sharedPreferences2?.edit()
+            visitEditor?.clear()?.apply()
             ARouter.getInstance().build("/login/LoginActivity").navigation()
+            requireActivity().finish()
         }
 
         binding.toolbarBtn1.setOnClickListener {
@@ -161,14 +168,23 @@ class MyFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.data != null) {
             val imageUri = data.data
+
             imageUri?.let {
                 loadImage(it)
+                Log.d("imageUri", it.toString())
             }
         }
     }
 
     private fun loadImage(uri: Uri) {
+        Log.d("MyFragment", "Loading image with URI: $uri")
         Glide.with(this).load(uri).circleCrop().into(binding.nickImage)
+        val sharedPreferences = context?.getSharedPreferences("logindata", Context.MODE_PRIVATE)
+        val editor = sharedPreferences?.edit()
+        if (editor != null) {
+            editor.putString("imageurl",uri.toString())
+            editor.apply()
+        }
     }
 
     override fun onDestroyView() {
