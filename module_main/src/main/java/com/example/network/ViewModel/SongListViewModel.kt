@@ -3,8 +3,8 @@ package com.example.module.ui.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.Network.Bean.Songs
-import com.example.Network.api.Retrofit
+import com.example.network.Bean.Songs
+import com.example.network.api.Retrofit
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

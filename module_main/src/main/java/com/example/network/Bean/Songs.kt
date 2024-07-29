@@ -1,4 +1,4 @@
-package com.example.Network.Bean
+package com.example.network.Bean
 
 import java.io.Serializable
 

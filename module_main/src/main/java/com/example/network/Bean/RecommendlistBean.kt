@@ -1,6 +1,6 @@
-package com.example.Network.Bean
+package com.example.network.Bean
 
-data class TuijianGedanBean(
+data class RecommendlistBean(
     val category: Int,
     val code: Int,
     val hasTaste: Boolean,

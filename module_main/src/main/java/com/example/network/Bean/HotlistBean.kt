@@ -1,6 +1,6 @@
-package com.example.Network.Bean
+package com.example.network.Bean
 
-data class ReMenGeDanBean(
+data class HotlistBean(
     val cat: String,
     val code: Int,
     val more: Boolean,

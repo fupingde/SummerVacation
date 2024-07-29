@@ -1,11 +1,9 @@
 package com.example.module.ui.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.Network.Bean.Song2
-import com.example.module.main.R
+import com.example.network.Bean.Song2
 import com.example.module.main.databinding.ItemPlaylistBinding
 
 class PlaylistAdapter(

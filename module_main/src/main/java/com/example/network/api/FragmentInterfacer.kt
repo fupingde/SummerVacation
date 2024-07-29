@@ -1,4 +1,4 @@
-package com.example.Network.api
+package com.example.network.api
 
 import androidx.fragment.app.Fragment
 

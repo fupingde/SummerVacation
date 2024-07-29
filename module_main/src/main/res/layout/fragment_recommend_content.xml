@@ -27,7 +27,7 @@
                     android:layout_marginTop="16dp" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/mainrv1"
+                    android:id="@+id/mainrecommendrv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -47,7 +47,7 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/mainrv2"
+            android:id="@+id/mainhotrv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -63,7 +63,7 @@
                     android:layout_marginTop="10dp" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/mainrv3"
+                    android:id="@+id/mainfashionrv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -80,7 +80,7 @@
                     android:layout_marginTop="10dp" />
 
                 <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/mainvp"
+                    android:id="@+id/mainbottomvp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp" />

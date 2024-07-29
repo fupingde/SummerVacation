@@ -1,3 +1,3 @@
-package com.example.Network.Bean
+package com.example.network.Bean
 
 data class MyrvBean (val playlistId:Long,val playlistName:String,val playlistImageUrl:String)

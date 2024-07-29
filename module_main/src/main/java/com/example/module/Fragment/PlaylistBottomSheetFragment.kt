@@ -7,14 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.module.main.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import android.widget.TextView
-import com.example.Network.Bean.Song2
+import com.example.network.Bean.Song2
 import com.example.module.ui.adapters.PlaylistAdapter
-import com.example.module.ui.viewmodel.SongListViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 class PlaylistBottomSheetFragment : BottomSheetDialogFragment() {

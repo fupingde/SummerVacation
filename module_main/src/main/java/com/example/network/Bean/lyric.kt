@@ -1,4 +1,4 @@
-package com.example.Network.Bean
+package com.example.network.Bean
 
 data class lyric(
     val code: Int,

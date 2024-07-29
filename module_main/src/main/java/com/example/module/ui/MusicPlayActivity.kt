@@ -13,7 +13,6 @@ import android.util.Log
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
@@ -23,14 +22,13 @@ import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.bumptech.glide.Glide
-import com.example.Network.Bean.Song2
-import com.example.Network.api.Retrofit
+import com.example.network.Bean.Song2
+import com.example.network.api.Retrofit
 import com.example.module.database.MyDatabaseHelper
 import com.example.module.main.R
 import com.example.module.main.databinding.ActivityMusicPlayBinding
 import com.example.module.ui.services.MusicService
 import com.example.module.ui.viewmodel.SongViewModel
-import com.example.Network.SingletionClass.ViewModelSingleton
 import com.example.module.ui.fragments.PlaylistBottomSheetFragment
 import com.example.module.ui.viewmodel.SongListViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -76,14 +74,13 @@ class MusicPlayActivity : AppCompatActivity() {
     private val rotationRunnable: Runnable = object : Runnable {
         override fun run() {
             binding.albumCover.rotation = rotationAngle
-            rotationAngle += 1f
+            rotationAngle += 2f
             if (rotationAngle >= 360f) {
                 rotationAngle = 0f
             }
             rotationHandler.postDelayed(this, 50)
         }
     }
-
 
     private val serviceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
@@ -176,20 +173,16 @@ class MusicPlayActivity : AppCompatActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
                 // 继续播放音乐
                 currentSongUrl?.let { url ->
-                    // 检查音乐是否已经准备好播放
-                    if (musicService?.isPrepared() == true) {
-                        musicService?.playMusic(url)
-                        binding.playPauseButton.setImageResource(R.drawable.play)
-                        startSeekBarUpdate()
-                        // 启动旋转任务前确保移除之前的任务
-                        rotationHandler.removeCallbacks(rotationRunnable)
-                        rotationHandler.post(rotationRunnable)
-                    }
+                    musicService?.playMusic(url)
+                    binding.playPauseButton.setImageResource(R.drawable.play)
+                    startSeekBarUpdate()
+                    // 启动旋转任务前确保移除之前的任务
+                    rotationHandler.removeCallbacks(rotationRunnable)
+                    rotationHandler.post(rotationRunnable)
                 }
                 Log.d("MusicPlayActivity", "SeekBar touch stopped")
             }
         })
-
 
         // 绑定 playlist 按钮并设置点击事件
         binding.playlist.setOnClickListener {
@@ -264,37 +257,6 @@ class MusicPlayActivity : AppCompatActivity() {
                         bindAndStartService()
                     }
                     updateUI()
-                    // 自动播放新歌曲
-                    musicService?.playMusic(currentSongUrl!!)
-                    binding.playPauseButton.setImageResource(R.drawable.play)
-                    // 更新进度条最大值和当前进度
-                    musicService?.getPlayer()?.addListener(object : Player.Listener {
-                        override fun onPlaybackStateChanged(playbackState: Int) {
-                            if (playbackState == Player.STATE_READY) {
-                                binding.seekBar.max = musicService?.getDuration() ?: 0
-                                binding.totalTime.text = formatTime(musicService?.getDuration() ?: 0)
-                                startSeekBarUpdate()
-                                rotationHandler.post(rotationRunnable)
-
-                                Intent(this@MusicPlayActivity, MainActivity::class.java)
-                                intent.putExtra("songId", songId)
-                                intent.putExtra("songName", songName)
-                                intent.putExtra("artistName", artistName)
-                                intent.putExtra("songImageUrl", songImageUrl)
-
-                                songViewModel.updateSongData(
-                                    songId,
-                                    songName ?: "",
-                                    artistName ?: "",
-                                    songImageUrl ?: ""
-                                )
-                                Log.d(
-                                    "SongListActivity",
-                                    "SongViewModel updated with URL: $songId, $songName,$artistName$songImageUrl"
-                                )
-                            }
-                        }
-                    })
                 }
             }, { error ->
                 error.printStackTrace()
@@ -303,10 +265,6 @@ class MusicPlayActivity : AppCompatActivity() {
 
         compositeDisposable.add(disposable)
     }
-
-
-
-
 
     private fun updateUI() {
         if (isBound) {
@@ -338,8 +296,6 @@ class MusicPlayActivity : AppCompatActivity() {
         }
     }
 
-
-
     private fun getMusicDuration(url: String, callback: (Int) -> Unit) {
         val player = ExoPlayer.Builder(this).build().apply {
             setMediaItem(MediaItem.fromUri(url))
@@ -364,18 +320,6 @@ class MusicPlayActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateUIWithDuration(url: String) {
-        getMusicDuration(url) { duration ->
-            runOnUiThread {
-                if (duration > 0) {
-                    binding.seekBar.max = duration
-                    binding.totalTime.text = formatTime(duration)
-                } else {
-                    Log.e("MusicPlayActivity", "Failed to get duration.")
-                }
-            }
-        }
-    }
 
     private fun getMusicDuration(url: String): Int {
         val mediaPlayer = MediaPlayer()
@@ -422,7 +366,6 @@ class MusicPlayActivity : AppCompatActivity() {
                             putExtra("SONG_ARTIST", artistName)
                             putExtra("SONG_PICTUREURL", songImageUrl)
                         }
-
                         songViewModel.updateSongData(
                             songId,
                             songName ?: "",
@@ -437,77 +380,75 @@ class MusicPlayActivity : AppCompatActivity() {
                 }
                 Log.d("MusicPlayActivity", "pause music")
             } else {
-                currentSongUrl?.let { url ->
-                    if (musicService?.getCurrentSongUrl() == url) {
-                        Log.d("MusicPlayActivity", "getCurrentSongUrl() == url:$url")
-                        musicService?.playMusic(url)
-                        binding.playPauseButton.setImageResource(R.drawable.play)
-                        startSeekBarUpdate()
-                        rotationHandler.post(rotationRunnable)
-                        Intent(this, MainActivity::class.java).apply {
-                            putExtra("SONG_ID", songId)
-                            putExtra("SONG_NAME", songName)
-                            putExtra("SONG_ARTIST", artistName)
-                            putExtra("SONG_PICTUREURL", songImageUrl)
-                        }
-
-                        songViewModel.updateSongData(
-                            songId,
-                            songName ?: "",
-                            artistName ?: "",
-                            songImageUrl ?: ""
-                        )
-                        Log.d(
-                            "SongListActivity",
-                            "SongViewModel updated with URL: $songId, $songName,$artistName$songImageUrl"
-                        )
-                    } else {
-                        Log.d(
-                            "MusicPlayActivity",
-                            "getCurrentSongUrl() != url,url:$url,currenturl:${musicService?.getCurrentSongUrl()}"
-                        )
-                        musicService?.playMusic(url)
-                        musicService?.change_isplaying()
-                        binding.playPauseButton.setImageResource(R.drawable.play)
-                        musicService?.getPlayer()?.addListener(object : Player.Listener {
-                            override fun onPlaybackStateChanged(playbackState: Int) {
-                                if (playbackState == Player.STATE_READY) {
-                                    binding.seekBar.max = musicService?.getDuration() ?: 0
-                                    Log.d("duration", "Duration:${musicService?.getDuration()}")
-                                    binding.totalTime.text = formatTime(musicService?.getDuration() ?: 0)
-                                    startSeekBarUpdate()
-                                    rotationHandler.post(rotationRunnable)
-                                }
-                            }
-                        })
-                        Intent(this, MainActivity::class.java).apply {
-                            putExtra("SONG_ID", songId)
-                            putExtra("SONG_NAME", songName)
-                            putExtra("SONG_ARTIST", artistName)
-                            putExtra("SONG_PICTUREURL", songImageUrl)
-                        }
-
-                        songViewModel.updateSongData(
-                            songId,
-                            songName ?: "",
-                            artistName ?: "",
-                            songImageUrl ?: ""
-                        )
-                        Log.d(
-                            "SongListActivity",
-                            "SongViewModel updated with URL: $songId, $songName,$artistName$songImageUrl"
-                        )
-                    }
-                } ?: run {
+                if (playlistSongs.isEmpty() && musicService?.getCurrentSongUrl() == currentSongUrl) {
                     Toast.makeText(this, "这已经是最后一首了", Toast.LENGTH_SHORT).show()
+                } else {
+                    currentSongUrl?.let { url ->
+                        if (musicService?.getCurrentSongUrl() == url) {
+                            Log.d("MusicPlayActivity", "getCurrentSongUrl() == url:$url")
+                            musicService?.playMusic(url)
+                            binding.playPauseButton.setImageResource(R.drawable.play)
+                            startSeekBarUpdate()
+                            rotationHandler.post(rotationRunnable)
+                            Intent(this, MainActivity::class.java).apply {
+                                putExtra("SONG_ID", songId)
+                                putExtra("SONG_NAME", songName)
+                                putExtra("SONG_ARTIST", artistName)
+                                putExtra("SONG_PICTUREURL", songImageUrl)
+                            }
+                            songViewModel.updateSongData(
+                                songId,
+                                songName ?: "",
+                                artistName ?: "",
+                                songImageUrl ?: ""
+                            )
+                            Log.d(
+                                "SongListActivity",
+                                "SongViewModel updated with URL: $songId, $songName,$artistName$songImageUrl"
+                            )
+                        } else {
+                            Log.d(
+                                "MusicPlayActivity",
+                                "getCurrentSongUrl() != url,url:$url,currenturl:${musicService?.getCurrentSongUrl()}"
+                            )
+                            musicService?.playMusic(url)
+                            musicService?.change_isplaying()
+                            binding.playPauseButton.setImageResource(R.drawable.play)
+                            musicService?.getPlayer()?.addListener(object : Player.Listener {
+                                override fun onPlaybackStateChanged(playbackState: Int) {
+                                    if (playbackState == Player.STATE_READY) {
+                                        binding.seekBar.max = musicService?.getDuration() ?: 0
+                                        Log.d("duration", "Duration:${musicService?.getDuration()}")
+                                        binding.totalTime.text = formatTime(musicService?.getDuration() ?: 0)
+                                        startSeekBarUpdate()
+                                        rotationHandler.post(rotationRunnable)
+                                    }
+                                }
+                            })
+                            Intent(this, MainActivity::class.java).apply {
+                                putExtra("SONG_ID", songId)
+                                putExtra("SONG_NAME", songName)
+                                putExtra("SONG_ARTIST", artistName)
+                                putExtra("SONG_PICTUREURL", songImageUrl)
+                            }
+                            songViewModel.updateSongData(
+                                songId,
+                                songName ?: "",
+                                artistName ?: "",
+                                songImageUrl ?: ""
+                            )
+                            Log.d(
+                                "SongListActivity",
+                                "SongViewModel updated with URL: $songId, $songName,$artistName$songImageUrl"
+                            )
+                        }
+                    }
                 }
             }
         } else {
             bindAndStartService()
         }
     }
-
-
 
     private fun startSeekBarUpdate() {
         handler.post(updateRunnable)
@@ -534,10 +475,7 @@ class MusicPlayActivity : AppCompatActivity() {
                         handler.removeCallbacks(this)
                         isTransitioningToNextSong = false
                     } else {
-                        // 检查音乐是否已经准备好播放
-                        if (musicService?.isPrepared() == true && !isDestroyed) {
-                            playNextSong() // 直接调用 playNextSong 方法
-                        }
+                        playNextSong() // 直接调用 playNextSong 方法
                         isTransitioningToNextSong = false
                     }
                 } else {
@@ -546,7 +484,6 @@ class MusicPlayActivity : AppCompatActivity() {
             }
         }
     }
-
 
     private fun playPreviousSong() {
         if (playlistSongs.isNotEmpty()) {
@@ -572,8 +509,6 @@ class MusicPlayActivity : AppCompatActivity() {
         }
     }
 
-
-
     private fun playRandomSong() {
         val randomIndex = (playlistSongs.indices).random()
         val randomSong = playlistSongs[randomIndex]
@@ -595,24 +530,14 @@ class MusicPlayActivity : AppCompatActivity() {
         handler.removeCallbacks(updateRunnable)
         rotationHandler.removeCallbacks(rotationRunnable)
         binding.seekBar.progress = 0
-        binding.seekBar.max = 0
         binding.currentTime.text = "00:00"
         binding.totalTime.text = "00:00"
 
         binding.songTitle.text = songName
         binding.songArtist.text = artistName
-
-        // 检查活动是否已销毁
-        if (!isDestroyed) {
-            Glide.with(this).load(songImageUrl).into(binding.albumCover)
-        }
-
+        Glide.with(this).load(songImageUrl).into(binding.albumCover)
         getSongUrl(songId)
     }
-
-
-
-
 
     private fun checkPlaylistAndPauseIfEmpty() {
         if (playlistSongs.isEmpty()) {

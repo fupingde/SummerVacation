@@ -18,8 +18,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.launcher.ARouter
 import com.bumptech.glide.Glide
-import com.example.Network.api.FragmentInterfacer
-import com.example.module.adapters.MyVp2Adapter
+import com.example.network.api.FragmentInterfacer
+import com.example.module.adapters.MyVpAdapter
 import com.example.module.adapters.MyrvAdapter
 import com.example.module.database.MyDatabaseHelper
 import com.example.module.main.databinding.FragmentMyBinding
@@ -180,7 +180,7 @@ class MyFragment : Fragment() {
             }
         })
 
-        binding.viewPagersr2.adapter = MyVp2Adapter(requireActivity(), fragmentList)
+        binding.viewPagersr2.adapter = MyVpAdapter(requireActivity(), fragmentList)
         TabLayoutMediator(binding.tabLayoutsr, binding.viewPagersr2) { tab, position ->
             tab.text = when (position) {
                 0 -> "音乐"

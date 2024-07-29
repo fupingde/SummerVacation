@@ -6,17 +6,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import com.example.Network.Bean.ReMenGeDanBean
-import com.example.Network.Bean.liuxinggedan
-import com.example.module.main.databinding.MainrvitemBinding
+import com.example.network.Bean.FashionlistBean
+import com.example.module.main.databinding.ItemMainrvBinding
 
-class Mainrv3Adapter(private val data: liuxinggedan, private val onItemClick: (Long, String, String) -> Unit) :
-    RecyclerView.Adapter<Mainrv3Adapter.ViewHolder>() {
+class MainFashionAdapter(private val data: FashionlistBean, private val onItemClick: (Long, String, String) -> Unit) :
+    RecyclerView.Adapter<MainFashionAdapter.ViewHolder>() {
 
-    inner class ViewHolder(val binding: MainrvitemBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolder(val binding: ItemMainrvBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = MainrvitemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemMainrvBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
