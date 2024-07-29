@@ -101,8 +101,8 @@ class MusicPlayActivity : AppCompatActivity() {
         setContentView(binding.root)
         ARouter.getInstance().inject(this)
 
-        // 使用单例类获取SongViewModel实例
-        songViewModel = ViewModelSingleton.getSongViewModel(application)
+        // 使用 ViewModelProvider 获取 SongViewModel 实例
+        songViewModel = ViewModelProvider(this).get(SongViewModel::class.java)
         songListViewModel = ViewModelProvider(this).get(SongListViewModel::class.java)
         if (intent.getLongExtra("SONG_ID", -1L) != -1L) {
             songId = intent.getLongExtra("SONG_ID", -1L)
