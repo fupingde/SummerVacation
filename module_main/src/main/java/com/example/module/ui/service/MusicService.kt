@@ -6,10 +6,10 @@ import android.os.Binder
 import android.os.Handler
 import android.os.IBinder
 import android.util.Log
-import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
+import androidx.media3.exoplayer.ExoPlayer
 
 class MusicService : Service() {
 
@@ -19,13 +19,35 @@ class MusicService : Service() {
     private var songUrl: String? = null
     private val handler = Handler()
 
+    var songId: Long = -1L
+    var songName: String? = null
+    var songArtist: String? = null
+    var songPictureUrl: String? = null
+
+    private var dataChangeListener: DataChangeListener? = null
+
+    interface DataChangeListener {
+        fun onDataChanged(songId: Long, songName: String?, songArtist: String?, songPictureUrl: String?)
+    }
+
+    fun setDataChangeListener(listener: DataChangeListener) {
+        dataChangeListener = listener
+    }
+
+    fun updateSongData(songId: Long, songName: String?, songArtist: String?, songPictureUrl: String?) {
+        this.songId = songId
+        this.songName = songName
+        this.songArtist = songArtist
+        this.songPictureUrl = songPictureUrl
+        Log.d("musicservice", "updateSongData: $songId,$songName,$songArtist,$songPictureUrl")
+        dataChangeListener?.onDataChanged(songId, songName, songArtist, songPictureUrl)
+    }
+
     override fun onBind(intent: Intent?): IBinder {
-        Log.d("MusicService", "Service bound")
         return binder
     }
 
     override fun onUnbind(intent: Intent?): Boolean {
-        Log.d("MusicService", "Service unbound")
         return true
     }
 
@@ -44,7 +66,6 @@ class MusicService : Service() {
     }
 
     private fun initializeExoPlayer(url: String) {
-        Log.d("MusicService", "initializeExoPlayer")
         player?.release()
         player = ExoPlayer.Builder(this).build().apply {
             setMediaItem(MediaItem.fromUri(url))
@@ -62,7 +83,6 @@ class MusicService : Service() {
                 }
 
                 override fun onPlayerError(error: PlaybackException) {
-                    Log.e("MusicService", "Player error: ${error.message}")
                     _isPlaying = false
                 }
             })
@@ -71,11 +91,9 @@ class MusicService : Service() {
     }
 
     fun pauseMusic() {
-        Log.d("MusicService", "pauseMusic")
         player?.playWhenReady = false
         _isPlaying = false
         handler.removeCallbacks(updateRunnable)
-        Log.d("MusicService", "music paused")
     }
 
     fun getCurrentPosition(): Int {
@@ -101,6 +119,7 @@ class MusicService : Service() {
     fun isPrepared(): Boolean {
         return player?.playWhenReady ?: false
     }
+
     fun seekTo(position: Long) {
         player?.seekTo(position)
         player?.playWhenReady = true
