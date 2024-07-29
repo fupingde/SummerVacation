@@ -25,6 +25,7 @@ class RegisterActivity : AppCompatActivity() {
     private val sendButton by lazy { mbinding.send }
     private val registerButton by lazy { mbinding.regist }
     private var id: Long = 0
+    private var countDownTimer: CountDownTimer? = null
     private var date: Boolean = false
     private var judgeDate: Boolean = false
 
@@ -137,7 +138,7 @@ class RegisterActivity : AppCompatActivity() {
     private fun startCountDown() {
         runOnUiThread {
             sendButton.isEnabled = false
-            val countDownTimer = object : CountDownTimer(60000, 1000) {
+             countDownTimer = object : CountDownTimer(60000, 1000) {
                 override fun onTick(millisUntilFinished: Long) {
                     sendButton.text = "倒计时: ${millisUntilFinished / 1000}秒"
                 }
@@ -147,7 +148,12 @@ class RegisterActivity : AppCompatActivity() {
                     sendButton.isEnabled = true
                 }
             }
-            countDownTimer.start()
+            countDownTimer?.start()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        countDownTimer?.cancel()
     }
 }

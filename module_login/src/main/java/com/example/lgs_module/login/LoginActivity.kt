@@ -40,6 +40,7 @@ class LoginActivity : AppCompatActivity() {
     var userid: Long = 0
     val swich by lazy { mbinding.switc }
     val resend by lazy { mbinding.resend }
+    private var countDownTimer: CountDownTimer? = null
     val login by lazy { mbinding.login }
     val startRegitser by lazy { mbinding.startRegist }
     val sendButton by lazy { mbinding.resend }
@@ -180,7 +181,7 @@ class LoginActivity : AppCompatActivity() {
     private fun startCountDown() {
         runOnUiThread {
             sendButton.isEnabled = false
-            val countDownTimer = object : CountDownTimer(60000, 1000) {
+             countDownTimer = object : CountDownTimer(60000, 1000) {
                 override fun onTick(millisUntilFinished: Long) {
                     sendButton.text = "倒计时: ${millisUntilFinished / 1000}秒"
                     sendButton.setBackgroundColor(Color.BLUE)
@@ -192,7 +193,7 @@ class LoginActivity : AppCompatActivity() {
                     sendButton.setBackgroundColor(Color.WHITE)
                 }
             }
-            countDownTimer.start()
+            countDownTimer?.start()
         }
     }
 
@@ -278,6 +279,11 @@ class LoginActivity : AppCompatActivity() {
 
             })
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        countDownTimer?.cancel()
     }
 }
 
