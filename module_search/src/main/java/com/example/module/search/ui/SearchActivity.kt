@@ -79,11 +79,8 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        //隐藏状态栏
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
+
+
         fragmentLsit.let {
             it.add(object : FragmentInterface {
                 override fun back(): Fragment {
