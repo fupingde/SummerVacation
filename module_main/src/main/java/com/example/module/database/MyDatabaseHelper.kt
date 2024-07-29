@@ -4,8 +4,8 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.content.ContentValues
-import com.example.Network.Bean.CollctedSong
-import com.example.Network.Bean.MyrvBean
+import com.example.network.Bean.CollctedSong
+import com.example.network.Bean.MyrvBean
 
 class MyDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 

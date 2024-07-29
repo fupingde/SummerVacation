@@ -12,7 +12,7 @@
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/background"/>
+        android:background="@drawable/background8"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -22,7 +22,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:menu="@menu/bottom_navigation"
-        android:background="@drawable/background2" />
+        android:background="@drawable/background" />
 
     <!-- 自定义 ImageView 替代 FloatingActionButton -->
     <ImageView

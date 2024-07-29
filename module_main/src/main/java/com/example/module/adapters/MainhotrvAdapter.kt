@@ -6,16 +6,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import com.example.Network.Bean.ReMenGeDanBean
-import com.example.module.main.databinding.MainrvitemBinding
+import com.example.network.Bean.HotlistBean
+import com.example.module.main.databinding.ItemMainrvBinding
 
-class Mainrv2Adapter(private val data: ReMenGeDanBean, private val onItemClick: (Long, String, String) -> Unit) :
-    RecyclerView.Adapter<Mainrv2Adapter.ViewHolder>() {
+class MainhotrvAdapter(private val data: HotlistBean, private val onItemClick: (Long, String, String) -> Unit) :
+    RecyclerView.Adapter<MainhotrvAdapter.ViewHolder>() {
 
-    inner class ViewHolder(val binding: MainrvitemBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolder(val binding: ItemMainrvBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = MainrvitemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemMainrvBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 

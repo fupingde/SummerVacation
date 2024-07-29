@@ -4,7 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.Network.Bean.Song2
+import com.example.network.Bean.Song2
 import com.example.module.main.databinding.ItemSongBinding
 
 class SongsAdapter(

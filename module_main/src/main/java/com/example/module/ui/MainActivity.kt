@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
@@ -23,7 +24,6 @@ import com.example.module.main.databinding.ActivityMainBinding
 import com.example.module.ui.fragments.MyFragment
 import com.example.module.ui.fragments.RecommendFragment
 import com.example.module.ui.viewmodel.SongViewModel
-import com.example.Network.SingletionClass.ViewModelSingleton
 
 @Route(path = "/main/MainActivity")
 class MainActivity : AppCompatActivity() {
@@ -69,7 +69,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         ARouter.getInstance().inject(this)
-        songViewModel = ViewModelSingleton.getSongViewModel(application)
+
+        // 使用 ViewModelProvider 获取 SongViewModel 实例
+        songViewModel = ViewModelProvider(this).get(SongViewModel::class.java)
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

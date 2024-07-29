@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.module.database.MyDatabaseHelper
 import com.example.module.main.databinding.ActivityMycollectedBinding
 import com.example.module.adapters.MycollectedrvAdapter
-import com.example.Network.Bean.CollctedSong
 import com.example.module.main.R
 import com.google.android.material.appbar.AppBarLayout
 

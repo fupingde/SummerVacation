@@ -1,13 +1,12 @@
-package com.example.Network.ViewModel
+package com.example.network.ViewModel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.Network.Bean.ListsData
-import com.example.Network.Bean.Playlist
-import com.example.Network.Bean.Playlistr
-import com.example.Network.api.Retrofit
+import com.example.network.Bean.ListsData
+import com.example.network.Bean.Playlistr
+import com.example.network.api.Retrofit
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable

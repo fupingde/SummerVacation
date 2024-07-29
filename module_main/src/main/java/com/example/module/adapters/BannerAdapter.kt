@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import com.example.Network.Bean.BannerX
+import com.example.network.Bean.BannerX
 import com.example.module.main.databinding.ItemBannerBinding
 
 class BannerAdapter(private val bannerData: List<BannerX>) : RecyclerView.Adapter<BannerAdapter.BannerViewHolder>() {

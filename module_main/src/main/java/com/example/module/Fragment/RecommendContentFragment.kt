@@ -13,11 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.module.main.databinding.FragmentRecommendContentBinding
 import com.example.module.ui.activities.SongListActivity
 import com.example.module.ui.adapters.BannerAdapter
-import com.example.module.ui.adapters.Mainrv1Adapter
-import com.example.module.ui.adapters.Mainrv2Adapter
-import com.example.module.ui.adapters.Mainvp4Adapter
+import com.example.module.ui.adapters.MainrecommendrvAdapter
+import com.example.module.ui.adapters.MainhotrvAdapter
+import com.example.module.ui.adapters.MainbottomvpAdapter
 import com.example.module.ui.viewmodel.RecommendViewModel
-import com.example.module.ui.adapters.Mainrv3Adapter
+import com.example.module.ui.adapters.MainFashionAdapter
 import com.example.module.ui.custom.SmoothScrollPageTransformer
 
 class RecommendContentFragment : Fragment() {
@@ -30,10 +30,10 @@ class RecommendContentFragment : Fragment() {
     private val handler = Handler(Looper.getMainLooper())
     private val autoScrollRunnable = object : Runnable {
         override fun run() {
-            val itemCount = binding.mainvp.adapter?.itemCount ?: 0
+            val itemCount = binding.mainbottomvp.adapter?.itemCount ?: 0
             if (itemCount > 0) {
-                val nextItem = (binding.mainvp.currentItem + 1) % itemCount
-                binding.mainvp.currentItem = nextItem
+                val nextItem = (binding.mainbottomvp.currentItem + 1) % itemCount
+                binding.mainbottomvp.currentItem = nextItem
             }
             handler.postDelayed(this, 6000)
         }
@@ -71,19 +71,19 @@ class RecommendContentFragment : Fragment() {
             startActivity(intent)
         }
 
-        recommendViewModel.tuijianGedan.observe(viewLifecycleOwner) { data ->
-            val adapter = Mainrv1Adapter(data, onItemClick)
-            binding.mainrv1.adapter = adapter
+        recommendViewModel.recommendlist.observe(viewLifecycleOwner) { data ->
+            val adapter = MainrecommendrvAdapter(data, onItemClick)
+            binding.mainrecommendrv.adapter = adapter
         }
 
-        recommendViewModel.remenGedan.observe(viewLifecycleOwner) { data ->
-            val adapter = Mainrv2Adapter(data, onItemClick)
-            binding.mainrv2.adapter = adapter
+        recommendViewModel.hotlist.observe(viewLifecycleOwner) { data ->
+            val adapter = MainhotrvAdapter(data, onItemClick)
+            binding.mainhotrv.adapter = adapter
         }
 
-        recommendViewModel.liuxinggedan.observe(viewLifecycleOwner) { data ->
-            val adapter = Mainrv3Adapter(data, onItemClick)
-            binding.mainrv3.adapter = adapter
+        recommendViewModel.fashionlist.observe(viewLifecycleOwner) { data ->
+            val adapter = MainFashionAdapter(data, onItemClick)
+            binding.mainfashionrv.adapter = adapter
         }
 
         recommendViewModel.banner.observe(viewLifecycleOwner) { bannerData ->
@@ -94,28 +94,28 @@ class RecommendContentFragment : Fragment() {
         }
 
         recommendViewModel.newSongs.observe(viewLifecycleOwner) { newSongs ->
-            val adapter = Mainvp4Adapter(requireContext(), newSongs.result)
-            binding.mainvp.adapter = adapter
-            binding.mainvp.setPageTransformer(SmoothScrollPageTransformer())
+            val adapter = MainbottomvpAdapter(requireContext(), newSongs.result)
+            binding.mainbottomvp.adapter = adapter
+            binding.mainbottomvp.setPageTransformer(SmoothScrollPageTransformer())
             handler.post(autoScrollRunnable)
         }
 
-        recommendViewModel.fetchTuijianGedan()
-        recommendViewModel.fetchRemenGedan()
+        recommendViewModel.fetchRecommendlist()
+        recommendViewModel.fetchHotlist()
         recommendViewModel.fetchBanner()
         recommendViewModel.fetchNewSongs()
-        recommendViewModel.fetchLiuXingGedan()
+        recommendViewModel.fetchFashionlist()
     }
 
     private fun setupRecyclerView() {
         val layoutManager1 = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.mainrv1.layoutManager = layoutManager1
+        binding.mainrecommendrv.layoutManager = layoutManager1
 
         val layoutManager2 = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.mainrv2.layoutManager = layoutManager2
+        binding.mainhotrv.layoutManager = layoutManager2
 
         val layoutManager3 = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.mainrv3.layoutManager = layoutManager3
+        binding.mainfashionrv.layoutManager = layoutManager3
     }
 
     override fun onDestroyView() {
