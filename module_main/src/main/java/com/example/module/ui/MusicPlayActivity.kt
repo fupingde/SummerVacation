@@ -13,7 +13,6 @@ import android.util.Log
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
@@ -23,14 +22,14 @@ import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.bumptech.glide.Glide
-import com.example.Network.Bean.Song2
-import com.example.Network.api.Retrofit
+import com.example.network.Bean.Song2
+import com.example.network.api.Retrofit
 import com.example.module.database.MyDatabaseHelper
 import com.example.module.main.R
 import com.example.module.main.databinding.ActivityMusicPlayBinding
 import com.example.module.ui.services.MusicService
 import com.example.module.ui.viewmodel.SongViewModel
-import com.example.Network.SingletionClass.ViewModelSingleton
+import com.example.network.SingletionClass.ViewModelSingleton
 import com.example.module.ui.fragments.PlaylistBottomSheetFragment
 import com.example.module.ui.viewmodel.SongListViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -322,18 +321,6 @@ class MusicPlayActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateUIWithDuration(url: String) {
-        getMusicDuration(url) { duration ->
-            runOnUiThread {
-                if (duration > 0) {
-                    binding.seekBar.max = duration
-                    binding.totalTime.text = formatTime(duration)
-                } else {
-                    Log.e("MusicPlayActivity", "Failed to get duration.")
-                }
-            }
-        }
-    }
 
     private fun getMusicDuration(url: String): Int {
         val mediaPlayer = MediaPlayer()

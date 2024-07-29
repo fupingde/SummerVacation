@@ -1,4 +1,4 @@
-package com.example.Network.SingletionClass
+package com.example.network.SingletionClass
 
 import android.app.Application
 import com.example.module.ui.viewmodel.SongViewModel

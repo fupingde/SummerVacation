@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.launcher.ARouter
-import com.example.Network.Bean.CollctedSong
+import com.example.network.Bean.CollctedSong
 import com.example.module.main.databinding.ItemSongBinding
 
 class MydownloadrvAdapter(private val context: Context, private val songs: List<CollctedSong>) : RecyclerView.Adapter<MydownloadrvAdapter.SongViewHolder>() {

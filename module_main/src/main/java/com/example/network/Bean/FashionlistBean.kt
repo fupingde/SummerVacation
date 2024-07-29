@@ -1,6 +1,6 @@
-package com.example.Network.Bean
+package com.example.network.Bean
 
-data class liuxinggedan(
+data class FashionlistBean(
     val code: Int,
     val `data`: Data
 )

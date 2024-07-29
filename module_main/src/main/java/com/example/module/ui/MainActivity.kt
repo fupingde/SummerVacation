@@ -23,7 +23,7 @@ import com.example.module.main.databinding.ActivityMainBinding
 import com.example.module.ui.fragments.MyFragment
 import com.example.module.ui.fragments.RecommendFragment
 import com.example.module.ui.viewmodel.SongViewModel
-import com.example.Network.SingletionClass.ViewModelSingleton
+import com.example.network.SingletionClass.ViewModelSingleton
 
 @Route(path = "/main/MainActivity")
 class MainActivity : AppCompatActivity() {
@@ -53,11 +53,11 @@ class MainActivity : AppCompatActivity() {
 
     @Autowired(name = "songName")
     @JvmField
-    var songName: String? = null
+    var songName: String? =null
 
     @Autowired(name = "artistName")
     @JvmField
-    var songArtist: String? = null
+    var songArtist: String? =null
 
     @Autowired(name = "songImageUrl")
     @JvmField

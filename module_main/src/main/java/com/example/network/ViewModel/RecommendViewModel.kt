@@ -3,25 +3,25 @@ package com.example.module.ui.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.Network.Bean.Banner
-import com.example.Network.Bean.NewSongs
-import com.example.Network.Bean.ReMenGeDanBean
-import com.example.Network.Bean.TuijianGedanBean
-import com.example.Network.Bean.liuxinggedan
-import com.example.Network.api.Retrofit
+import com.example.network.Bean.Banner
+import com.example.network.Bean.FashionlistBean
+import com.example.network.Bean.HotlistBean
+import com.example.network.Bean.NewSongs
+import com.example.network.Bean.RecommendlistBean
+import com.example.network.api.Retrofit
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class RecommendViewModel : ViewModel() {
 
-    private val _tuijianGedan = MutableLiveData<TuijianGedanBean>()
-    val tuijianGedan: LiveData<TuijianGedanBean> get() = _tuijianGedan
+    private val _recommendlist = MutableLiveData<RecommendlistBean>()
+    val recommendlist: LiveData<RecommendlistBean> get() = _recommendlist
 
-    private val _liuxingGedan = MutableLiveData<liuxinggedan>()
-    val liuxinggedan: LiveData<liuxinggedan> get() = _liuxingGedan
+    private val _fashionlist = MutableLiveData<FashionlistBean>()
+    val fashionlist: LiveData<FashionlistBean> get() = _fashionlist
 
-    private val _remenGedan = MutableLiveData<ReMenGeDanBean>()
-    val remenGedan: LiveData<ReMenGeDanBean> get() = _remenGedan
+    private val _hotlist = MutableLiveData<HotlistBean>()
+    val hotlist: LiveData<HotlistBean> get() = _hotlist
 
     private val _banner = MutableLiveData<Banner>()
     val banner: LiveData<Banner> get() = _banner
@@ -29,33 +29,33 @@ class RecommendViewModel : ViewModel() {
     private val _newSongs = MutableLiveData<NewSongs>()
     val newSongs: LiveData<NewSongs> get() = _newSongs
 
-    fun fetchTuijianGedan() {
-        Retrofit.apiService.getTuijianGedan(10)
+    fun fetchRecommendlist() {
+        Retrofit.apiService.getRecommendlist(10)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->
-                _tuijianGedan.value = response
+                _recommendlist.value = response
             }, { error ->
                 // Handle error
             })
     }
-    fun fetchLiuXingGedan() {
-        Retrofit.apiService.getLiuXingGeDan(1000)
+    fun fetchFashionlist() {
+        Retrofit.apiService.getFashionlist(1000)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->
-                _liuxingGedan.value = response
+                _fashionlist.value = response
             }, { error ->
                 // Handle error
             })
     }
 
-    fun fetchRemenGedan() {
-        Retrofit.apiService.getRemenGedan(10)
+    fun fetchHotlist() {
+        Retrofit.apiService.getHotlist(10)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->
-                _remenGedan.value = response
+                _hotlist.value = response
             }, { error ->
                 // Handle error
             })

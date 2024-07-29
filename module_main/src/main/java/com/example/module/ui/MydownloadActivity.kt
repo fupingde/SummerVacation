@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.module.database.MyDatabaseHelper
-import com.example.Network.Bean.CollctedSong
 import com.example.module.adapters.MydownloadrvAdapter
 import com.example.module.main.R
 import com.example.module.main.databinding.ActivityMydownloadBinding

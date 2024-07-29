@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.example.Network.Bean.Song2
+import com.example.network.Bean.Song2
 import com.example.module.database.MyDatabaseHelper
 import com.example.module.main.R
 import com.example.module.main.databinding.ActivitySongListBinding
@@ -18,8 +18,7 @@ import com.example.module.ui.MusicPlayActivity
 import com.example.module.ui.adapters.SongsAdapter
 import com.example.module.ui.viewmodel.SongListViewModel
 import com.example.module.ui.viewmodel.SongViewModel
-import com.example.Network.SingletionClass.ViewModelSingleton
-import com.example.module.ui.fragments.PlaylistBottomSheetFragment
+import com.example.network.SingletionClass.ViewModelSingleton
 import com.google.android.material.appbar.AppBarLayout
 
 class SongListActivity : AppCompatActivity() {

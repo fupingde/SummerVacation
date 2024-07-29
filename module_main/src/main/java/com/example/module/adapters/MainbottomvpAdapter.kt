@@ -9,10 +9,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.launcher.ARouter
 import com.bumptech.glide.Glide
-import com.example.Network.Bean.Result2
+import com.example.network.Bean.Result2
 import com.example.module.main.R
 
-class Mainvp4Adapter(private val context: Context, private val songs: List<Result2>) : RecyclerView.Adapter<Mainvp4Adapter.NewSongViewHolder>() {
+class MainbottomvpAdapter(private val context: Context, private val songs: List<Result2>) : RecyclerView.Adapter<MainbottomvpAdapter.NewSongViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewSongViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_new_song, parent, false)

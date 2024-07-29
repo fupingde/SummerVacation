@@ -1,24 +1,24 @@
-package com.example.Network.api
+package com.example.network.api
 
 
-import com.example.Network.Bean.Banner
-import com.example.Network.Bean.ListsData
-import com.example.Network.Bean.NewSongs
-import com.example.Network.Bean.ReMenGeDanBean
-import com.example.Network.Bean.Songs
-import com.example.Network.Bean.TuijianGedanBean
-import com.example.Network.Bean.liuxinggedan
-import com.example.Network.Bean.lyric
-import com.example.Network.Bean.songsurl
+import com.example.network.Bean.Banner
+import com.example.network.Bean.FashionlistBean
+import com.example.network.Bean.HotlistBean
+import com.example.network.Bean.ListsData
+import com.example.network.Bean.NewSongs
+import com.example.network.Bean.RecommendlistBean
+import com.example.network.Bean.Songs
+import com.example.network.Bean.lyric
+import com.example.network.Bean.songsurl
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiService {
     @GET("/personalized")
-    fun getTuijianGedan(@Query("limit") limit: Int): Observable<TuijianGedanBean>
+    fun getRecommendlist(@Query("limit") limit: Int): Observable<RecommendlistBean>
     @GET("/top/playlist")
-    fun getRemenGedan(@Query("limit") limit: Int): Observable<ReMenGeDanBean>
+    fun getHotlist(@Query("limit") limit: Int): Observable<HotlistBean>
     @GET("/banner?type=1")
     fun getBanner(): Observable<Banner>
     @GET("/personalized/newsong")
@@ -39,5 +39,5 @@ interface ApiService {
     @GET("/lyric")
     fun getlyric(@Query("id")id:Long):Observable<lyric>
     @GET("/style/playlist")
-    fun getLiuXingGeDan(@Query("tagId")tagId:Long):Observable<liuxinggedan>
+    fun getFashionlist(@Query("tagId")tagId:Long):Observable<FashionlistBean>
     }
