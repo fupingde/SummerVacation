@@ -1,19 +1,23 @@
 package com.example.module.ui
 
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.ServiceConnection
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Handler
+import android.os.IBinder
 import android.os.Looper
 import android.util.Log
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
@@ -23,20 +27,29 @@ import com.example.module.main.R
 import com.example.module.main.databinding.ActivityMainBinding
 import com.example.module.ui.fragments.MyFragment
 import com.example.module.ui.fragments.RecommendFragment
-import com.example.module.ui.viewmodel.SongViewModel
+import com.example.module.ui.services.MusicService
 
 @Route(path = "/main/MainActivity")
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var songViewModel: SongViewModel
     private var rotationAngle = 0f
     private val rotationHandler = Handler(Looper.getMainLooper())
     private lateinit var customFab: ImageView
+    private var musicService: MusicService? = null
+    private var isBound = false
+
+    private var recommendFragment: RecommendFragment? = null
+    private var myFragment: MyFragment? = null
+
+    private var songId: Long = -1L
+    private var songName: String? = null
+    private var songArtist: String? = null
+    private var songPictureUrl: String? = null
 
     private val rotationRunnable: Runnable = object : Runnable {
         override fun run() {
             customFab.rotation = rotationAngle
-            rotationAngle += 1f
+            rotationAngle += 2f
             if (rotationAngle >= 360f) {
                 rotationAngle = 0f
             }
@@ -44,34 +57,33 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private var recommendFragment: RecommendFragment? = null
-    private var myFragment: MyFragment? = null
+    private val serviceConnection = object : ServiceConnection {
+        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+            val binder = service as MusicService.MusicBinder
+            musicService = binder.getService()
+            isBound = true
+            updateUIFromService()
+            musicService?.setDataChangeListener(object : MusicService.DataChangeListener {
+                override fun onDataChanged(songId: Long, songName: String?, songArtist: String?, songPictureUrl: String?) {
+                    updateUI(songId, songName, songArtist, songPictureUrl)
+                }
+            })
+        }
 
-    @Autowired(name = "songId")
-    @JvmField
-    var songId: Long = -1L
-
-    @Autowired(name = "songName")
-    @JvmField
-    var songName: String? = null
-
-    @Autowired(name = "artistName")
-    @JvmField
-    var songArtist: String? = null
-
-    @Autowired(name = "songImageUrl")
-    @JvmField
-    var songPictureUrl: String? = null
+        override fun onServiceDisconnected(name: ComponentName?) {
+            isBound = false
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        ARouter.getInstance().inject(this)
-
-        // 使用 ViewModelProvider 获取 SongViewModel 实例
-        songViewModel = ViewModelProvider(this).get(SongViewModel::class.java)
+        // 绑定 MusicService
+        Intent(this, MusicService::class.java).also { intent ->
+            bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -105,7 +117,7 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                     true
                 }
-                R.id.navigation_dynamic -> false // 取消 navigation_dynamic 的点击事件
+                R.id.navigation_dynamic -> false
                 else -> false
             }
         }
@@ -117,87 +129,61 @@ class MainActivity : AppCompatActivity() {
         }
 
         setupCustomFab()
-        observeSongData()
     }
 
     private fun setupCustomFab() {
         customFab = findViewById(R.id.custom_fab)
-        Log.d("MainActivity", "customFab initialized")
+        val requestOptions = RequestOptions().circleCrop()
 
-        val requestOptions = RequestOptions()
-            .circleCrop() // 圆形裁剪
-
-        songViewModel.songPictureUrl.observe(this, Observer { url ->
-            Log.d("MainActivity", "Observer triggered with URL: $url")
-            url?.let {
-                Log.d("MainActivity", "Loading image URL: $url")
-
-                // 在 customFab 上加载图片
-                Glide.with(this)
-                    .load(url)
-                    .apply(requestOptions)
-                    .listener(object : RequestListener<Drawable> {
-                        override fun onLoadFailed(
-                            e: GlideException?,
-                            model: Any?,
-                            target: Target<Drawable>?,
-                            isFirstResource: Boolean
-                        ): Boolean {
-                            Log.e("MainActivity", "Error loading image: $e")
-                            return false
-                        }
-
-                        override fun onResourceReady(
-                            resource: Drawable?,
-                            model: Any?,
-                            target: Target<Drawable>?,
-                            dataSource: com.bumptech.glide.load.DataSource?,
-                            isFirstResource: Boolean
-                        ): Boolean {
-                            Log.d("MainActivity", "Image loaded successfully")
-                            customFab.setImageDrawable(resource) // 设置裁剪后的圆形图片作为按钮的图像
-                            return true
-                        }
-                    })
-                    .into(customFab)
-            }
-        })
-
-        // 为 customFab 添加点击事件
         customFab.setOnClickListener {
-            // 使用 ARouter 传递数据
-            ARouter.getInstance().build("/main/MusicPlayActivity")
-                .withLong("songId", songId)
-                .withString("songName", songName)
-                .withString("artistName", songArtist)
-                .withString("songImageUrl", songPictureUrl)
-                .navigation()
+            if (songId != -1L) {
+                val intent = Intent(this, MusicPlayActivity::class.java).apply {
+                    putExtra("SONG_ID", songId)
+                    putExtra("SONG_NAME", songName)
+                    putExtra("SONG_ARTIST", songArtist)
+                    putExtra("SONG_PICTUREURL", songPictureUrl)
+                }
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "No song is currently playing", Toast.LENGTH_SHORT).show()
+            }
         }
 
         rotationHandler.post(rotationRunnable)
     }
 
-    private fun observeSongData() {
-        songViewModel.songId.observe(this, Observer { id ->
-            Log.d("MainActivity", "Song ID updated: $id")
-            songId = id.toLong()
-        })
-        songViewModel.songName.observe(this, Observer { name ->
-            Log.d("MainActivity", "Song Name updated: $name")
-            songName = name
-        })
-        songViewModel.songArtist.observe(this, Observer { artist ->
-            Log.d("MainActivity", "Song Artist updated: $artist")
-            songArtist = artist
-        })
-        songViewModel.songPictureUrl.observe(this, Observer { url ->
-            Log.d("MainActivity", "Song Picture URL updated: $url")
-            songPictureUrl = url
-        })
+    private fun updateUIFromService() {
+        musicService?.let { service ->
+            songId = service.songId
+            songName = service.songName
+            songArtist = service.songArtist
+            songPictureUrl = service.songPictureUrl
+
+            Log.d("MainActivity", "updateUIFromService: songId=$songId, songName=$songName, songArtist=$songArtist, songPictureUrl=$songPictureUrl")
+
+            updateUI(songId, songName, songArtist, songPictureUrl)
+        }
+    }
+
+    private fun updateUI(songId: Long, songName: String?, songArtist: String?, songPictureUrl: String?) {
+        this.songId = songId
+        this.songName = songName
+        this.songArtist = songArtist
+        this.songPictureUrl = songPictureUrl
+
+        Glide.with(this)
+            .load(songPictureUrl)
+            .apply(RequestOptions.circleCropTransform())
+            .into(customFab)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         rotationHandler.removeCallbacks(rotationRunnable)
+        if (isBound) {
+            unbindService(serviceConnection)
+            isBound = false
+        }
     }
 }
+

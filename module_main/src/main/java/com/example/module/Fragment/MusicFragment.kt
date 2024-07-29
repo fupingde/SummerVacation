@@ -33,8 +33,8 @@ class MusicFragment : Fragment() {
         val collectedCount = dbHelper.getCollectedCount()
         val downloadedCount = dbHelper.getDownloadedCount()
 
-        binding.shoucangCount.text = collectedCount.toString()
-        binding.downloadcount.text = downloadedCount.toString()
+//        binding.shoucangCount.text = collectedCount.toString()
+//        binding.downloadcount.text = downloadedCount.toString()
 
         binding.mycollected.setOnClickListener {
             val intent = Intent(activity, MycollectedActivity::class.java)

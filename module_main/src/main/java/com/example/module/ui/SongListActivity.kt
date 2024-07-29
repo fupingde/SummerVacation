@@ -17,14 +17,13 @@ import com.example.module.main.databinding.ActivitySongListBinding
 import com.example.module.ui.MusicPlayActivity
 import com.example.module.ui.adapters.SongsAdapter
 import com.example.module.ui.viewmodel.SongListViewModel
-import com.example.module.ui.viewmodel.SongViewModel
 import com.google.android.material.appbar.AppBarLayout
 
 class SongListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySongListBinding
     private val viewModel: SongListViewModel by viewModels()
-    private lateinit var songViewModel: SongViewModel
+
     private lateinit var dbHelper: MyDatabaseHelper
 
 
@@ -36,8 +35,7 @@ class SongListActivity : AppCompatActivity() {
         // 初始化数据库助手
         dbHelper = MyDatabaseHelper(this)
 
-        // 使用单例类获取SongViewModel实例
-        songViewModel = ViewModelSingleton.getSongViewModel(application)
+
 
         val playlistId = intent.getLongExtra("playlistId", -1L)
         Log.d("SongListActivity", "Received playlistId: $playlistId")
