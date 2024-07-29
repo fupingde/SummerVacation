@@ -18,7 +18,6 @@ import com.example.module.ui.MusicPlayActivity
 import com.example.module.ui.adapters.SongsAdapter
 import com.example.module.ui.viewmodel.SongListViewModel
 import com.example.module.ui.viewmodel.SongViewModel
-import com.example.network.SingletionClass.ViewModelSingleton
 import com.google.android.material.appbar.AppBarLayout
 
 class SongListActivity : AppCompatActivity() {

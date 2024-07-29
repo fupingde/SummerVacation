@@ -29,7 +29,6 @@ import com.example.module.main.R
 import com.example.module.main.databinding.ActivityMusicPlayBinding
 import com.example.module.ui.services.MusicService
 import com.example.module.ui.viewmodel.SongViewModel
-import com.example.network.SingletionClass.ViewModelSingleton
 import com.example.module.ui.fragments.PlaylistBottomSheetFragment
 import com.example.module.ui.viewmodel.SongListViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
