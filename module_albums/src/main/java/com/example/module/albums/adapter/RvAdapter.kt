@@ -13,12 +13,12 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.example.module.albums.R
 import com.example.module.albums.bean.Song
 
-class RvAdapter(): ListAdapter<Song, RvAdapter.ViewHolder>(ItemDiffCallback()) {
+class RvAdapter() : ListAdapter<Song, RvAdapter.ViewHolder>(ItemDiffCallback()) {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val  name: TextView =itemView.findViewById(R.id.tv_music_name)
-        val  songlist: TextView =itemView.findViewById(R.id.singlist)
-        val  singer: TextView =itemView.findViewById(R.id.tv_music_singer)
+        val name: TextView = itemView.findViewById(R.id.tv_music_name)
+        val songlist: TextView = itemView.findViewById(R.id.singlist)
+        val singer: TextView = itemView.findViewById(R.id.tv_music_singer)
 
     }
 
@@ -26,9 +26,9 @@ class RvAdapter(): ListAdapter<Song, RvAdapter.ViewHolder>(ItemDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_songalbum, parent, false)
-        val viewHolder=ViewHolder(view)
+        val viewHolder = ViewHolder(view)
         viewHolder.itemView.setOnClickListener {
-            Toast.makeText(parent.context,"不好意思，多模块还没做", Toast.LENGTH_SHORT).show()
+            Toast.makeText(parent.context, "不好意思，多模块还没做", Toast.LENGTH_SHORT).show()
         }
 
         return viewHolder
@@ -37,14 +37,17 @@ class RvAdapter(): ListAdapter<Song, RvAdapter.ViewHolder>(ItemDiffCallback()) {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
         holder.name.text = item.name
-        holder.songlist.text=item.al.name
-        holder.singer.text=item.ar[0].name
-        holder.itemView.setOnClickListener {  ARouter.getInstance().build("/main/MusicPlayActivity").withLong("songId", item.id).withString("songName",item.name)
-            .withString("artistName",item.ar[0].name)
-            .withString("songImageUrl",item.al.pic_str)
-            .navigation()
+        holder.songlist.text = item.al.name
+        holder.singer.text = item.ar[0].name
+        holder.itemView.setOnClickListener {
+            ARouter.getInstance().build("/main/MusicPlayActivity").withLong("songId", item.id)
+                .withString("songName", item.name)
+                .withString("artistName", item.ar[0].name)
+                .withString("songImageUrl", item.al.pic_str)
+                .navigation()
         }
     }
+
     class ItemDiffCallback : DiffUtil.ItemCallback<Song>() {
         override fun areItemsTheSame(oldItem: Song, newItem: Song): Boolean {
             // 使用唯一的标识符来比较是否是相同的项

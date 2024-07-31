@@ -26,7 +26,7 @@ class SinglistFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _mbinding=FragmentSinglistBinding.inflate(inflater,container,false)
-        // Inflate the layout for this fragment
+
         return mbinding.root
     }
 
