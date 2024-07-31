@@ -92,14 +92,20 @@ class MainActivity : AppCompatActivity() {
         }
 
         // 初始化Fragment
-        recommendFragment = RecommendFragment()
-        myFragment = MyFragment()
+        if (savedInstanceState == null) {
+            recommendFragment = RecommendFragment()
+            myFragment = MyFragment()
 
-        supportFragmentManager.beginTransaction().apply {
-            add(R.id.fragment_container, recommendFragment!!)
-            add(R.id.fragment_container, myFragment!!)
-            hide(myFragment!!)
-        }.commit()
+            supportFragmentManager.beginTransaction().apply {
+                add(R.id.fragment_container, recommendFragment!!)
+                add(R.id.fragment_container, myFragment!!)
+                hide(myFragment!!)
+                commit()
+            }
+        } else {
+            recommendFragment = supportFragmentManager.findFragmentByTag(RecommendFragment::class.java.simpleName) as RecommendFragment?
+            myFragment = supportFragmentManager.findFragmentByTag(MyFragment::class.java.simpleName) as MyFragment?
+        }
 
         binding.bottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
@@ -120,12 +126,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_dynamic -> false
                 else -> false
             }
-        }
-
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .show(recommendFragment!!)
-                .commit()
         }
 
         setupCustomFab()

@@ -46,8 +46,8 @@ class CommentFragment : BottomSheetDialogFragment() {
                 super.onScrolled(recyclerView, dx, dy)
                 val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                 val totalItemCount = layoutManager.itemCount
+                //获得最后一个可见项的位置
                 val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
-
                 if (totalItemCount <= (lastVisibleItem + VISIBLE_THRESHOLD)) {
                     if (id != null) {
                         commentViewModel.getmore(id)
