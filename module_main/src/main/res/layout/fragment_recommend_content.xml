@@ -26,7 +26,7 @@
                     android:paddingLeft="10dp"
                     android:layout_marginTop="16dp" />
 
-                <androidx.recyclerview.widget.RecyclerView
+                <com.example.module.Fragment.NestedRecyclerView
                     android:id="@+id/mainrecommendrv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
                     android:layout_marginTop="10dp" />
 
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.example.module.Fragment.NestedRecyclerView
             android:id="@+id/mainhotrv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
                     android:paddingLeft="10dp"
                     android:layout_marginTop="10dp" />
 
-                <androidx.recyclerview.widget.RecyclerView
+        <com.example.module.Fragment.NestedRecyclerView
                     android:id="@+id/mainfashionrv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.module.Fragment.NestedRecyclerView
 import com.example.module.main.databinding.FragmentRecommendContentBinding
 import com.example.module.ui.activities.SongListActivity
 import com.example.module.ui.adapters.BannerAdapter
@@ -73,6 +74,7 @@ class RecommendContentFragment : Fragment() {
 
         recommendViewModel.recommendlist.observe(viewLifecycleOwner) { data ->
             val adapter = MainrecommendrvAdapter(data, onItemClick)
+//            binding.mainrecommendrv= NestedRecyclerView(this)
             binding.mainrecommendrv.adapter = adapter
         }
 
